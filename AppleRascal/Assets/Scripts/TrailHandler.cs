@@ -4,14 +4,16 @@ using UnityEngine;
 
 public enum TrailType
 {
+	none,
 	smell,
 	footsteps
 }
 public class TrailHandler : MonoBehaviour {
 
 	[HideInInspector]public Player player;
-	public TrailType currentTrailType = TrailType.smell;
 	public GameObject trailPointPrefab;
+	public TrailType defaultTrail = TrailType.smell;
+	public float returnToDefaultTrailTime = 10f;
 	List<TrailPoint> trailPoints = new List<TrailPoint>();
 	TrailPoint lastTrailPoint;
 	public int numberOfTrailPoints;
@@ -24,9 +26,28 @@ public class TrailHandler : MonoBehaviour {
 	public FootstepHandler footstepHandler;
 
 
-	float trailTimer;
+	TrailType currentTrailType = TrailType.none;
+	float lastTrailPointTime;
+	float lastTrailTypeChangeTime;
 	int pointIndex = 0;
+	bool buffDelayActive = false;
+	float buffDelayStartTime;
 	GameObject trailParent;
+
+
+	public TrailType CurrentTrailType
+	{
+		get {return currentTrailType;}
+		set
+		{
+			if (value != currentTrailType)
+			{
+				lastTrailTypeChangeTime = Time.time;
+				currentTrailType = value;
+			}
+		}
+
+	}
 
 
 	// Use this for initialization
@@ -43,6 +64,8 @@ public class TrailHandler : MonoBehaviour {
 			player = GetComponent<Player>();
 		if (!footstepHandler)
 			footstepHandler = GetComponent<FootstepHandler>();
+
+		CurrentTrailType = defaultTrail;
 	}
 
 	void CreateNewTrailPoint()
@@ -71,7 +94,11 @@ public class TrailHandler : MonoBehaviour {
 	{
 		SetTrailPoints();
 		CreateTrailVisuals();
-
+		
+		if (!buffDelayActive && currentTrailType != defaultTrail && returnToDefaultTrailTime + lastTrailTypeChangeTime < Time.time)
+		{
+			CurrentTrailType = defaultTrail;
+		}
 		if (allowResize)
 		{
 			int difference = Mathf.Abs(numberOfTrailPoints-trailPoints.Count);
@@ -90,18 +117,18 @@ public class TrailHandler : MonoBehaviour {
 
 	void SetTrailPoints()
 	{
-		if (trailTimer + trailFrequencyInSeconds < Time.time)
+		if (lastTrailPointTime + trailFrequencyInSeconds < Time.time)
 		{
 			if (pointIndex >= trailPoints.Count)
 				pointIndex = 0;
 
 			if (!trailPoints[pointIndex].Enabled)
 			{
-				trailTimer = Time.time;
+				lastTrailPointTime = Time.time;
 				TrailPoint newPoint = trailPoints[pointIndex];
 
 				newPoint.deactivationTime = trailPointLifetime;
-				newPoint.trailPointType = currentTrailType;
+				newPoint.trailPointType = CurrentTrailType;
 				newPoint.transform.position = transform.position;
 				newPoint.Enabled = true;
 
@@ -117,13 +144,15 @@ public class TrailHandler : MonoBehaviour {
 	{
 		if (currentTrailType == TrailType.smell)
 		{
-			if (smellParticles && !smellParticles.isPlaying)
+			if (smellParticles)
 			{
 				var main = smellParticles.main;
-				main.duration = trailPointLifetime;
 				main.startLifetime = trailPointLifetime;
-				main.loop = true;
-				smellParticles.Play();
+				if (!smellParticles.isPlaying)
+				{
+					main.loop = true;
+					smellParticles.Play();
+				}
 			}
 		}
 		else if (currentTrailType == TrailType.footsteps)
@@ -134,5 +163,36 @@ public class TrailHandler : MonoBehaviour {
 			footstepHandler.CreateFootsteps();
 
 		}
+		else if (currentTrailType == TrailType.none)
+		{
+			if (smellParticles && smellParticles.isPlaying)
+				smellParticles.Stop();
+		}
+	}
+
+	public void ChangeTrailType(TrailType newTrailType)
+	{
+		CurrentTrailType = newTrailType;
+	}
+	public void ChangeTrailType(TrailType newTrailType,TrailType trailTypeAfterBuff, float buffTime)
+	{
+		CurrentTrailType = newTrailType;
+		buffDelayStartTime = Time.time;
+		if (!buffDelayActive)
+			StartCoroutine(ChangeTrailTypeWithDelay(trailTypeAfterBuff, buffTime));
+	}
+
+	IEnumerator ChangeTrailTypeWithDelay(TrailType newType, float buffTime)
+	{
+		buffDelayActive = true;
+		while(buffTime + buffDelayStartTime > Time.time)
+		{
+			//NOTE: buffDelayStartTime can update as long as player is triggering ChangeTrailType()
+			yield return new WaitForSeconds(0.1f);
+		}
+		CurrentTrailType = newType;
+		buffDelayActive = false;
+		yield break;
+
 	}
 }

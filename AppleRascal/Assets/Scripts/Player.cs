@@ -7,7 +7,15 @@ public class Player : MonoBehaviour {
 
 	[HideInInspector]public TrailHandler trailHandler;
 	public float moveSpeed;
+	public float dashSpeed;
+	public float dashLength;
+	public float dashCooldownTime;
 	Rigidbody rb;
+
+
+	float dashStartTime;
+	bool dashCooldown = false;
+	bool isDashing;
 	// Use this for initialization
 	void Start () {
 		if (!trailHandler)
@@ -19,10 +27,13 @@ public class Player : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-		HandleKeyInputs();
+		MovementInputs();
+
+		if (dashCooldown && dashStartTime + dashLength + dashCooldownTime < Time.time)
+			dashCooldown = false;
 	}
 
-	void HandleKeyInputs()
+	void MovementInputs()
 	{
 		var localVelocity = transform.InverseTransformDirection(rb.velocity);
 		Vector3 newVelocity = Vector3.zero;
@@ -50,6 +61,25 @@ public class Player : MonoBehaviour {
 		{
 			x =true;
 			newVelocity.x += moveSpeed;			
+		}
+
+		if ((!dashCooldown && Input.GetKey(KeyCode.Space)) || isDashing)
+		{
+			if (!dashCooldown && !isDashing)
+			{
+				Debug.Log("DASH START!");
+				dashStartTime = Time.time;
+				dashCooldown = true;
+				isDashing = true;
+				newVelocity.y += dashSpeed/2;
+			}
+			if (dashStartTime + dashLength < Time.time)
+			{
+				isDashing = false;
+			}
+			
+			Debug.Log("dashing..");
+			newVelocity += newVelocity.normalized * dashSpeed;
 		}
 
 

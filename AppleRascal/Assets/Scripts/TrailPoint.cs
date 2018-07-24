@@ -53,7 +53,13 @@ public class TrailPoint : MonoBehaviour {
 	{
 		if (Enabled)
 		{
-			Gizmos.color = Color.green;
+			if (trailPointType == TrailType.smell)
+				Gizmos.color = Color.green;
+			if (trailPointType == TrailType.none)
+				Gizmos.color = Color.white;
+			else
+				Gizmos.color = Color.grey;
+
 			Gizmos.DrawSphere(transform.position, 0.25f);
 		}
 	}
