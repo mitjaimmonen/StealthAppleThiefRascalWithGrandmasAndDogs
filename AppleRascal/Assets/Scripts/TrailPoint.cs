@@ -9,24 +9,54 @@ public class TrailPoint : MonoBehaviour {
 	public TrailType trailPointType;
 	public float deactivationTime;
 	float timer = 0;
+	bool _enabled;
 
-	// Use this for initialization
-	void OnEnable () {
-		timer = Time.time;
-		
+	public bool Enabled
+	{
+		get {return _enabled;}
+		set
+		{
+			if (_enabled != value)
+				SetState(value);
+			
+			_enabled = value;
+		}
+	}
+
+	void SetState(bool enabled)
+	{
+		if (enabled)
+		{
+			timer = Time.time;
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (timer + deactivationTime < Time.time)
+		if (Enabled)
 		{
-			if (!trailHandler)
-				Debug.LogError("No Trail Handler assigned in point!");
-			else
-				trailHandler.DeactivatePoint(this);	
+			if (timer + deactivationTime < Time.time)
+			{
+				if (!trailHandler)
+					Debug.LogError("No Trail Handler assigned in point!");
+				else
+					trailHandler.DeactivatePoint(this);	
 
+			}
+			if (!connectedTrailPoint || connectedTrailPoint.trailPointType != trailPointType)
+				Debug.Log("Current trail point type is different than connected trail point type");
+			
 		}
-		if (!connectedTrailPoint || connectedTrailPoint.trailPointType != trailPointType)
-			Debug.Log("Current trail point type is different than connected trail point type");
 	}
+
+	void OnDrawGizmos()
+	{
+		if (Enabled)
+		{
+			Gizmos.color = Color.green;
+			Gizmos.DrawSphere(transform.position, 0.25f);
+		}
+	}
+
+
 }
