@@ -197,7 +197,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trailHandler: {fileID: 0}
-  moveSpeed: 15
+  moveSpeed: 10
+  dashSpeed: 25
+  dashLength: 0.15
+  dashCooldownTime: 1
 --- !u!198 &198141945936289760
 ParticleSystem:
   m_ObjectHideFlags: 1

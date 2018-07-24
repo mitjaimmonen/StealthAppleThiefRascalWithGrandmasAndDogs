@@ -34,13 +34,11 @@ public class FootstepHandler : MonoBehaviour {
 
 			foot = Instantiate(leftFoot, transform.position, transform.rotation).GetComponent<Footstep>();
 			leftFeet.Add(foot);
-			foot.gameObject.name = "Left Foot";
 			foot.transform.parent = parent;
 			foot.gameObject.SetActive(false);
 
 			foot = Instantiate(rightFoot, transform.position, transform.rotation).GetComponent<Footstep>();
 			rightFeet.Add(foot);
-			foot.gameObject.name = "Right Foot";
 			foot.transform.parent = parent;
 			foot.gameObject.SetActive(false);
 		}

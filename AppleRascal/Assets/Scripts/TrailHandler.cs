@@ -70,7 +70,6 @@ public class TrailHandler : MonoBehaviour {
 
 	void CreateNewTrailPoint()
 	{
-		Debug.Log("Instantiating 'pool'");
 		TrailPoint newPoint = Instantiate(trailPointPrefab,transform.position, transform.rotation).GetComponent<TrailPoint>();
 		trailPoints.Add(newPoint);
 		newPoint.gameObject.name = "TrailPoint";
@@ -159,8 +158,8 @@ public class TrailHandler : MonoBehaviour {
 		{
 			if (smellParticles && smellParticles.isPlaying)
 				smellParticles.Stop();
-			
-			footstepHandler.CreateFootsteps();
+			if (!player.IsDashing)
+				footstepHandler.CreateFootsteps();
 
 		}
 		else if (currentTrailType == TrailType.none)

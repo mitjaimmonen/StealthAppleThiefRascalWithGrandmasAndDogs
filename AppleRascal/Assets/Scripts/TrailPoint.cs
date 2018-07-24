@@ -43,8 +43,6 @@ public class TrailPoint : MonoBehaviour {
 					trailHandler.DeactivatePoint(this);	
 
 			}
-			if (!connectedTrailPoint || connectedTrailPoint.trailPointType != trailPointType)
-				Debug.Log("Current trail point type is different than connected trail point type");
 			
 		}
 	}

@@ -13,15 +13,26 @@ public class Player : MonoBehaviour {
 	Rigidbody rb;
 
 
+	Vector3 direction;
+	Vector3 velModifier;
 	float dashStartTime;
 	bool dashCooldown = false;
 	bool isDashing;
+	Vector3 defaultForward, defaultRight;
+
+	public bool IsDashing
+	{
+		get {return isDashing;}
+	}
 	// Use this for initialization
 	void Start () {
 		if (!trailHandler)
 			trailHandler = GetComponent<TrailHandler>();
 		
 		rb = GetComponent<Rigidbody>();
+
+		defaultForward = Vector3.Cross(Camera.main.transform.right, Vector3.up).normalized;
+ 		defaultRight = Camera.main.transform.right;
 	}
 	
 	// Update is called once per frame
@@ -29,69 +40,64 @@ public class Player : MonoBehaviour {
 		
 		MovementInputs();
 
+
+		transform.rotation =  Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, velModifier, Time.deltaTime*10f, 0.0f));
+		
+		
+
 		if (dashCooldown && dashStartTime + dashLength + dashCooldownTime < Time.time)
 			dashCooldown = false;
 	}
 
 	void MovementInputs()
 	{
-		var localVelocity = transform.InverseTransformDirection(rb.velocity);
-		Vector3 newVelocity = Vector3.zero;
-		bool z = false,x = false;
+		var localVelocity = rb.velocity;
+		velModifier = Vector3.zero;
 
 		if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
 		{
-			z =true;
-			newVelocity.z += moveSpeed;
+			velModifier = defaultForward;
 		}
 		if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
 		{
-			z =true;
-			newVelocity.z += -moveSpeed;			
+			velModifier += -defaultForward;			
 		}
 
 		
 		if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
 		{
-			x =true;
-			newVelocity.x += -moveSpeed;			
+			velModifier += -defaultRight;			
 			
 		}
 		if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
 		{
-			x =true;
-			newVelocity.x += moveSpeed;			
+			velModifier += defaultRight;			
 		}
 
 		if ((!dashCooldown && Input.GetKey(KeyCode.Space)) || isDashing)
 		{
 			if (!dashCooldown && !isDashing)
 			{
-				Debug.Log("DASH START!");
 				dashStartTime = Time.time;
 				dashCooldown = true;
 				isDashing = true;
-				newVelocity.y += dashSpeed/2;
+				velModifier.y += dashSpeed/20f;
 			}
 			if (dashStartTime + dashLength < Time.time)
 			{
 				isDashing = false;
 			}
 			
-			Debug.Log("dashing..");
-			newVelocity += newVelocity.normalized * dashSpeed;
+			velModifier += velModifier.normalized * dashSpeed;
 		}
 
 
-		if (!z)
-			localVelocity.z /= 2f;
-		else
-			localVelocity.z = newVelocity.z;
-		if (!x)
-			localVelocity.x /= 2f;
-		else
-			localVelocity.x = newVelocity.x;
+		velModifier.Normalize();
+		localVelocity.z = velModifier.z*moveSpeed;
+		localVelocity.x = velModifier.x*moveSpeed;
+		
+		localVelocity.y += velModifier.y;
 
-		rb.velocity = transform.TransformDirection(localVelocity);
+		rb.velocity = localVelocity;
 	}
 }

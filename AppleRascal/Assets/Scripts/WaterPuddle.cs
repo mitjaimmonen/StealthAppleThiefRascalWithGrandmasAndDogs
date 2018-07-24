@@ -7,6 +7,9 @@ public class WaterPuddle : MonoBehaviour {
 	public float trailEffectTime;
 	public TrailType buffType = TrailType.footsteps;
 	public TrailType trailTypeAfterBuff = TrailType.none;
+	ParticleSystem splashParticles;
+
+	float splashInterval;
 
 
 	void OnTriggerStay(Collider other)
