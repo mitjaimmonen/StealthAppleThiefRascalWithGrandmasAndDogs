@@ -53,7 +53,7 @@ public class FootstepHandler : MonoBehaviour {
 
 			if (leftSide)
 			{
-				if (leftIndex >= leftFeet.Count-1)
+				if (leftIndex >= leftFeet.Count)
 					leftIndex = 0;
 				
 				if (!leftFeet[leftIndex].gameObject.activeSelf)
@@ -68,7 +68,7 @@ public class FootstepHandler : MonoBehaviour {
 			}
 			else
 			{
-				if (rightIndex >= rightFeet.Count-1)
+				if (rightIndex >= rightFeet.Count)
 					rightIndex = 0;
 					
 				if (!rightFeet[rightIndex].gameObject.activeSelf)

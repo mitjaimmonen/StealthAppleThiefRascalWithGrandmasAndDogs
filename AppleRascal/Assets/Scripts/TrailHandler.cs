@@ -85,7 +85,7 @@ public class TrailHandler : MonoBehaviour {
 
 	public void DeactivatePoint(TrailPoint trailPoint)
 	{
-		trailPoint.Enabled = false;
+		trailPoint.gameObject.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -121,7 +121,7 @@ public class TrailHandler : MonoBehaviour {
 			if (pointIndex >= trailPoints.Count)
 				pointIndex = 0;
 
-			if (!trailPoints[pointIndex].Enabled)
+			if (!trailPoints[pointIndex].gameObject.activeSelf)
 			{
 				lastTrailPointTime = Time.time;
 				TrailPoint newPoint = trailPoints[pointIndex];
@@ -129,7 +129,7 @@ public class TrailHandler : MonoBehaviour {
 				newPoint.deactivationTime = trailPointLifetime;
 				newPoint.trailPointType = CurrentTrailType;
 				newPoint.transform.position = transform.position;
-				newPoint.Enabled = true;
+				newPoint.gameObject.SetActive(true);
 
 				if (lastTrailPoint)
 					newPoint.connectedTrailPoint = lastTrailPoint;
