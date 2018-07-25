@@ -26,7 +26,7 @@ public class FootstepHandler : MonoBehaviour {
 			trailHandler = GetComponent<TrailHandler>();
 
 		parent = new GameObject().transform;
-		parent.gameObject.name = "Footsteps Parent";
+		parent.gameObject.name = "Footstep Visuals Parent";
 
 		for (int i = 0; i < amountOfFeet; i++)
 		{

@@ -6,51 +6,77 @@ public class Player : MonoBehaviour {
 
 
 	[HideInInspector]public TrailHandler trailHandler;
+	[HideInInspector]public SoundSource soundSource;
 	public LayerMask groundLayerMask;
 	public float moveSpeed;
 	public float dashSpeed;
 	public float dashLength;
 	public float dashCooldownTime;
-	Rigidbody rb;
 
 
-	Vector3 velocity;
-	Vector3 velModifier;
+	Vector3 velocity, horizontalVelocity;
+	Vector3 newVelModifier, prevVelModifier, velHorizontalModifier;
 	float dashStartTime;
 	bool dashCooldown = false;
 	bool isDashing;
+	bool isCrawling;
+	bool isGrounded;
+	bool isWalking;
 	Vector3 defaultForward, defaultRight;
+	Vector3 oldPos;
 	Collider playerCollider;
 
 	public bool IsDashing
 	{
 		get {return isDashing;}
 	}
+	public bool IsGrounded
+	{
+		get {return isGrounded;}
+	}
+	public Vector3 CurrentVelocity
+	{
+		get {return velocity;}
+	}
+	public bool IsWalking
+	{
+		get { return isWalking; }
+	}
+	public bool IsCrawling
+	{
+		get { return isCrawling; }
+	}
+	public bool IsMoving
+	{
+		get {
+			if (velocity.magnitude > 0.05f)
+				return true;
+			else
+				return false;
+		}
+	}
 	// Use this for initialization
 	void Start () {
 		if (!trailHandler)
 			trailHandler = GetComponent<TrailHandler>();
 		
-		rb = GetComponent<Rigidbody>();
 
 		defaultForward = Vector3.Cross(Camera.main.transform.right, Vector3.up).normalized;
  		defaultRight = Camera.main.transform.right;
 		playerCollider = GetComponent<Collider>();
+		soundSource = GetComponent<SoundSource>();
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
 		
-		Vector3 oldPos = transform.position;
+		oldPos = transform.position;
 
 		MovementInputs();
 		Gravity();
+		ApplyTransform();
 
-		transform.position +=velModifier*Time.deltaTime;
-		velocity = transform.position - oldPos;
-
-		// transform.rotation =  Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, velocity, Time.deltaTime*10f, 0.0f));
 		
 		
 
@@ -60,36 +86,70 @@ public class Player : MonoBehaviour {
 
 	void MovementInputs()
 	{
-		velModifier = Vector3.zero;
-
+		bool x = false,z=false;
+		newVelModifier.x = 0;
+		newVelModifier.z = 0;
 		if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
 		{
-			velModifier = defaultForward*moveSpeed;
+			z =true;
+			newVelModifier.z += 1;
 		}
 		if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
 		{
-			velModifier += -defaultForward*moveSpeed;			
+			z =true;
+			newVelModifier.z += -1;			
 		}
 		if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
 		{
-			velModifier += -defaultRight*moveSpeed;			
+			x =true;
+			newVelModifier.x += -1;			
 			
 		}
 		if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
 		{
-			velModifier += defaultRight*moveSpeed;			
+			x =true;
+			newVelModifier.x += 1;			
 		}
 
-		if ((!dashCooldown && Input.GetKey(KeyCode.Space)) || isDashing)
+		if (Input.GetKeyDown(KeyCode.LeftControl))
 		{
-			velModifier += velModifier.normalized * dashSpeed;
+			if (!isDashing && isGrounded)
+				isCrawling = !isCrawling;
+		}
+		else if (!isGrounded)
+			isCrawling = false;
+
+
+		velHorizontalModifier = newVelModifier;
+		velHorizontalModifier.y = 0;
+		velHorizontalModifier.Normalize();
+
+		if (!x) //Slow down
+			newVelModifier.x = prevVelModifier.x /2f;
+		else //apply movement speed
+			newVelModifier.x = velHorizontalModifier.x*moveSpeed * (isCrawling ? 0.25f : 1f);
+		
+		if (!z) //slow down
+			newVelModifier.z = prevVelModifier.z / 2f;
+		else //apply movement speed
+			newVelModifier.z = velHorizontalModifier.z*moveSpeed * (isCrawling ? 0.25f : 1f);
+
+
+
+		//
+		// OVERRIDES
+		//
+		if (!isCrawling && ((!dashCooldown && Input.GetKey(KeyCode.Space)) || isDashing))
+		{
+			newVelModifier.x = velHorizontalModifier.x * dashSpeed;
+			newVelModifier.z = velHorizontalModifier.z * dashSpeed;
 			
 			if (!dashCooldown && !isDashing)
 			{
 				dashStartTime = Time.time;
 				dashCooldown = true;
 				isDashing = true;
-				velModifier.y += dashSpeed/20f;
+				newVelModifier.y = dashSpeed;
 			}
 			
 			if (dashStartTime + dashLength < Time.time)
@@ -98,21 +158,59 @@ public class Player : MonoBehaviour {
 			}
 			
 		}
+
+		if (!x && !z)
+			isWalking = false;
+		else
+			isWalking = true;
+		prevVelModifier = newVelModifier;
 	}
 
 	void Gravity()
 	{
-		bool isHit = Physics.Raycast(transform.position + (-transform.up * playerCollider.bounds.extents.y),-transform.up, 0.1f);
-
-		if(isHit)
+		RaycastHit hit;
+		float distOffset = Mathf.Abs(oldPos.y-transform.position.y) + 0.01f;
+		bool highSpeed = false;
+		if (velocity.y < -20f)
 		{
-			Debug.Log("Grounded");
-			if (velModifier.y < 0)
-				velModifier.y = 0;
+			distOffset += Mathf.Abs(velocity.y/50f);
+			highSpeed = true;
+			Debug.Log("Falling at a High Speed");
+
+		}
+
+		isGrounded = Physics.Raycast(new Vector3(transform.position.x, oldPos.y, transform.position.z),-Vector3.up,out hit, playerCollider.bounds.extents.y + distOffset,groundLayerMask);
+
+
+		if(isGrounded)
+		{
+			if (newVelModifier.y < 0)
+				newVelModifier.y = 0;
+
+			//Make sure not to fall through
+			if (transform.position.y - playerCollider.bounds.extents.y < hit.point.y-0.01f || highSpeed)
+				transform.position = new Vector3(transform.position.x, hit.point.y +playerCollider.bounds.extents.y, transform.position.z);
+			
 		}
 		else
 		{
-			velModifier.y = velocity.y - 9.81f;
+			newVelModifier.y -= 0.981f;
 		}
+	}
+
+	void ApplyTransform()
+	{
+		//Convert modifier directions into camera-forward
+		velocity = defaultForward*newVelModifier.z;
+		velocity += defaultRight*newVelModifier.x;
+		//Apply gravity as raw
+		velocity.y = newVelModifier.y;
+
+		transform.position += velocity*Time.deltaTime;
+
+
+		//Get horizontal velocity to calculate character rotation
+		horizontalVelocity = new Vector3(velocity.x,0,velocity.z);
+		transform.rotation =  Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, horizontalVelocity, Time.deltaTime*10f, 0.0f));
 	}
 }

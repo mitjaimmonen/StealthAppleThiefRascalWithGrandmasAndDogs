@@ -85,6 +85,7 @@ public class TrailHandler : MonoBehaviour {
 
 	public void DeactivatePoint(TrailPoint trailPoint)
 	{
+		trailPoint.connectedTrailPoint = null;
 		trailPoint.gameObject.SetActive(false);
 	}
 	
@@ -116,7 +117,11 @@ public class TrailHandler : MonoBehaviour {
 
 	void SetTrailPoints()
 	{
-		if (lastTrailPointTime + trailFrequencyInSeconds < Time.time)
+		if (!player.IsMoving)
+			return;
+		
+
+		if (lastTrailPointTime + (trailFrequencyInSeconds * (player.IsCrawling ? 2f : 1f)) < Time.time)
 		{
 			if (pointIndex >= trailPoints.Count)
 				pointIndex = 0;
@@ -126,13 +131,18 @@ public class TrailHandler : MonoBehaviour {
 				lastTrailPointTime = Time.time;
 				TrailPoint newPoint = trailPoints[pointIndex];
 
+				if (!player.IsGrounded && currentTrailType == TrailType.footsteps)
+					newPoint.trailPointType = TrailType.none;
+				else
+					newPoint.trailPointType = CurrentTrailType;
+
 				newPoint.deactivationTime = trailPointLifetime;
-				newPoint.trailPointType = CurrentTrailType;
 				newPoint.transform.position = transform.position;
 				newPoint.gameObject.SetActive(true);
+				player.soundSource.NewTrailSound(newPoint.trailPointType);
 
 				if (lastTrailPoint)
-					newPoint.connectedTrailPoint = lastTrailPoint;
+					lastTrailPoint.connectedTrailPoint = newPoint;
 				lastTrailPoint = newPoint;
 				pointIndex++;
 			}
@@ -158,7 +168,7 @@ public class TrailHandler : MonoBehaviour {
 		{
 			if (smellParticles && smellParticles.isPlaying)
 				smellParticles.Stop();
-			if (!player.IsDashing)
+			if (!player.IsDashing && player.IsGrounded)
 				footstepHandler.CreateFootsteps();
 
 		}
