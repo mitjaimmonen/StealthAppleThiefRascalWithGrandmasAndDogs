@@ -12,7 +12,16 @@ public class PatrolState : State
     private Direction _direction;
     private float _arriveDistance;
 
+
     public Waypoint CurrentWaypoint { get; private set; }
+
+    private bool Sentry
+    {
+        get
+        {
+            return Owner.sentry;
+        }
+    }
 
     public PatrolState(AI _owner, Path path, Direction direction, float arriveDistance) : base()
     {
@@ -39,10 +48,12 @@ public class PatrolState : State
     {
         if (!ChangeState())
         {
-            CurrentWaypoint = GetWaypoint();
-            Owner.Mover.Move(Owner.transform.forward);
-            Owner.Mover.Turn(CurrentWaypoint.Position);
-            Debug.Log("moving to: " + CurrentWaypoint.Position);
+            if (!Sentry)
+            {
+                CurrentWaypoint = GetWaypoint();
+                Owner.Mover.Move(Owner.transform.forward);
+                Owner.Mover.Turn(CurrentWaypoint.Position);
+            }
         }
     }
 
@@ -54,6 +65,14 @@ public class PatrolState : State
         float sqrArriveDistance = _arriveDistance * _arriveDistance;
         if (toWaypointSqr <= sqrArriveDistance)
         {
+            if (!CurrentWaypoint.overrideSentry)
+            {
+                Owner.StartCoroutine(Owner.Sentry());
+            }
+            else
+            {
+                Owner.StartCoroutine(Owner.OverridenSentry(CurrentWaypoint));
+            }
             result = _path.GetNextWaypoint(CurrentWaypoint, ref _direction);
         }
 
@@ -64,6 +83,7 @@ public class PatrolState : State
     {
         Debug.Log("Exiting Patrol state");
     }
+
 
     private bool ChangeState()
     {

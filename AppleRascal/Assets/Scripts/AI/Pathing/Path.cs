@@ -25,8 +25,8 @@ namespace WaypointSystem
         private readonly Dictionary<PathType, Color> _pathColors =
            new Dictionary<PathType, Color>()
             {
-               {PathType.Loop, Color.blue },
-               {PathType.PingPong, Color.red }
+               {PathType.Loop, Color.red },
+               {PathType.PingPong, Color.blue }
             };
 
         public List<Waypoint> Waypoints

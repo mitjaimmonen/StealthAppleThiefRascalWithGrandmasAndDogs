@@ -56,7 +56,7 @@ namespace AIStateStuff
             _states.Add(patrol);
 
             CurrentState = patrol;
-            CurrentState.Enter();
+            CurrentState.Enter();           
 
             //add the other states too
         }
