@@ -161,8 +161,6 @@ public class Player : MonoBehaviour {
 				if (hide)
 				{
 					hidingHandler.StartHiding();
-					return;
-					
 				}
 
 			}
@@ -170,15 +168,13 @@ public class Player : MonoBehaviour {
 			{
 				Debug.Log("End Hiding!");
 				hidingHandler.EndHiding();
-				return;
 			}
 			else if (collectingHandler.AllowShake)
 			{
 				collectingHandler.ShakeTree();
-				return;
 			}
 			
-			if (!dashCooldown || isDashing)
+			if ((!dashCooldown || isDashing) && (!collectingHandler.AllowShake && !hidingHandler.AllowHiding))
 			{
 				newVelModifier.x = velHorizontalModifier.x * dashSpeed;
 				newVelModifier.z = velHorizontalModifier.z * dashSpeed;
@@ -188,7 +184,7 @@ public class Player : MonoBehaviour {
 					dashStartTime = Time.time;
 					dashCooldown = true;
 					isDashing = true;
-					newVelModifier.y = dashSpeed;
+					newVelModifier.y = dashSpeed/5f;
 				}
 				
 				if (dashStartTime + dashLength < Time.time)
@@ -235,7 +231,7 @@ public class Player : MonoBehaviour {
 		}
 		else
 		{
-			newVelModifier.y -= 0.981f;
+			newVelModifier.y -= 9.81f * Time.deltaTime;
 		}
 	}
 
@@ -247,7 +243,7 @@ public class Player : MonoBehaviour {
 		//Apply gravity as raw
 		velocity.y = newVelModifier.y;
 
-		transform.position += velocity*Time.deltaTime;
+		transform.position += velocity*Time.deltaTime + Vector3.up * ((-9.81f * Time.deltaTime * Time.deltaTime / 2f));
 
 
 		//Get horizontal velocity to calculate character rotation

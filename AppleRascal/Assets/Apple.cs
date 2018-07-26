@@ -39,6 +39,16 @@ public class Apple : MonoBehaviour {
 		{
 			rb.AddForce(dirToPlayer.normalized* (magnetDistance - dirToPlayer.magnitude)*magnetStrength);
 		}
+		else if (dirToPlayer.magnitude > magnetDistance/2f)
+		{
+			Vector3 vel = rb.velocity;
+			vel.x *= 0.9f;
+			vel.z *= 0.9f;
+			rb.velocity = vel;
+
+		}
+
+		
 	}
 
 }

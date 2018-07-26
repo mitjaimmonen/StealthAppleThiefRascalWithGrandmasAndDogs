@@ -5366,6 +5366,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114828217904810756, guid: 285c8e27e97db344993ec67000d0fb17,
+        type: 2}
+      propertyPath: dashSpeed
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 285c8e27e97db344993ec67000d0fb17, type: 2}
   m_IsPrefabAsset: 0
@@ -6765,8 +6770,8 @@ MonoBehaviour:
   maxApplesInTree: 1000
   minApplesInTree: 900
   shakeInterval: 0.25
-  minAmountPerShake: 50
-  maxAmountPerShake: 100
+  minAmountPerShake: 100
+  maxAmountPerShake: 200
 --- !u!136 &1622205954
 CapsuleCollider:
   m_ObjectHideFlags: 0

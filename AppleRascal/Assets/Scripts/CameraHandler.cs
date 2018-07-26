@@ -21,8 +21,7 @@ public class CameraHandler : MonoBehaviour {
 	void LateUpdate () {
 		if (target)
 		{
-			// transform.position = Vector3.Lerp(transform.position, target.position + offset, Time.deltaTime * lerpSpeed);
-			transform.position = target.transform.position+ offset;
+			transform.position = Vector3.Lerp(transform.position, target.position + offset, Time.deltaTime * lerpSpeed);
 		}
 	}
 }
