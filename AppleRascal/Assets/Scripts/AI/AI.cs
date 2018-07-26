@@ -15,6 +15,10 @@ public class AI : MonoBehaviour
     public float sentryModeDuration = 3;
     public float viewAngle;
     public float sentryModeLookAngle;
+    public Transform target;
+    private bool followingTrail;
+
+
     public Vector3 startPosition;
     public bool sentry;
     public bool triggered;
@@ -23,17 +27,21 @@ public class AI : MonoBehaviour
 
 
     public float _waypointArriveDistance = 0.5f;
+    public float attackDistance;
+    public float distanceToChase = 2;
 
     public Direction _direction;
+    public FieldOfView fieldOfView;
 
     private IMover _mover;
     public IMover Mover { get { return _mover; } }
 
-    private StateMachine stateMachine { get; set; }
+    public StateMachine stateMachine { get; protected set; }
 
     private void Awake()
     {
         startPosition = transform.position;
+        fieldOfView = GetComponent<FieldOfView>();
     }
 
     public void Init()
@@ -93,11 +101,44 @@ public class AI : MonoBehaviour
         sentry = false;
     }
 
+    public IEnumerator SentryForFollowing(float lookAngle, float waitTime)
+    {
+        Debug.Log("Sentry mode");
+        sentry = true;
+
+        float elapsedTime = 0;
+        Quaternion startRotation = transform.rotation;
+        Quaternion qMinus = Quaternion.AngleAxis(-lookAngle / 2, transform.up) * transform.rotation;
+        Quaternion qPlus = Quaternion.AngleAxis(lookAngle / 2, transform.up) * transform.rotation;
+        Quaternion lastRotation = transform.rotation;
+
+
+        while (elapsedTime <= waitTime)
+        {
+            elapsedTime += Time.deltaTime;
+
+            if (elapsedTime < waitTime / 3)
+            {
+                //rotate to one side
+                transform.rotation = Quaternion.Slerp(startRotation, qMinus, (elapsedTime / ((waitTime / 3))));
+                lastRotation = transform.rotation;
+            }
+            else if (elapsedTime > waitTime / 2)
+            {
+                //rotate to other side
+                transform.rotation = Quaternion.Slerp(lastRotation, qPlus, ((elapsedTime - waitTime / 2) / (waitTime / 2)));
+            }
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        yield return new WaitForSeconds(waitTime / 16);
+
+        sentry = false;
+    }
+
     public IEnumerator OverridenSentry(Waypoint waypoint)
     {
-
-        Debug.Log("Sentry mode override");
-
         if (waypoint.sentryModeDuration < 0.1f)
         {
             yield break;
@@ -136,11 +177,37 @@ public class AI : MonoBehaviour
         sentry = false;
     }
 
-    public void Trigger(bool isAlert, bool hghPriority, Transform target)
+    public void Trigger(AIStateType stateType, bool hghPriority, Transform _target)
     {
         if (!triggered)
         {
 
         }
+
+        else
+        {
+
+        }
     }
+
+    //public Transform SortPriorityTarget(AIStateType currentState, Transform _target)
+    //{
+    //    if (_target == target || target.tag == "Player")
+    //    {
+    //        return target;
+    //    }
+      
+    //    if (!followingTrail)
+    //    {
+    //        target = _target;
+    //    }
+
+    //    if (_target.tag == "Player")
+    //    {
+    //        target = _target;
+    //    }
+
+    //    return target;
+
+    //}
 }

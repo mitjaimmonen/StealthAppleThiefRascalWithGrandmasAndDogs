@@ -8,12 +8,14 @@ public class FieldOfView : MonoBehaviour
     public float viewRadius;
     [Range(0, 360)]
     public float viewAngle;
-    public float distanceToChase;
 
     public LayerMask playerMask;
     public LayerMask obstacleMask;
 
     public List<Transform> visibleTargets = new List<Transform>();
+
+    public delegate void DetectedDelegate(Transform target);
+    public event DetectedDelegate detectEvent;
 
     public float meshResolution;
     public int edgeResolveIterations;
@@ -61,19 +63,9 @@ public class FieldOfView : MonoBehaviour
 
                 if (!Physics.Raycast(transform.position, dirToTarget, distToTarget, obstacleMask))
                 {
-                    if (distToTarget <= distanceToChase && target.gameObject.tag == "Player")
-                    {
-                        //trigger chase mode
-                        Debug.Log("Chase mode!!");
-                    }
-                    else
-                    {
-                        //trigger caution mde
-                        Debug.Log("Caution mode...");
-                    }
-
+                    Detect(target);
+                    
                     visibleTargets.Add(target);
-
                 }
             }
         }
@@ -91,13 +83,13 @@ public class FieldOfView : MonoBehaviour
             float angle = transform.eulerAngles.y - viewAngle / 2 + stepAngleSize * i;
             ViewCastInfo newViewCast = ViewCast(angle);
 
-            if (i>0)
+            if (i > 0)
             {
                 bool edgeDistThresholdExceeded = Mathf.Abs(oldViewCast.dist - newViewCast.dist) > edgeDistanceThreshold;
                 if (oldViewCast.hit != newViewCast.hit || (oldViewCast.hit && newViewCast.hit && edgeDistThresholdExceeded))
                 {
                     EdgeInfo edge = FindEdge(oldViewCast, newViewCast);
-                    if (edge.pointA !=Vector3.zero)
+                    if (edge.pointA != Vector3.zero)
                     {
                         viewPoints.Add(edge.pointA);
                     }
@@ -120,7 +112,7 @@ public class FieldOfView : MonoBehaviour
         for (int i = 0; i < vertexCount - 1; i++)
         {
             vertices[i + 1] = transform.InverseTransformPoint(viewPoints[i]);
-            
+
             if (i < vertexCount - 2)
             {
                 triangles[i * 3] = 0;
@@ -135,6 +127,14 @@ public class FieldOfView : MonoBehaviour
         viewMesh.RecalculateNormals();
 
 
+    }
+
+    void Detect(Transform target)
+    {
+        if (detectEvent != null)
+        {
+            detectEvent(target);
+        }
     }
 
     ViewCastInfo ViewCast(float globalAngle)
@@ -217,4 +217,5 @@ public class FieldOfView : MonoBehaviour
             pointB = _pointB;
         }
     }
+
 }

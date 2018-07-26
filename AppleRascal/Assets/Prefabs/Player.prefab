@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 114049834852493160}
   - component: {fileID: 54074721649522488}
   - component: {fileID: 114491378764697102}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 4107964590085910}
   - component: {fileID: 198141945936289760}
   - component: {fileID: 199893207829003854}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SmellParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -208,6 +208,7 @@ MonoBehaviour:
   returnToDefaultTrailTime: 10
   numberOfTrailPoints: 20
   allowResize: 1
+  debugPoints: 0
   trailFrequencyInSeconds: 0.25
   trailPointLifetime: 2
   smellParticles: {fileID: 198141945936289760}
@@ -224,14 +225,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trailHandler: {fileID: 0}
+  hidingHandler: {fileID: 0}
   soundSource: {fileID: 0}
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 512
+  hidingSpotLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
   moveSpeed: 10
   dashSpeed: 25
   dashLength: 0.15
   dashCooldownTime: 1
+  hide: {fileID: 0}
 --- !u!198 &198141945936289760
 ParticleSystem:
   m_ObjectHideFlags: 1
