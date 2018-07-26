@@ -43,9 +43,10 @@ public class SoundSource : MonoBehaviour {
 		CheckSoundHits();
 	}
 
-	public void NewTrailSound(TrailType type)
+	public void NewTrailSound(TrailType type, float multiplier)
 	{
 		newTrailSoundVolume = trailSoundVolume * (type == TrailType.footsteps ? wetFeetMultiplier : 1f);
+		newTrailSoundVolume *= multiplier;
 		trailSoundTime = Time.time;
 	}
 	public void NewWaterSplashSound()

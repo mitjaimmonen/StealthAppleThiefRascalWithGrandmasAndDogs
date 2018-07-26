@@ -25,8 +25,6 @@ public class Player : MonoBehaviour {
 	bool isCrawling;
 	bool isGrounded;
 	bool isWalking;
-	bool isHiding;
-	bool allowHiding;
 	bool overridingTransform;
 	Vector3 defaultForward, defaultRight;
 	Vector3 oldPos;
@@ -59,16 +57,6 @@ public class Player : MonoBehaviour {
 			else
 				return false;
 		}
-	}
-	public bool IsHiding
-	{
-		get { return isHiding; }
-		set { isHiding = value; }
-	}
-	public bool AllowHiding
-	{
-		get { return allowHiding; }
-		set { allowHiding = value; }
 	}
 	public bool OverridingTransform
 	{
@@ -109,7 +97,7 @@ public class Player : MonoBehaviour {
 	{
 		bool x = false,z=false;
 
-		if (!IsHiding)
+		if (!hidingHandler.IsHiding)
 		{
 
 			newVelModifier.x = 0;
@@ -166,7 +154,7 @@ public class Player : MonoBehaviour {
 
 		if (!isCrawling && (Input.GetKeyDown(KeyCode.Space) || isDashing))
 		{
-			if (!IsHiding && !isDashing && AllowHiding)
+			if (!hidingHandler.IsHiding && !isDashing && hidingHandler.AllowHiding)
 			{
 				if (hide)
 				{
@@ -176,7 +164,7 @@ public class Player : MonoBehaviour {
 				}
 
 			}
-			else if (IsHiding)
+			else if (hidingHandler.IsHiding)
 			{
 				Debug.Log("End Hiding!");
 				hidingHandler.EndHiding();

@@ -27,6 +27,7 @@ GameObject:
   - component: {fileID: 114049834852493160}
   - component: {fileID: 54074721649522488}
   - component: {fileID: 114491378764697102}
+  - component: {fileID: 114647136180923028}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -190,6 +191,18 @@ MonoBehaviour:
   waterSplashLength: 0.5
   waterSplashInterval: 0.5
   debugMesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114647136180923028
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1915681704299952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3319c31e878c0146bef2ebfa2d9df0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hideMoveTime: 0.25
 --- !u!114 &114711699104352990
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -208,6 +221,7 @@ MonoBehaviour:
   returnToDefaultTrailTime: 10
   numberOfTrailPoints: 20
   allowResize: 1
+  debugPoints: 0
   trailFrequencyInSeconds: 0.25
   trailPointLifetime: 2
   smellParticles: {fileID: 198141945936289760}
@@ -224,14 +238,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trailHandler: {fileID: 0}
+  hidingHandler: {fileID: 0}
   soundSource: {fileID: 0}
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 512
+  hidingSpotLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
   moveSpeed: 10
   dashSpeed: 25
   dashLength: 0.15
   dashCooldownTime: 1
+  hide: {fileID: 0}
 --- !u!198 &198141945936289760
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -239,7 +258,7 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1923609760115044}
   serializedVersion: 5
-  lengthInSec: 5
+  lengthInSec: 0.5
   simulationSpeed: 1
   stopAction: 0
   looping: 1

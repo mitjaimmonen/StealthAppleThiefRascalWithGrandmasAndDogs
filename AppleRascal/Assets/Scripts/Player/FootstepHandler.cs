@@ -44,7 +44,7 @@ public class FootstepHandler : MonoBehaviour {
 		}
 	}
 
-	public void CreateFootsteps()
+	public void CreateFootsteps(float relativeBuffTime)
 	{
 		if (leftFoot && rightFoot)
 		{
@@ -61,6 +61,7 @@ public class FootstepHandler : MonoBehaviour {
 					leftFeet[leftIndex].transform.position = transform.position - transform.right*offsetX;
 					leftFeet[leftIndex].transform.rotation = transform.rotation;
 					leftFeet[leftIndex].deactivationTime = trailHandler.trailPointLifetime;
+					leftFeet[leftIndex].relativeBuffTime = relativeBuffTime;
 					lastStepTransform = leftFeet[leftIndex].transform;
 					leftFeet[leftIndex].gameObject.SetActive(true);
 					leftIndex++;
@@ -76,6 +77,7 @@ public class FootstepHandler : MonoBehaviour {
 					rightFeet[rightIndex].transform.position = transform.position + transform.right*offsetX;
 					rightFeet[rightIndex].transform.rotation = transform.rotation;
 					rightFeet[rightIndex].deactivationTime = trailHandler.trailPointLifetime;
+					rightFeet[rightIndex].relativeBuffTime = relativeBuffTime;
 					lastStepTransform = rightFeet[rightIndex].transform;
 					rightFeet[rightIndex].gameObject.SetActive(true);
 					rightIndex++;

@@ -259,9 +259,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 409025628}
-  - component: {fileID: 409025627}
   - component: {fileID: 409025629}
   - component: {fileID: 409025630}
+  - component: {fileID: 409025627}
   m_Layer: 10
   m_Name: HidingPlace
   m_TagString: Untagged
@@ -280,11 +280,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0870f13dcac96e40a63acfc4e4ceb88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  setPlayerInvisible: 0
+  playerVisible: 1
   anim: {fileID: 0}
   affectTrail: 1
-  trailTypeAfterHiding: 1
-  trailBuffLength: 0
+  trailInHide: 0
+  trailAfterHiding: 1
+  trailPointTimeAfterHiding: 5
+  trailBuffLength: 5
 --- !u!4 &409025628
 Transform:
   m_ObjectHideFlags: 0
@@ -5979,23 +5981,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1681484552}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1890973402 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1915681704299952, guid: 285c8e27e97db344993ec67000d0fb17,
-    type: 2}
-  m_PrefabInternal: {fileID: 508557746}
---- !u!114 &1890973403
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1890973402}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3319c31e878c0146bef2ebfa2d9df0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hideMoveTime: 0.25
 --- !u!4 &1977060864 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4946955124214318, guid: 285c8e27e97db344993ec67000d0fb17,

@@ -11,7 +11,27 @@ public class HidingHandler : MonoBehaviour {
 	Vector3 midPos;
 	Vector3 outPos;
 	
+	bool isHiding;
+	bool allowHiding;
+	bool visibleInHide;
+
 	bool coroutineRunning = false;
+
+	public bool IsHiding
+	{
+		get { return isHiding; }
+		set { isHiding = value; }
+	}
+	public bool AllowHiding
+	{
+		get { return allowHiding; }
+		set { allowHiding = value; }
+	}
+	public bool VisibleInHide
+	{
+		get { return visibleInHide; }
+		set { visibleInHide = value; }
+	}
 
 	void Start()
 	{
@@ -20,7 +40,7 @@ public class HidingHandler : MonoBehaviour {
 
 	public void StartHiding()
 	{
-		direction = player.transform.position - player.hide.transform.position;
+		direction = player.hide.transform.position-player.transform.position;
 		magnitude = direction.magnitude;
 
 		midPos = player.transform.position + (direction.normalized * magnitude/2f) + (Vector3.up * magnitude/2f);
@@ -44,7 +64,7 @@ public class HidingHandler : MonoBehaviour {
 		coroutineRunning = true;
 
 		player.OverridingTransform = true;
-		player.IsHiding = true;
+		IsHiding = true;
 
 		float time = Time.time;
 		float t = 0, smoothLerp = 0;
@@ -62,6 +82,7 @@ public class HidingHandler : MonoBehaviour {
 		}
 
 		player.transform.position = inPos;
+		player.trailHandler.CurrentTrailType = player.hide.trailInHide;
 		coroutineRunning =false;
 		yield break;
 	}
@@ -88,10 +109,12 @@ public class HidingHandler : MonoBehaviour {
 		}
 
 		player.transform.position = outPos;
+		player.trailHandler.ChangeTrailType(player.hide.trailAfterHiding);
+		player.trailHandler.ChangeTrailPointLifetime(player.hide.trailPointTimeAfterHiding, player.hide.trailBuffLength);
 
 
 		player.OverridingTransform = false;
-		player.IsHiding = false;
+		IsHiding = false;
 		coroutineRunning =false;
 		yield break;
 	}
