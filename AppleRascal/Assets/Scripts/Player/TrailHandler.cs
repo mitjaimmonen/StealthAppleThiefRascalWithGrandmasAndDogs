@@ -18,6 +18,7 @@ public class TrailHandler : MonoBehaviour {
 	TrailPoint lastTrailPoint;
 	public int numberOfTrailPoints;
 	public bool allowResize;
+	public bool debugPoints;
 	public float trailFrequencyInSeconds;
 	public float trailPointLifetime;
 

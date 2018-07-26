@@ -33,14 +33,18 @@ public class TrailPoint : MonoBehaviour {
 
 	void OnDrawGizmos()
 	{
-		if (trailPointType == TrailType.smell)
-			Gizmos.color = Color.green;
-		if (trailPointType == TrailType.none)
-			Gizmos.color = Color.white;
-		else
-			Gizmos.color = Color.grey;
+		if (trailHandler.debugPoints)
+		{
+			if (trailPointType == TrailType.smell)
+				Gizmos.color = Color.green;
+			else if (trailPointType == TrailType.none)
+				Gizmos.color = Color.white;
+			else
+				Gizmos.color = Color.grey;
 
-		Gizmos.DrawSphere(transform.position, 0.25f);
+			Gizmos.DrawSphere(transform.position, 0.25f);
+		}
+
 	}
 
 }
