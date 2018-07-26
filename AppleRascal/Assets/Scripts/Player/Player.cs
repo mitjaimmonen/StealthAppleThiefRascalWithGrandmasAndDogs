@@ -7,6 +7,7 @@ public class Player : MonoBehaviour {
 
 	[HideInInspector]public TrailHandler trailHandler;
 	[HideInInspector]public HidingHandler hidingHandler;
+	[HideInInspector]public CollectingHandler collectingHandler;
 	[HideInInspector]public SoundSource soundSource;
 	public LayerMask groundLayerMask;
 	public LayerMask hidingSpotLayerMask;
@@ -67,6 +68,7 @@ public class Player : MonoBehaviour {
 	void Start () {
 		trailHandler = GetComponent<TrailHandler>();
 		hidingHandler = GetComponent<HidingHandler>();
+		collectingHandler = GetComponent<CollectingHandler>();
 		
 
 		defaultForward = Vector3.Cross(Camera.main.transform.right, Vector3.up).normalized;
@@ -168,6 +170,11 @@ public class Player : MonoBehaviour {
 			{
 				Debug.Log("End Hiding!");
 				hidingHandler.EndHiding();
+				return;
+			}
+			else if (collectingHandler.AllowShake)
+			{
+				collectingHandler.ShakeTree();
 				return;
 			}
 			
