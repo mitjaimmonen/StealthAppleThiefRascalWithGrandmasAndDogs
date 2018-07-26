@@ -16,6 +16,8 @@ TagManager:
   - PostProcessing
   - Player
   - Obstacle
+  - Ground
+  - HidingSpot
   - 
   - 
   - 

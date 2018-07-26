@@ -10,14 +10,15 @@ public class TrailPoint : MonoBehaviour {
 	public float deactivationTime;
 	float timer = 0;
 
-	// Use this for initialization
-	void OnEnable () {
+
+	void OnEnable()
+	{
 		timer = Time.time;
-		
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
 		if (timer + deactivationTime < Time.time)
 		{
 			if (!trailHandler)
@@ -26,7 +27,24 @@ public class TrailPoint : MonoBehaviour {
 				trailHandler.DeactivatePoint(this);	
 
 		}
-		if (!connectedTrailPoint || connectedTrailPoint.trailPointType != trailPointType)
-			Debug.Log("Current trail point type is different than connected trail point type");
+			
+		
 	}
+
+	void OnDrawGizmos()
+	{
+		if (trailHandler.debugPoints)
+		{
+			if (trailPointType == TrailType.smell)
+				Gizmos.color = Color.green;
+			else if (trailPointType == TrailType.none)
+				Gizmos.color = Color.white;
+			else
+				Gizmos.color = Color.grey;
+
+			Gizmos.DrawSphere(transform.position, 0.25f);
+		}
+
+	}
+
 }
