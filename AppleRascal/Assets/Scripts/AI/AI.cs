@@ -17,7 +17,7 @@ public class AI : MonoBehaviour
     public float sentryModeLookAngle;
     public Vector3 startPosition;
     public bool sentry;
-
+    public bool triggered;
 
     public Path _path;
 
@@ -81,7 +81,7 @@ public class AI : MonoBehaviour
             else if (elapsedTime > sentryModeDuration / 2)
             {
                 //rotate to other side
-                transform.rotation = Quaternion.Slerp(lastRotation, qPlus,((elapsedTime - sentryModeDuration/2) / (sentryModeDuration/2)));
+                transform.rotation = Quaternion.Slerp(lastRotation, qPlus, ((elapsedTime - sentryModeDuration / 2) / (sentryModeDuration / 2)));
             }
 
             yield return new WaitForEndOfFrame();
@@ -89,7 +89,7 @@ public class AI : MonoBehaviour
 
         yield return new WaitForSeconds(sentryModeDuration / 16);
 
-             
+
         sentry = false;
     }
 
@@ -134,5 +134,13 @@ public class AI : MonoBehaviour
         yield return new WaitForSeconds(waypoint.sentryModeDuration / 16);
 
         sentry = false;
+    }
+
+    public void Trigger(bool isAlert, bool hghPriority, Transform target)
+    {
+        if (!triggered)
+        {
+
+        }
     }
 }

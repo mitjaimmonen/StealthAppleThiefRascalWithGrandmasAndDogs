@@ -7,8 +7,9 @@ namespace AIStateStuff
 {
     public class StateMachine
     {
-        private State CurrentState;
+        public State CurrentState;
         private State previousState;
+       
 
         public AI Owner;
 
