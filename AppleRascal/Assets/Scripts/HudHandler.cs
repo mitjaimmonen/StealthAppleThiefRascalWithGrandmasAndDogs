@@ -86,34 +86,18 @@ public class HudHandler : MonoBehaviour {
 	}
 
 
-	public void TreeTrigger(bool triggerState)
+	public void SetActionText(bool triggerState, string text)
 	{
 		if (triggerState)
 		{
 			buttonHintImage.gameObject.SetActive(true);
 			buttonHintText.gameObject.SetActive(true);
-			buttonHintText.text = "Shake tree";
+			buttonHintText.text = text;
 		}
 		else
 		{
 			buttonHintImage.gameObject.SetActive(false);
 			buttonHintText.gameObject.SetActive(false);
-			buttonHintText.text = "";
-		}
-	}
-	public void HideTrigger(bool triggerState)
-	{
-		if (triggerState)
-		{
-			buttonHintImage.gameObject.SetActive(true);
-			buttonHintText.gameObject.SetActive(true);
-			buttonHintText.text = "Hide";
-		}
-		else
-		{
-			buttonHintImage.gameObject.SetActive(false);
-			buttonHintText.gameObject.SetActive(false);
-			buttonHintText.text = "";
 		}
 	}
 	public void SetApplesAmount(int amount)

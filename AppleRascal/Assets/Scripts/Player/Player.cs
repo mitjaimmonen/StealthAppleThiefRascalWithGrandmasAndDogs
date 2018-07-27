@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Player : MonoBehaviour {
 
@@ -9,6 +10,7 @@ public class Player : MonoBehaviour {
 	[HideInInspector]public HidingHandler hidingHandler;
 	[HideInInspector]public CollectingHandler collectingHandler;
 	[HideInInspector]public SoundSource soundSource;
+	public ParticleSystem leapParticles;
 	public LayerMask groundLayerMask;
 	public LayerMask hidingSpotLayerMask;
 	public float moveSpeed;
@@ -16,6 +18,11 @@ public class Player : MonoBehaviour {
 	public float dashLength;
 	public float dashCooldownTime;
 	public HidingSpot hide;
+	public bool finishAutomatically;
+	
+	
+
+	NavMeshAgent navMeshAgent;
 
 
 	Vector3 velocity, horizontalVelocity;
@@ -31,6 +38,7 @@ public class Player : MonoBehaviour {
 	Vector3 oldPos;
 	Collider playerCollider;
 
+	bool allowFinish;
 
 	
 	public bool hasMoved;
@@ -68,6 +76,22 @@ public class Player : MonoBehaviour {
 				return false;
 		}
 	}
+
+	public bool AllowFinish
+	{
+		get { return allowFinish; }
+		set {
+			if (finishAutomatically && value)
+				Finish();
+			if (value != allowFinish)
+				GameMaster.Instance.hudHandler.SetActionText(value, "Finish level");
+
+			allowFinish = value;
+		}
+	}
+
+
+
 	public bool OverridingTransform
 	{
 		get { return overridingTransform; }
@@ -78,6 +102,7 @@ public class Player : MonoBehaviour {
 		trailHandler = GetComponent<TrailHandler>();
 		hidingHandler = GetComponent<HidingHandler>();
 		collectingHandler = GetComponent<CollectingHandler>();
+		navMeshAgent = GetComponentInParent<NavMeshAgent>();
 		
 
 		defaultForward = Vector3.Cross(Camera.main.transform.right, Vector3.up).normalized;
@@ -104,6 +129,10 @@ public class Player : MonoBehaviour {
 			dashCooldown = false;
 	}
 
+	void Finish()
+	{
+		Debug.Log("FINISHED LEVEL WOOOOOO YEAA");
+	}
 	void MovementInputs()
 	{
 		bool x = false,z=false;
@@ -168,22 +197,29 @@ public class Player : MonoBehaviour {
 
 		if (!isCrawling && (Input.GetKeyDown(KeyCode.Space) || isDashing))
 		{
-			if (!hidingHandler.IsHiding && !isDashing && hidingHandler.AllowHiding)
+			if (!isDashing)
 			{
-				if (hide)
+				if (!hidingHandler.IsHiding && hidingHandler.AllowHiding)
 				{
-					hidingHandler.StartHiding();
-				}
+					if (hide)
+					{
+						hidingHandler.StartHiding();
+					}
 
-			}
-			else if (hidingHandler.IsHiding)
-			{
-				Debug.Log("End Hiding!");
-				hidingHandler.EndHiding();
-			}
-			else if (collectingHandler.AllowShake)
-			{
-				collectingHandler.ShakeTree();
+				}
+				else if (hidingHandler.IsHiding)
+				{
+					Debug.Log("End Hiding!");
+					hidingHandler.EndHiding();
+				}
+				else if (collectingHandler.AllowShake)
+				{
+					collectingHandler.ShakeTree();
+				}
+				else if (AllowFinish)
+				{
+					Finish();
+				}
 			}
 			
 			if ((!dashCooldown || isDashing) && (!collectingHandler.AllowShake && !hidingHandler.AllowHiding))
@@ -198,6 +234,13 @@ public class Player : MonoBehaviour {
 					isDashing = true;
 					newVelModifier.y = dashSpeed/5f;
 					hasJumped = true;
+					
+					if (leapParticles)
+					{
+						var main = leapParticles.main;
+						main.startSpeedMultiplier = velocity.magnitude;
+						leapParticles.Play();
+					}
 				}
 				
 				if (dashStartTime + dashLength < Time.time)
@@ -221,34 +264,9 @@ public class Player : MonoBehaviour {
 
 	void Gravity()
 	{
-		RaycastHit hit;
-		float distOffset = Mathf.Abs(oldPos.y-transform.position.y) + 0.01f;
-		bool highSpeed = false;
-		if (velocity.y < -20f)
-		{
-			distOffset += Mathf.Abs(velocity.y/50f);
-			highSpeed = true;
-			Debug.Log("Falling at a High Speed");
 
-		}
-
-		isGrounded = Physics.Raycast(new Vector3(transform.position.x, oldPos.y, transform.position.z),-Vector3.up,out hit, playerCollider.bounds.extents.y + distOffset,groundLayerMask);
-
-
-		if(isGrounded)
-		{
-			if (newVelModifier.y < 0)
-				newVelModifier.y = 0;
-
-			//Make sure not to fall through
-			if (transform.position.y - playerCollider.bounds.extents.y < hit.point.y-0.01f || highSpeed)
-				transform.position = new Vector3(transform.position.x, hit.point.y +playerCollider.bounds.extents.y, transform.position.z);
-			
-		}
-		else
-		{
-			newVelModifier.y -= 9.81f * Time.deltaTime;
-		}
+		newVelModifier.y -= 9.81f * Time.deltaTime;
+	
 	}
 
 	void ApplyTransform()
@@ -257,13 +275,25 @@ public class Player : MonoBehaviour {
 		velocity = defaultForward*newVelModifier.z;
 		velocity += defaultRight*newVelModifier.x;
 		//Apply gravity as raw
-		velocity.y = newVelModifier.y;
+		velocity.y = 0;
 
-		transform.position += velocity*Time.deltaTime + Vector3.up * ((-9.81f * Time.deltaTime * Time.deltaTime / 2f));
+		transform.parent.transform.position += velocity*Time.deltaTime;
+
+		//Local positions
+		velocity.y = newVelModifier.y;
+		transform.localPosition += new Vector3 (0, velocity.y*Time.deltaTime + (-9.81f * Time.deltaTime * Time.deltaTime / 2f), 0);
+		if (transform.localPosition.y < 0)
+		{
+			transform.localPosition = Vector3.zero;
+			newVelModifier.y = 0;
+			isGrounded = true;
+		}
+		else if (transform.localPosition.y > 0.1f)
+			isGrounded = false;
 
 
 		//Get horizontal velocity to calculate character rotation
 		horizontalVelocity = new Vector3(velocity.x,0,velocity.z);
-		transform.rotation =  Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, horizontalVelocity, Time.deltaTime*10f, 0.0f));
+		transform.parent.transform.rotation =  Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, horizontalVelocity, Time.deltaTime*10f, 0.0f));
 	}
 }

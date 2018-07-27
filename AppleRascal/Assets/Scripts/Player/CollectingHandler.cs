@@ -10,7 +10,7 @@ public class CollectingHandler : MonoBehaviour {
 		set 
 		{
 			if (value != allowShake && GameMaster.Instance.hudHandler)
-				GameMaster.Instance.hudHandler.TreeTrigger(value); 
+				GameMaster.Instance.hudHandler.SetActionText(value, "Shake tree"); 
 			allowShake = value;
 		}
 	}
