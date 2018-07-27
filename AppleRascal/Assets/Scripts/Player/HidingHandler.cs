@@ -25,7 +25,12 @@ public class HidingHandler : MonoBehaviour {
 	public bool AllowHiding
 	{
 		get { return allowHiding; }
-		set { allowHiding = value; }
+		set 
+		{
+			if (value != allowHiding && GameMaster.Instance.hudHandler)
+				GameMaster.Instance.hudHandler.HideTrigger(value); 
+			allowHiding = value; 
+		}
 	}
 	public bool VisibleInHide
 	{

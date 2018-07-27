@@ -36,9 +36,16 @@ public class AppleTree : MonoBehaviour {
 		if (other.GetComponent<Player>())
 		{
 			player = other.GetComponent<Player>();
-			player.collectingHandler.AllowShake = true;
+			player.collectingHandler.AllowShake = applesLeft > 0 ? true : false;
 			player.collectingHandler.appleTree = this;
 			//Allow shakeshake
+		}
+	}
+	void OnTriggerStay(Collider other)
+	{
+		if (player && player.collectingHandler.AllowShake)
+		{
+			player.collectingHandler.AllowShake = applesLeft > 0 ? true : false;
 		}
 	}
 	void OnTriggerExit(Collider other)

@@ -6,6 +6,7 @@ public class GameMaster : MonoBehaviour {
 
 
 	public HudHandler hudHandler;
+	public Player player;
 	private static GameMaster _instance;
 	public static GameMaster Instance
 	{
@@ -27,6 +28,8 @@ public class GameMaster : MonoBehaviour {
 
 		_instance = this;
 		DontDestroyOnLoad(this.gameObject);
+
+		player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 		
 
 	}

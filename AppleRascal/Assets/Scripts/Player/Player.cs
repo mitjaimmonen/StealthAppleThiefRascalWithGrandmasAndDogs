@@ -30,6 +30,15 @@ public class Player : MonoBehaviour {
 	Vector3 defaultForward, defaultRight;
 	Vector3 oldPos;
 	Collider playerCollider;
+
+
+	
+	public bool hasMoved;
+	public bool hasCrawled;
+	public bool hasJumped;
+
+
+
 	public bool IsDashing
 	{
 		get {return isDashing;}
@@ -129,7 +138,10 @@ public class Player : MonoBehaviour {
 			if (Input.GetKeyDown(KeyCode.LeftControl))
 			{
 				if (!isDashing && isGrounded)
+				{
 					isCrawling = !isCrawling;
+					hasCrawled = true;
+				}
 			}
 			else if (!isGrounded)
 				isCrawling = false;
@@ -185,6 +197,7 @@ public class Player : MonoBehaviour {
 					dashCooldown = true;
 					isDashing = true;
 					newVelModifier.y = dashSpeed/5f;
+					hasJumped = true;
 				}
 				
 				if (dashStartTime + dashLength < Time.time)
@@ -199,7 +212,10 @@ public class Player : MonoBehaviour {
 		if (!x && !z)
 			isWalking = false;
 		else
+		{
 			isWalking = true;
+			hasMoved = true;
+		}
 		prevVelModifier = newVelModifier;
 	}
 
