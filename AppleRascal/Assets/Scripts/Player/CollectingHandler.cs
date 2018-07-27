@@ -17,5 +17,6 @@ public class CollectingHandler : MonoBehaviour {
 	public void CollectApple()
 	{
 		applesCollected ++;
+		GameMaster.Instance.hudHandler.SetApplesAmount(applesCollected);
 	}
 }
