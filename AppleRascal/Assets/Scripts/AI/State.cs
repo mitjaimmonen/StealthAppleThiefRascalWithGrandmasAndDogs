@@ -19,7 +19,15 @@ namespace AIStateStuff
         public AIStateType _state { get; protected set; }
         public IList<AIStateType> TargetStates { get; protected set; }
         public AI Owner { get; protected set; }
-        
+
+        public bool Sentry
+        {
+            get
+            {
+                return Owner.sentry;
+            }
+        }
+
         protected State()
         {
             TargetStates = new List<AIStateType>();

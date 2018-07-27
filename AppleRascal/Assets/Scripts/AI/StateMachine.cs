@@ -61,6 +61,9 @@ namespace AIStateStuff
             CautionState caution = new CautionState(Owner);
             _states.Add(caution);
 
+            ChaseState chase = new ChaseState(Owner);
+            _states.Add(chase);
+
             CurrentState = patrol;
             CurrentState.Enter();           
 

@@ -14,17 +14,11 @@ public class PatrolState : State
     private float _arriveDistance;
     private bool goToChase;
     private bool goToCautious;
-
+   
 
     public Waypoint CurrentWaypoint { get; private set; }
 
-    private bool Sentry
-    {
-        get
-        {
-            return Owner.sentry;
-        }
-    }
+ 
 
     public PatrolState(AI _owner, Path path, Direction direction, float arriveDistance) : base()
     {
@@ -41,13 +35,12 @@ public class PatrolState : State
 
     public override void Enter()
     {
-
         Debug.Log("Entering Patrol state");
         CurrentWaypoint = _path.GetClosestWaypoint(Owner.transform.position);
         Owner.fieldOfView.detectEvent += OnDetection;
 
         goToCautious = false;
-        goToChase = false;        
+        goToChase = false;
 
     }
 
@@ -98,23 +91,25 @@ public class PatrolState : State
         {
             if (Vector3.Distance(Owner.transform.position, target.position) <= Owner.distanceToChase)
             {
-             
+                
                 goToChase = true;
                 Target = target;
             }
             else
             {
-               
+
                 goToCautious = true;
                 Target = target;
 
             }
         }
-        else if (target.gameObject.tag == "Trail")
+        else if (target.gameObject.tag == "Trail" && !goToChase)
         {
-           
-            goToCautious = true;
-            Target = target;
+            if (target.GetComponent<TrailPoint>().trailPointType == Owner.detectable)
+            {
+                goToCautious = true;
+                Target = target;
+            }
         }
     }
 
@@ -123,7 +118,7 @@ public class PatrolState : State
         if (goToChase)
         {
             Owner.target = Target;
-            return false;
+            return Owner.stateMachine.PerformTransition(AIStateType.Chase);
         }
         else if (goToCautious)
         {
@@ -137,4 +132,5 @@ public class PatrolState : State
         }
 
     }
+
 }
