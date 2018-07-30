@@ -29,6 +29,8 @@ public class Player : MonoBehaviour {
 	Vector3 newVelModifier, prevVelModifier, velHorizontalModifier;
 	float dashStartTime;
 	bool dashCooldown = false;
+
+	bool isInvisible;
 	bool isDashing;
 	bool isCrawling;
 	bool isGrounded;
@@ -46,7 +48,11 @@ public class Player : MonoBehaviour {
 	public bool hasJumped;
 
 
-
+	public bool IsInvisible
+	{
+		get { return isInvisible; }
+		set { isInvisible = value; }
+	}
 	public bool IsDashing
 	{
 		get {return isDashing;}
@@ -123,7 +129,10 @@ public class Player : MonoBehaviour {
 			ApplyTransform();
 
 		
-		
+		if (isDashing || hidingHandler.IsHiding)
+			isInvisible = true;
+		else
+			isInvisible = false;
 
 		if (dashCooldown && dashStartTime + dashLength + dashCooldownTime < Time.time)
 			dashCooldown = false;
@@ -251,7 +260,6 @@ public class Player : MonoBehaviour {
 			
 			
 		}
-
 		if (!x && !z)
 			isWalking = false;
 		else
