@@ -90,7 +90,7 @@ public class Player : MonoBehaviour {
 			if (finishAutomatically && value)
 				Finish();
 			if (value != allowFinish)
-				GameMaster.Instance.hudHandler.SetActionText(value, "Finish level");
+				GameMaster.Instance.gameCanvas.hudHandler.SetActionText(value, "Finish level");
 
 			allowFinish = value;
 		}
@@ -140,10 +140,7 @@ public class Player : MonoBehaviour {
 
 	void Finish()
 	{
-		if (!PlayerPrefs.HasKey("Level"))
-			PlayerPrefs.SetInt("Level", 0);
-			
-		PlayerPrefs.SetInt("Level", Mathf.Max(PlayerPrefs.GetInt("Level"), GameMaster.Instance.levelNumber));
+		GameMaster.Instance.FinishGame();
 	}
 	void MovementInputs()
 	{

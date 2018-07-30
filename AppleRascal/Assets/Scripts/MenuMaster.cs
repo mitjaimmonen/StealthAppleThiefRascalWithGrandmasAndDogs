@@ -21,15 +21,13 @@ public class MenuMaster : MonoBehaviour {
 	public Canvas optionsCanvas;
 	public GameObject defaultStartSelection, defaultLevelSelection, defaultOptionsSelection;
 
-	public int unlockedLevel = 1;
+	public int unlockedLevel = 0;
 
 	Transform selecetedObject;
 
 	// Use this for initialization
 	void Start () {
-		StartCanvas.gameObject.SetActive(true);
-		levelCanvas.gameObject.SetActive(false);
-		optionsCanvas.gameObject.SetActive(false);
+		Initialize();
 	}
 	
 	// Update is called once per frame
@@ -41,6 +39,21 @@ public class MenuMaster : MonoBehaviour {
 		}
 	}
 
+	public void Initialize()
+	{
+		Reset();
+	}
+
+	public void Reset()
+	{
+		StartCanvas.gameObject.SetActive(true);
+		levelCanvas.gameObject.SetActive(false);
+		optionsCanvas.gameObject.SetActive(false);
+		if (PlayerPrefs.HasKey("Level"))
+			unlockedLevel = PlayerPrefs.GetInt("Level");
+		else
+			unlockedLevel = 0;
+	}
 	void SetSelections()
 	{
 		if (EventSystem.current.currentSelectedGameObject == null)

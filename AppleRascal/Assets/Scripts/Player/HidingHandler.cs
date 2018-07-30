@@ -27,8 +27,8 @@ public class HidingHandler : MonoBehaviour {
 		get { return allowHiding; }
 		set 
 		{
-			if (value != allowHiding && GameMaster.Instance.hudHandler)
-				GameMaster.Instance.hudHandler.SetActionText(value, "Hide");
+			if (value != allowHiding && GameMaster.Instance.gameCanvas)
+				GameMaster.Instance.gameCanvas.hudHandler.SetActionText(value, "Hide");
 			allowHiding = value; 
 		}
 	}

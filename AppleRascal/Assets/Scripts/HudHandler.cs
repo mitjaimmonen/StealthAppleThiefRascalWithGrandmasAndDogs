@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class HudHandler : MonoBehaviour {
 
 	// Use this for initialization
+	public GameObject hudPanel;
 	public Text applesText;
 	public Image applesIcon;
 	public Text buttonHintText;
@@ -22,8 +23,6 @@ public class HudHandler : MonoBehaviour {
 
 
 	void Start () {
-		GameMaster.Instance.hudHandler = this;
-
 		buttonHintImage.gameObject.SetActive(false);
 		buttonHintText.gameObject.SetActive(false);
 		
@@ -83,6 +82,15 @@ public class HudHandler : MonoBehaviour {
 			controlsTipsPanel.gameObject.SetActive(false);
 			showControlsTips = false;
 		}
+	}
+
+	public void ActivateHud()
+	{
+		hudPanel.SetActive(true);
+	}
+	public void DeactivateHud()
+	{
+		hudPanel.SetActive(false);
 	}
 
 

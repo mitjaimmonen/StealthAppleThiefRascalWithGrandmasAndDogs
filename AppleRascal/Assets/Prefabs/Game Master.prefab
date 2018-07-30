@@ -51,5 +51,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2a060a63e2e5f149a3d82dded72ab03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hudHandler: {fileID: 0}
+  cameraHandler: {fileID: 0}
+  gameCanvas: {fileID: 0}
+  menuMaster: {fileID: 0}
   player: {fileID: 0}
+  gameState: 1
+  levelNumber: 0
+  isPaused: 0
+  isGameOver: 0
+  hasWon: 0

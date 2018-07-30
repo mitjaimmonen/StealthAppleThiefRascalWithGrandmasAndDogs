@@ -9,8 +9,8 @@ public class CollectingHandler : MonoBehaviour {
 		get { return allowShake;}
 		set 
 		{
-			if (value != allowShake && GameMaster.Instance.hudHandler)
-				GameMaster.Instance.hudHandler.SetActionText(value, "Shake tree"); 
+			if (value != allowShake && GameMaster.Instance.gameCanvas)
+				GameMaster.Instance.gameCanvas.hudHandler.SetActionText(value, "Shake tree"); 
 			allowShake = value;
 		}
 	}
@@ -28,6 +28,7 @@ public class CollectingHandler : MonoBehaviour {
 	public void CollectApple()
 	{
 		applesCollected ++;
-		GameMaster.Instance.hudHandler.SetApplesAmount(applesCollected);
+		if (GameMaster.Instance.gameCanvas)
+			GameMaster.Instance.gameCanvas.hudHandler.SetApplesAmount(applesCollected);
 	}
 }
