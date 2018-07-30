@@ -140,7 +140,10 @@ public class Player : MonoBehaviour {
 
 	void Finish()
 	{
-		Debug.Log("FINISHED LEVEL WOOOOOO YEAA");
+		if (!PlayerPrefs.HasKey("Level"))
+			PlayerPrefs.SetInt("Level", 0);
+			
+		PlayerPrefs.SetInt("Level", Mathf.Max(PlayerPrefs.GetInt("Level"), GameMaster.Instance.levelNumber));
 	}
 	void MovementInputs()
 	{

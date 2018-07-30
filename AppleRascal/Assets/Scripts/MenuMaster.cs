@@ -21,6 +21,8 @@ public class MenuMaster : MonoBehaviour {
 	public Canvas optionsCanvas;
 	public GameObject defaultStartSelection, defaultLevelSelection, defaultOptionsSelection;
 
+	public int unlockedLevel = 1;
+
 	Transform selecetedObject;
 
 	// Use this for initialization
@@ -32,7 +34,11 @@ public class MenuMaster : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		SetSelections();
+		if (GameMaster.Instance.gameState != GameState.Game)
+		{
+			SetSelections();
+
+		}
 	}
 
 	void SetSelections()
@@ -80,6 +86,7 @@ public class MenuMaster : MonoBehaviour {
 		optionsCanvas.gameObject.SetActive(false);
 		levelCanvas.gameObject.SetActive(true);
 		EventSystem.current.SetSelectedGameObject(defaultLevelSelection);
+		menuState = MainMenuState.levelMenu;
 
 	}
 	public void StartMenuOptions()
@@ -88,6 +95,7 @@ public class MenuMaster : MonoBehaviour {
 		levelCanvas.gameObject.SetActive(false);
 		optionsCanvas.gameObject.SetActive(true);
 		EventSystem.current.SetSelectedGameObject(defaultOptionsSelection);
+		menuState = MainMenuState.optionsMenu;
 	}
 
 	public void OptionsMenuBack()
@@ -96,6 +104,7 @@ public class MenuMaster : MonoBehaviour {
 		optionsCanvas.gameObject.SetActive(false);
 		StartCanvas.gameObject.SetActive(true);
 		EventSystem.current.SetSelectedGameObject(defaultStartSelection);
+		menuState = MainMenuState.startMenu;
 	}
 
 	public void LevelMenuBack()
@@ -104,6 +113,16 @@ public class MenuMaster : MonoBehaviour {
 		optionsCanvas.gameObject.SetActive(false);
 		StartCanvas.gameObject.SetActive(true);
 		EventSystem.current.SetSelectedGameObject(defaultStartSelection);
+		menuState = MainMenuState.startMenu;
+	}
+
+	public void LevelMenuLoadLevel(int level)
+	{
+		if (level <= unlockedLevel)
+		{
+			SceneManager.LoadScene("Level" + level);
+			GameMaster.Instance.levelNumber = level;
+		}
 	}
 
 	public void MenuQuit()
