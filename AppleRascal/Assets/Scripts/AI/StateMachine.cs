@@ -24,8 +24,10 @@ namespace AIStateStuff
 
         public bool PerformTransition(AIStateType targetState)
         {
-            if (CurrentState.CheckTransition(targetState))
+
+            if (!CurrentState.CheckTransition(targetState))
             {
+                Debug.Log("ooops, got here D:");
                 return false;
             }
 
@@ -34,6 +36,7 @@ namespace AIStateStuff
             State state = GetStateByType(targetState);
             if (state != null)
             {
+               Debug.Log("should get here mode!");
                 CurrentState.Exit();
                 CurrentState = state;
                 CurrentState.Enter();
@@ -55,6 +58,11 @@ namespace AIStateStuff
         {
             PatrolState patrol = new PatrolState(Owner, Owner._path, Owner._direction, Owner._waypointArriveDistance);
             _states.Add(patrol);
+            CautionState caution = new CautionState(Owner);
+            _states.Add(caution);
+
+            ChaseState chase = new ChaseState(Owner);
+            _states.Add(chase);
 
             CurrentState = patrol;
             CurrentState.Enter();           

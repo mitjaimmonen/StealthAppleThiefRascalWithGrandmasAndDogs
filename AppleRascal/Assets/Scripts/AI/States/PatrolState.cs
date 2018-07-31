@@ -9,19 +9,16 @@ public class PatrolState : State
     private static PatrolState _instance;
 
     private Path _path;
+    Transform Target;
     private Direction _direction;
     private float _arriveDistance;
-
+    private bool goToChase;
+    private bool goToCautious;
+   
 
     public Waypoint CurrentWaypoint { get; private set; }
 
-    private bool Sentry
-    {
-        get
-        {
-            return Owner.sentry;
-        }
-    }
+ 
 
     public PatrolState(AI _owner, Path path, Direction direction, float arriveDistance) : base()
     {
@@ -38,9 +35,12 @@ public class PatrolState : State
 
     public override void Enter()
     {
-
         Debug.Log("Entering Patrol state");
         CurrentWaypoint = _path.GetClosestWaypoint(Owner.transform.position);
+        Owner.fieldOfView.detectEvent += OnDetection;
+
+        goToCautious = false;
+        goToChase = false;
 
     }
 
@@ -84,10 +84,52 @@ public class PatrolState : State
         Debug.Log("Exiting Patrol state");
     }
 
+    public void OnDetection(Transform target)
+    {
+
+        if (target.gameObject.tag == ("Player"))
+        {
+            if (Vector3.Distance(Owner.transform.position, target.position) <= Owner.distanceToChase)
+            {
+                
+                goToChase = true;
+                Target = target;
+            }
+            else
+            {
+
+                goToCautious = true;
+                Target = target;
+
+            }
+        }
+        else if (target.gameObject.tag == "Trail" && !goToChase)
+        {
+            if (target.GetComponent<TrailPoint>().trailPointType == Owner.detectable)
+            {
+                goToCautious = true;
+                Target = target;
+            }
+        }
+    }
 
     private bool ChangeState()
     {
-        return false;
-        //add transitions
+        if (goToChase)
+        {            
+            return Owner.stateMachine.PerformTransition(AIStateType.Chase);
+        }
+        else if (goToCautious)
+        {
+            Owner.target = Target;
+            return Owner.stateMachine.PerformTransition(AIStateType.Cautious);
+        }
+
+        else
+        {
+            return false;
+        }
+
     }
+
 }

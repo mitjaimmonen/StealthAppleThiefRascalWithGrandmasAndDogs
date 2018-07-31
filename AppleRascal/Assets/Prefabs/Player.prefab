@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 4107964590085910}
   - component: {fileID: 198141945936289760}
   - component: {fileID: 199893207829003854}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SmellParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}

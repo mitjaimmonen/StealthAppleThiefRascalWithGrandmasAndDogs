@@ -21,9 +21,9 @@ GameObject:
   - component: {fileID: 4694392873826972}
   - component: {fileID: 195726671470714196}
   - component: {fileID: 65430338955369582}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PlayerAgent
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4272902760539824}
   - component: {fileID: 198869066324628448}
   - component: {fileID: 199935013233377100}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: leapParticless
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4225332878802610}
   - component: {fileID: 198289838577028500}
   - component: {fileID: 199566968798218354}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SmellParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 114758797912321568}
   - component: {fileID: 114312327112013346}
   - component: {fileID: 114444879746775222}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}

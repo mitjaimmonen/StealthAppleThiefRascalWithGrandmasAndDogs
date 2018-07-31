@@ -13,6 +13,18 @@ public class TransformMover : MonoBehaviour, IMover
         _turnSpeed = turnSpeed;
     }
 
+    public void UpdateSpeed(float moveSpeed)
+    {
+        UpdateSpeed(moveSpeed, _turnSpeed);
+    }
+
+    public void UpdateSpeed(float moveSpeed, float turnSpeed)
+    {
+        _moveSpeed = moveSpeed;
+        _turnSpeed = turnSpeed;
+        Debug.Log("updating speed! new speed is =" + _moveSpeed);
+    }
+
     public void Turn(float amount)
     {
         Vector3 rotation = transform.localEulerAngles;
