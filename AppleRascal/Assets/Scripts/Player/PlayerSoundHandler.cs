@@ -113,7 +113,7 @@ public class PlayerSoundHandler : MonoBehaviour {
 			if (hit[i].collider.GetComponent<AI>())
 			{
 				AI enemyAI = hit[i].collider.GetComponent<AI>();
-				// enemyAI.Hear(transform.position, true);
+				enemyAI.Hear(transform.position, true);
 			}
 		}
 	}

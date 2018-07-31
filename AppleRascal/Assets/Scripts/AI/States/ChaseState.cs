@@ -7,12 +7,12 @@ using WaypointSystem;
 public class ChaseState : State
 {
 
-    public bool chasing = true;
     public bool goToPatrol;
     public bool justTurning = false;
+    public bool playerHiding;
     public Transform target;
-  
-  
+
+
 
     public ChaseState(AI _owner)
            : base()
@@ -20,7 +20,6 @@ public class ChaseState : State
         _state = AIStateType.Chase;
         Owner = _owner;
         target = GameObject.FindGameObjectWithTag("Player").transform;
-        
         AddTransition(AIStateType.Patrol);
 
     }
@@ -28,9 +27,11 @@ public class ChaseState : State
     public override void Enter()
     {
         Debug.Log("entered chase state");
+        Owner.navMeshAgent.speed += Owner._moveSpeedChaseModifier;
+        GameMaster.Instance.OnHide += OnPlayerHid;
 
-        Owner._moveSpeed += Owner._moveSpeedChaseModifier;
-        Owner.Mover.UpdateSpeed(Owner._moveSpeed);
+        playerHiding = false;
+        GameMaster.Instance.OnAlertMode(target);
 
     }
 
@@ -38,37 +39,45 @@ public class ChaseState : State
     {
         if (!ChangeState())
         {
+            Debug.Log("just turning is " + justTurning);
             if (!Sentry)
             {
-                ChasePlayer();
-                if (justTurning)
+                if (!playerHiding)
                 {
-                    Debug.Log("turning");
-                    Vector3 targetDir = new Vector3(target.position.x, Owner.transform.position.y, target.position.z) - Owner.transform.position;
+                    ChasePlayer();
 
-                    Owner.transform.rotation = Quaternion.LookRotation(targetDir, Owner.transform.up);
-                    // Owner.transform.LookAt(Owner.target);
+                    if (justTurning)
+                    {
+                        Vector3 targetDir = new Vector3(target.position.x, Owner.transform.position.y, target.position.z) - Owner.transform.position;
+                        Owner.transform.rotation = Quaternion.LookRotation(targetDir, Owner.transform.up);
+                    }
+                    else
+                    {
+                        Owner.navMeshAgent.SetDestination(target.position);
+                        Owner.Mover.Turn(target.position);
+                    }
                 }
+
                 else
                 {
-                    Owner.Mover.Turn(target.position);
-                    Owner.Mover.Move(target.forward);
+                    CheckOutHidingSpot();
                 }
-
             }
         }
     }
 
     public void ChasePlayer()
     {
-        if (Vector3.Distance(target.position, target.position) > Owner.giveUpChaseDistance)
+        if (Vector3.Distance(Owner.transform.position, target.position) > Owner.giveUpChaseDistance)
         {
             StopChase();
+            justTurning = false;
         }
-        if (Vector3.Distance(target.position, target.position) < Owner.attackDistance)
+        if (Vector3.Distance(Owner.transform.position, target.position) < Owner.attackDistance)
         {
+            Debug.Log("close enough for attack, distance is: " + Vector3.Distance(target.position, target.position));
+
             justTurning = true;
-         //   Owner._turnSpeed += Owner._turnSpeedChaseModifier;
             if (Owner.fieldOfView.visibleTargets.Contains(target))
             {
                 Owner.StartCoroutine(Owner.Attack());
@@ -76,7 +85,23 @@ public class ChaseState : State
 
         }
         else
+        {
             justTurning = false;
+        }
+    }
+
+    private void CheckOutHidingSpot()
+    {
+        if (Vector3.Distance(Owner.transform.position, target.position) > 4f)
+        {
+            Owner.Mover.Turn(target.position);
+            Owner.navMeshAgent.SetDestination(target.position);
+        }
+        else
+        {          
+            Owner.SentryForFollowing(180, 2.5f);
+            goToPatrol = true;           
+        }
     }
 
     private void StopChase()
@@ -84,27 +109,33 @@ public class ChaseState : State
         goToPatrol = true;
     }
 
+    private void OnPlayerHid(Transform hidingSpot, bool toggle)
+    {
+        target = hidingSpot;
+        playerHiding = toggle;
+    }
+
     public override void Exit()
     {
-        Owner._moveSpeed -= Owner._moveSpeedChaseModifier;
-        Owner.Mover.UpdateSpeed(Owner._moveSpeed);
-
-        Owner.StartCoroutine(Owner.SentryForFollowing(180, 2.5f));
+        Owner.navMeshAgent.speed -= Owner._moveSpeedChaseModifier;
+        GameMaster.Instance.OnHide -= OnPlayerHid;
+        //Owner.StartCoroutine(Owner.SentryForFollowing(180, 2.5f));
+        GameMaster.Instance.setAlertMode(false);
     }
-
-    private void OnPlayerHide(Transform hidingPlace)
-    {
-        StopChase();
-    }
-
 
     public bool ChangeState()
     {
-        if (goToPatrol)
+        if (!Sentry)
         {
-            return Owner.stateMachine.PerformTransition(AIStateType.Patrol);
+            if (goToPatrol)
+            {
+                Debug.Log("going from chase to patrol");
+                return Owner.stateMachine.PerformTransition(AIStateType.Patrol);
+            }
+            else
+                return false;
         }
-        else
-            return false;
+            else
+                return false;
     }
 }

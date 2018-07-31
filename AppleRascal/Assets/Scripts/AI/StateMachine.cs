@@ -27,7 +27,7 @@ namespace AIStateStuff
 
             if (!CurrentState.CheckTransition(targetState))
             {
-                Debug.Log("ooops, got here D:");
+                Debug.Log("can't go from " + CurrentState._state + "to " + CurrentState._state);
                 return false;
             }
 
@@ -35,8 +35,7 @@ namespace AIStateStuff
 
             State state = GetStateByType(targetState);
             if (state != null)
-            {
-               Debug.Log("should get here mode!");
+            {              
                 CurrentState.Exit();
                 CurrentState = state;
                 CurrentState.Enter();
@@ -60,7 +59,6 @@ namespace AIStateStuff
             _states.Add(patrol);
             CautionState caution = new CautionState(Owner);
             _states.Add(caution);
-
             ChaseState chase = new ChaseState(Owner);
             _states.Add(chase);
 

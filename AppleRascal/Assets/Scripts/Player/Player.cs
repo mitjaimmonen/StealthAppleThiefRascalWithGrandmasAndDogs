@@ -19,12 +19,9 @@ public class Player : MonoBehaviour {
 	public float dashLength;
 	public float dashCooldownTime;
 	public HidingSpot hide;
-	public bool finishAutomatically;
-	
-	
+	public bool finishAutomatically;	
 
 	NavMeshAgent navMeshAgent;
-
 
 	Vector3 velocity, horizontalVelocity;
 	Vector3 newVelModifier, prevVelModifier, velHorizontalModifier;

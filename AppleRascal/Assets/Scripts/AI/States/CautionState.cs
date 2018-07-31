@@ -45,8 +45,9 @@ public class CautionState : State
         goToPatrol = false;
         trailIsPlayer = false;
         lookForCounter = 0;
-        Owner._moveSpeed += Owner._moveSpeedChaseModifier;
-        Owner.Mover.UpdateSpeed(Owner._moveSpeed);
+       
+
+        Owner.navMeshAgent.speed += Owner._moveSpeedChaseModifier;
 
 
         if (currentTarget.gameObject.tag == "Player")
@@ -68,13 +69,14 @@ public class CautionState : State
             return;
         }
 
+        
         if (target.tag == "Player")
         {
             if (Vector3.Distance(Owner.transform.position, target.position) <= Owner.distanceToChase)
                 goToChase = true;
             else
             {
-                if (followingTrail && trailIsPlayer)
+                if (trailIsPlayer)
                 {
                     return;
                 }
@@ -153,14 +155,13 @@ public class CautionState : State
         }
     }
 
-    private void FollowPlayer()
+      private void FollowPlayer()
     {
 
-
-        if (Vector3.Distance(Owner.transform.position, playerLastSeenPos) >= 1.1f)
+        if (Vector3.Distance(Owner.transform.position, playerLastSeenPos) >1.5f)
         {
+            Owner.navMeshAgent.SetDestination(playerLastSeenPos);
             Owner.Mover.Turn(playerLastSeenPos);
-            Owner.Mover.Move(Owner.transform.forward);
         }
         else
         {
@@ -170,19 +171,22 @@ public class CautionState : State
     }
 
     public override void Execute()
-    {
-        Debug.Log("follow trail is: " + followingTrail);
+    {       
         if (!ChangeState())
         {
             if (!Sentry && trailIsPlayer)
+            {                
                 FollowPlayer();
+            }
+
             if (!Sentry && followingTrail)
-            {
+            {               
                 if (!trailIsPlayer)
-                {
-                    FollowTrail();
+                {                
                     Owner.Mover.Turn(currentTarget.position);
-                    Owner.Mover.Move(Owner.transform.forward);
+                    Owner.navMeshAgent.SetDestination(currentTarget.position);               
+                    FollowTrail();
+
                     lookForCounter = 0;
                 }
 
@@ -208,8 +212,8 @@ public class CautionState : State
 
     public override void Exit()
     {
-        Owner._moveSpeed -= Owner._moveSpeedChaseModifier;
-        Owner.Mover.UpdateSpeed(Owner._moveSpeed);
+        Owner.navMeshAgent.speed -= Owner._moveSpeedChaseModifier;
+
 
 
         if (goToChase)

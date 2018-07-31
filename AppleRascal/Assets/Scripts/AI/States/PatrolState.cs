@@ -38,7 +38,7 @@ public class PatrolState : State
         Debug.Log("Entering Patrol state");
         CurrentWaypoint = _path.GetClosestWaypoint(Owner.transform.position);
         Owner.fieldOfView.detectEvent += OnDetection;
-
+        Owner.navMeshAgent.updateRotation = true;
         goToCautious = false;
         goToChase = false;
 
@@ -51,8 +51,10 @@ public class PatrolState : State
             if (!Sentry)
             {
                 CurrentWaypoint = GetWaypoint();
-                Owner.Mover.Move(Owner.transform.forward);
-                Owner.Mover.Turn(CurrentWaypoint.Position);
+               // Owner.navMeshAgent.updateRotation = true;
+              Owner.Mover.Turn(CurrentWaypoint.Position);
+              Owner.navMeshAgent.SetDestination(CurrentWaypoint.Position);
+              //  Owner.Mover.Move(Owner.transform.forward);
             }
         }
     }
@@ -71,6 +73,7 @@ public class PatrolState : State
             }
             else
             {
+                Debug.Log("goTs here");
                 Owner.StartCoroutine(Owner.OverridenSentry(CurrentWaypoint));
             }
             result = _path.GetNextWaypoint(CurrentWaypoint, ref _direction);
@@ -81,6 +84,8 @@ public class PatrolState : State
 
     public override void Exit()
     {
+        Owner.fieldOfView.detectEvent -= OnDetection;
+        Owner.navMeshAgent.updateRotation = false;
         Debug.Log("Exiting Patrol state");
     }
 

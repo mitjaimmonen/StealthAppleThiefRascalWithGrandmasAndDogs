@@ -2,6 +2,7 @@
 using UnityEngine;
 using WaypointSystem;
 using AIStateStuff;
+using UnityEngine.AI;
 
 public class AI : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class AI : MonoBehaviour
     public Transform target;
     private bool followingTrail;
     public TrailType detectable;
+    public NavMeshAgent navMeshAgent;
 
 
 
@@ -47,6 +49,7 @@ public class AI : MonoBehaviour
     {
         startPosition = transform.position;
         fieldOfView = GetComponent<FieldOfView>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
     public void Init()
@@ -60,6 +63,7 @@ public class AI : MonoBehaviour
         stateMachine = new StateMachine(this);
         gameTimer = Time.time;
         fieldOfView.detectEvent += Trigger;
+        GameMaster.Instance.alertEvent += JumpToChase;
 
         Init();
         stateMachine.InitStates();
@@ -68,10 +72,23 @@ public class AI : MonoBehaviour
     private void Update()
     {
         stateMachine.ExecuteStateUpdate();
+
+        if (sentry)
+        {
+            navMeshAgent.isStopped = true;
+            navMeshAgent.updateRotation = false;
+        }
+        else
+        {
+            navMeshAgent.isStopped = false;
+           // navMeshAgent.updateRotation = true;
+        }
     }
 
     public IEnumerator Sentry()
     {
+        navMeshAgent.updateRotation = false;
+        navMeshAgent.isStopped = true;
         Debug.Log("Sentry mode");
         sentry = true;
 
@@ -115,14 +132,14 @@ public class AI : MonoBehaviour
 
 
         sentry = false;
+        navMeshAgent.updateRotation = true;
     }
 
     public IEnumerator SentryForFollowing(float lookAngle, float waitTime)
     {
-        sentry = true;
-        Debug.Log("starting sentry for caution");
-       
-
+        navMeshAgent.isStopped = true;
+        sentry = true;       
+        
         float elapsedTime = 0;
         Quaternion startRotation = transform.rotation;
         Quaternion qMinus = Quaternion.AngleAxis(-lookAngle / 2, transform.up) * transform.rotation;
@@ -160,19 +177,22 @@ public class AI : MonoBehaviour
 
         if (!triggered)
         {
-            yield return new WaitForSeconds(waitTime / 16);          
+            yield return new WaitForSeconds(waitTime / 16);
         }
 
+       
         sentry = false;
     }
 
     public IEnumerator OverridenSentry(Waypoint waypoint)
     {
+
         if (waypoint.sentryModeDuration < 0.1f)
         {
             yield break;
         }
-
+        navMeshAgent.isStopped = true;
+      navMeshAgent.updateRotation = false;
         sentry = true;
 
         float elapsedTime = 0;
@@ -214,6 +234,7 @@ public class AI : MonoBehaviour
             yield return new WaitForSeconds(waypoint.sentryModeDuration / 16);
 
         sentry = false;
+        navMeshAgent.updateRotation = true;
     }
 
     public void Trigger(Transform target)
@@ -224,13 +245,29 @@ public class AI : MonoBehaviour
 
     public IEnumerator Attack()
     {
+       
         sentry = true;
         yield return new WaitForSeconds(0.1f);
         Debug.Log("attacked!!");
         yield return new WaitForSeconds(1f);
         sentry = false;
-        
+     
+
     }
+
+    public void Hear(Vector3 playerLastPos, bool isPLayer)
+    {
+        //caution mode
+    }
+
+
+    private void JumpToChase(Transform _target)
+    {
+        Debug.Log("called jump to chase, current state is: " + stateMachine.CurrentState._state);     
+        if (stateMachine.CurrentState._state != AIStateType.Chase)
+        stateMachine.PerformTransition(AIStateType.Chase);
+    }
+    
 
     //public Transform SortPriorityTarget(AIStateType currentState, Transform _target)
     //{

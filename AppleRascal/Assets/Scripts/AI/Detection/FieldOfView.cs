@@ -63,9 +63,21 @@ public class FieldOfView : MonoBehaviour
 
                 if (!Physics.Raycast(transform.position, dirToTarget, distToTarget, obstacleMask))
                 {
-                    Detect(target);
-                    
-                    visibleTargets.Add(target);
+                    if (target.gameObject.tag == "Player" )
+                    {
+                        Player temp = target.GetComponent<Player>();
+                        if ( temp && !temp.IsInvisible)
+                        {
+                            Detect(target);
+                            visibleTargets.Add(target);
+                        }
+                    }
+                    else
+                    {
+                        Detect(target);
+                        visibleTargets.Add(target);
+                    }
+                   
                 }
             }
         }

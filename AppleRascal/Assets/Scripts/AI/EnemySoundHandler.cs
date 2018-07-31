@@ -79,7 +79,7 @@ public class EnemySoundHandler : MonoBehaviour {
 			if (hit[i].collider.GetComponent<AI>())
 			{
 				AI enemyAI = hit[i].collider.GetComponent<AI>();
-				// enemyAI.Hear(transform.position, false);
+				enemyAI.Hear(transform.position, false);
 			}
 		}
 	}
