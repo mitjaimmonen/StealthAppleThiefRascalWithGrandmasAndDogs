@@ -144,15 +144,28 @@ public class GameMaster : MonoBehaviour {
 
 	}
 
-	public void FinishGame()
+	public bool HasScene(string sceneName)
 	{
-		GameMaster.Instance.hasWon = true;
+		return Application.CanStreamedLevelBeLoaded(sceneName);
+	}
+
+	public void EndGame(bool win)
+	{
+		GameMaster.Instance.hasWon = win;
 		GameMaster.Instance.isGameOver = true;
 		GameMaster.Instance.isPaused = true;
 
-		if (!PlayerPrefs.HasKey("Level"))
-			PlayerPrefs.SetInt("Level", 0);
-		PlayerPrefs.SetInt("Level", Mathf.Max(PlayerPrefs.GetInt("Level"), GameMaster.Instance.levelNumber));
+		if (hasWon)
+		{
+			if (!PlayerPrefs.HasKey("Level"))
+				PlayerPrefs.SetInt("Level", 0);
+			PlayerPrefs.SetInt("Level", Mathf.Max(PlayerPrefs.GetInt("Level"), GameMaster.Instance.levelNumber+1));
+		}
+		else
+		{
+			gameCanvas.hudHandler.DeactivateHud();
+			gameCanvas.pauseMenuHandler.ActivatePauseMenu(win ? PauseMenuType.FinishMenu : PauseMenuType.DeadMenu);
+		}
 	}
 	public void RestartLevel()
 	{

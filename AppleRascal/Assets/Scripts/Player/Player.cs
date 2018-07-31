@@ -9,10 +9,11 @@ public class Player : MonoBehaviour {
 	[HideInInspector]public TrailHandler trailHandler;
 	[HideInInspector]public HidingHandler hidingHandler;
 	[HideInInspector]public CollectingHandler collectingHandler;
-	[HideInInspector]public SoundSource soundSource;
+	[HideInInspector]public PlayerSoundHandler playerSoundHandler;
 	public ParticleSystem leapParticles;
 	public LayerMask groundLayerMask;
 	public LayerMask hidingSpotLayerMask;
+	public float damageRecoverTime = 5f;
 	public float moveSpeed;
 	public float dashSpeed;
 	public float dashLength;
@@ -30,6 +31,7 @@ public class Player : MonoBehaviour {
 	float dashStartTime;
 	bool dashCooldown = false;
 
+	bool isDamaged;
 	bool isInvisible;
 	bool isDashing;
 	bool isCrawling;
@@ -48,6 +50,10 @@ public class Player : MonoBehaviour {
 	public bool hasJumped;
 
 
+	float damagedTime = 0;
+
+
+	#region Getters and Setters
 	public bool IsInvisible
 	{
 		get { return isInvisible; }
@@ -76,7 +82,7 @@ public class Player : MonoBehaviour {
 	public bool IsMoving
 	{
 		get {
-			if (velocity.magnitude > 0.05f)
+			if (Mathf.Abs(newVelModifier.x) > 0.1f || Mathf.Abs(newVelModifier.z) > 0.1f)
 				return true;
 			else
 				return false;
@@ -88,21 +94,48 @@ public class Player : MonoBehaviour {
 		get { return allowFinish; }
 		set {
 			if (finishAutomatically && value)
-				Finish();
+				EndGame(true);
 			if (value != allowFinish)
 				GameMaster.Instance.gameCanvas.hudHandler.SetActionText(value, "Finish level");
 
 			allowFinish = value;
 		}
 	}
-
-
-
 	public bool OverridingTransform
 	{
 		get { return overridingTransform; }
 		set { overridingTransform = value; }
 	}
+
+	#endregion
+
+
+
+	public void GetHit()
+	{
+		if (!isDamaged)
+		{
+			isDamaged = true;
+			damagedTime = Time.time;
+		}
+		else
+		{
+			StartCoroutine(Die());
+		}
+
+	}
+
+	IEnumerator Die()
+	{
+		//Play death animation.
+		OverridingTransform = true;
+		yield return new WaitForSeconds(1f);
+		GameMaster.Instance.EndGame(false);
+		yield break;
+	}
+
+
+
 	// Use this for initialization
 	void Start () {
 		trailHandler = GetComponent<TrailHandler>();
@@ -114,13 +147,12 @@ public class Player : MonoBehaviour {
 		defaultForward = Vector3.Cross(Camera.main.transform.right, Vector3.up).normalized;
  		defaultRight = Camera.main.transform.right;
 		playerCollider = GetComponent<Collider>();
-		soundSource = GetComponent<SoundSource>();
+		playerSoundHandler = GetComponent<PlayerSoundHandler>();
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		
 		oldPos = transform.position;
 
 		MovementInputs();
@@ -134,13 +166,16 @@ public class Player : MonoBehaviour {
 		else
 			isInvisible = false;
 
+		if (isDamaged && damagedTime + damageRecoverTime < Time.time)
+			isDamaged = false;
+
 		if (dashCooldown && dashStartTime + dashLength + dashCooldownTime < Time.time)
 			dashCooldown = false;
 	}
 
-	void Finish()
+	void EndGame(bool win)
 	{
-		GameMaster.Instance.FinishGame();
+		GameMaster.Instance.EndGame(win);
 	}
 	void MovementInputs()
 	{
@@ -227,7 +262,7 @@ public class Player : MonoBehaviour {
 				}
 				else if (AllowFinish)
 				{
-					Finish();
+					EndGame(true);
 				}
 			}
 			

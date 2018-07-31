@@ -145,7 +145,7 @@ public class TrailHandler : MonoBehaviour {
 				newPoint.deactivationTime = trailPointLifetime;
 				newPoint.transform.position = transform.position;
 				newPoint.gameObject.SetActive(true);
-				player.soundSource.NewTrailSound(newPoint.trailPointType, buffDelayActive ? 2f-buffRelativeTimeLeft : 1f);
+				player.playerSoundHandler.NewTrailSound(newPoint.trailPointType, buffDelayActive ? 2f-buffRelativeTimeLeft : 1f);
 
 				if (lastTrailPoint)
 					lastTrailPoint.connectedTrailPoint = newPoint;
