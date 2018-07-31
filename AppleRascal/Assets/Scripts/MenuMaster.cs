@@ -21,10 +21,28 @@ public class MenuMaster : MonoBehaviour {
 	public List<TextMesh> levelTexts = new List<TextMesh>();
 	public Canvas optionsCanvas;
 	public GameObject defaultStartSelection, defaultLevelSelection, defaultOptionsSelection;
+	public OptionsVolumeHandler musicVolumeHandler;
+	public OptionsVolumeHandler sfxVolumeHandler;
 
 	public int unlockedLevel = 0;
 
 	Transform selecetedObject;
+
+
+	bool resetPrefsOnApply = false;
+	bool setSfxOnApply;
+	bool setMusicOnApply;
+
+	int musicVolume;
+	int sfxVolume;
+
+	bool settingMusicVolume;
+	bool settingAudioVolume;
+	int volumeOffset = 0;
+	float timer = 0;
+
+	List<Transform> lerpUp = new List<Transform>();
+	List<Transform> lerpDown = new List<Transform>();
 
 	// Use this for initialization
 	void Start () {
@@ -37,20 +55,46 @@ public class MenuMaster : MonoBehaviour {
 		{
 			SetSelections();
 
+			if (settingAudioVolume && timer>0.05f)
+			{
+				timer = 0;
+				sfxVolume = sfxVolumeHandler.SetVolume(volumeOffset, true);
+			}
+			if (settingMusicVolume && timer>0.05f)
+			{
+				timer = 0;
+				musicVolume = musicVolumeHandler.SetVolume(volumeOffset, true);
+
+			}
+			timer += Time.deltaTime;
+
+			for (int i = 0; i < lerpUp.Count; i++)
+			{
+				Vector3 newpos = new Vector3(lerpUp[i].localPosition.x,lerpUp[i].localPosition.y, -50f);
+				lerpUp[i].localPosition = Vector3.Lerp(lerpUp[i].localPosition, newpos, Time.deltaTime * 10f);
+				if (lerpUp[i].localPosition == newpos || lerpDown.Contains(lerpUp[i]))
+					lerpUp.Remove(lerpUp[i]);
+			}
+			for (int i = 0; i < lerpDown.Count; i++)
+			{
+				Vector3 newpos = new Vector3(lerpDown[i].localPosition.x,lerpDown[i].localPosition.y, 0);
+				lerpDown[i].localPosition = Vector3.Lerp(lerpDown[i].localPosition, newpos, Time.deltaTime * 10f);
+				if (lerpDown[i].localPosition == newpos)
+					lerpDown.Remove(lerpDown[i]);
+			}
+
 		}
 	}
 
 	public void Initialize()
 	{
-		int unlocked = 0;
-		if (PlayerPrefs.HasKey("Level"))
-			unlocked = PlayerPrefs.GetInt("Level");
+		unlockedLevel = PlayerPrefsManager.GetLevel();
 		
 		for(int i = 0; i < levelTexts.Count; i++)
 		{
 			if (!GameMaster.Instance.HasScene("Level" + i))
 				levelTexts[i].text = "Coming \n soon!";
-			else if (i > unlocked)
+			else if (i > unlockedLevel)
 				levelTexts[i].text = "Locked";
 			else
 				levelTexts[i].text ="Level \n" + i; 
@@ -64,10 +108,10 @@ public class MenuMaster : MonoBehaviour {
 		StartCanvas.gameObject.SetActive(true);
 		levelCanvas.gameObject.SetActive(false);
 		optionsCanvas.gameObject.SetActive(false);
-		if (PlayerPrefs.HasKey("Level"))
-			unlockedLevel = PlayerPrefs.GetInt("Level");
-		else
-			unlockedLevel = 0;
+		unlockedLevel = PlayerPrefsManager.GetLevel();
+		resetPrefsOnApply = false;
+		setMusicOnApply = false;
+		setSfxOnApply = false;
 	}
 	void SetSelections()
 	{
@@ -77,24 +121,14 @@ public class MenuMaster : MonoBehaviour {
 				EventSystem.current.SetSelectedGameObject(defaultStartSelection);
 			if (menuState == MainMenuState.levelMenu)
 				EventSystem.current.SetSelectedGameObject(defaultLevelSelection);
+			if (menuState == MainMenuState.optionsMenu)
+				EventSystem.current.SetSelectedGameObject(defaultOptionsSelection);
 		}
 		else if (selecetedObject != null && selecetedObject != EventSystem.current.currentSelectedGameObject.transform)
 		{
-			Renderer rend = selecetedObject.GetComponentInChildren<Renderer>();
-			var pos =rend.transform.localPosition;
-			pos.z = -0f;
-			rend.transform.localPosition = pos;
 			selecetedObject = EventSystem.current.currentSelectedGameObject.transform;
-
 		}
-		else if (selecetedObject != null)
-		{
-			Renderer rend = selecetedObject.GetComponentInChildren<Renderer>();
-			var pos = rend.transform.localPosition;
-			pos.z = -50f;
-			rend.transform.localPosition = pos;
-		}
-		else
+		else if (selecetedObject == null)
 			selecetedObject = EventSystem.current.currentSelectedGameObject.transform;
 		
 	}
@@ -103,6 +137,23 @@ public class MenuMaster : MonoBehaviour {
 	public void PointerEnter(GameObject obj)
 	{
 		EventSystem.current.SetSelectedGameObject(obj);
+		Renderer rend = obj.GetComponentInChildren<Renderer>();
+		if (lerpDown.Contains(rend.transform))
+			lerpDown.Remove(rend.transform);
+		lerpUp.Add(rend.transform);
+		Debug.Log("Pointer enter: " + obj);
+
+
+	}
+	public void PointerExit(GameObject obj)
+	{
+		Debug.Log("Pointer exit: " + obj);
+
+
+		Renderer rend = obj.GetComponentInChildren<Renderer>();
+		if (lerpUp.Contains(rend.transform))
+			lerpUp.Remove(rend.transform);
+		lerpDown.Add(rend.transform);
 	}
 
 	public void StartMenuStart()
@@ -125,11 +176,52 @@ public class MenuMaster : MonoBehaviour {
 
 	public void OptionsMenuBack()
 	{
+
 		levelCanvas.gameObject.SetActive(false);
 		optionsCanvas.gameObject.SetActive(false);
 		StartCanvas.gameObject.SetActive(true);
 		EventSystem.current.SetSelectedGameObject(defaultStartSelection);
 		menuState = MainMenuState.startMenu;
+
+		
+	}
+
+	public void OptionsMenuMusicBtnDown(int volOffset)
+	{
+		volumeOffset = volOffset;
+		settingMusicVolume = true;
+		setMusicOnApply = true;
+	}
+	public void OptionsMenuAudioBtnDown(int volOffset)
+	{
+		volumeOffset = volOffset;
+		settingAudioVolume = true;
+		setSfxOnApply = true;
+	}
+	public void OptionsMenuMusicBtnUp()
+	{
+		settingMusicVolume = false;
+		setMusicOnApply = false;
+	}
+	public void OptionsMenuAudioBtnUp()
+	{
+		settingAudioVolume = false;
+		setSfxOnApply = false;
+	}
+	public void DragTest()
+	{
+		Debug.Log("DragStarted");
+	}
+
+	public void OptionsMenuResetPrefs()
+	{
+		PlayerPrefsManager.SetLevel(0);
+		PlayerPrefsManager.SetTutorialDone(false);
+	}
+	void ResetPrefs()
+	{
+		PlayerPrefsManager.SetLevel(0);
+		PlayerPrefsManager.SetTutorialDone(false);
 	}
 
 	public void LevelMenuBack()
@@ -139,6 +231,8 @@ public class MenuMaster : MonoBehaviour {
 		StartCanvas.gameObject.SetActive(true);
 		EventSystem.current.SetSelectedGameObject(defaultStartSelection);
 		menuState = MainMenuState.startMenu;
+
+		
 	}
 
 	public void LevelMenuLoadLevel(int level)
