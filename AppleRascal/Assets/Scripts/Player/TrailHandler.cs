@@ -28,11 +28,14 @@ public class TrailHandler : MonoBehaviour {
 
 
 	TrailType currentTrailType = TrailType.none;
+	float defaultTrailPointLifetime;
 	float lastTrailPointTime;
 	float lastTrailTypeChangeTime;
 	int pointIndex = 0;
 	bool buffDelayActive = false;
+	bool buffLifetimeActive = false;
 	float buffDelayStartTime;
+	float buffRelativeTimeLeft;
 	GameObject trailParent;
 
 
@@ -67,6 +70,7 @@ public class TrailHandler : MonoBehaviour {
 			footstepHandler = GetComponent<FootstepHandler>();
 
 		CurrentTrailType = defaultTrail;
+		defaultTrailPointLifetime = trailPointLifetime;
 	}
 
 	void CreateNewTrailPoint()
@@ -96,8 +100,9 @@ public class TrailHandler : MonoBehaviour {
 		SetTrailPoints();
 		CreateTrailVisuals();
 		
-		if (!buffDelayActive && currentTrailType != defaultTrail && returnToDefaultTrailTime + lastTrailTypeChangeTime < Time.time)
+		if (!buffDelayActive && !player.hidingHandler.IsHiding && currentTrailType != defaultTrail && returnToDefaultTrailTime + lastTrailTypeChangeTime < Time.time)
 		{
+			Debug.Log("Back to default trail");
 			CurrentTrailType = defaultTrail;
 		}
 		if (allowResize)
@@ -118,7 +123,7 @@ public class TrailHandler : MonoBehaviour {
 
 	void SetTrailPoints()
 	{
-		if (!player.IsMoving)
+		if (!player.IsMoving || player.hidingHandler.IsHiding)
 			return;
 		
 
@@ -140,7 +145,7 @@ public class TrailHandler : MonoBehaviour {
 				newPoint.deactivationTime = trailPointLifetime;
 				newPoint.transform.position = transform.position;
 				newPoint.gameObject.SetActive(true);
-				player.soundSource.NewTrailSound(newPoint.trailPointType);
+				player.soundSource.NewTrailSound(newPoint.trailPointType, buffDelayActive ? 2f-buffRelativeTimeLeft : 1f);
 
 				if (lastTrailPoint)
 					lastTrailPoint.connectedTrailPoint = newPoint;
@@ -158,7 +163,7 @@ public class TrailHandler : MonoBehaviour {
 			{
 				var main = smellParticles.main;
 				main.startLifetime = trailPointLifetime;
-				if (!smellParticles.isPlaying)
+				if (!smellParticles.isPlaying || !smellParticles.isEmitting)
 				{
 					main.loop = true;
 					smellParticles.Play();
@@ -170,7 +175,12 @@ public class TrailHandler : MonoBehaviour {
 			if (smellParticles && smellParticles.isPlaying)
 				smellParticles.Stop();
 			if (!player.IsDashing && player.IsGrounded)
-				footstepHandler.CreateFootsteps();
+			{
+				if (buffDelayActive)
+					footstepHandler.CreateFootsteps(buffRelativeTimeLeft);
+				else
+					footstepHandler.CreateFootsteps(1);
+			}
 
 		}
 		else if (currentTrailType == TrailType.none)
@@ -187,22 +197,66 @@ public class TrailHandler : MonoBehaviour {
 	public void ChangeTrailType(TrailType newTrailType,TrailType trailTypeAfterBuff, float buffTime)
 	{
 		CurrentTrailType = newTrailType;
-		buffDelayStartTime = Time.time;
 		if (!buffDelayActive)
+		{
+			Debug.Log("Change trail type , starting coroutine to delay.");
+
+			buffDelayStartTime = Time.time;
 			StartCoroutine(ChangeTrailTypeWithDelay(trailTypeAfterBuff, buffTime));
+		}
 	}
 
 	IEnumerator ChangeTrailTypeWithDelay(TrailType newType, float buffTime)
 	{
 		buffDelayActive = true;
+		TrailType type = CurrentTrailType;
 		while(buffTime + buffDelayStartTime > Time.time)
 		{
 			//NOTE: buffDelayStartTime can update as long as player is triggering ChangeTrailType()
 			yield return new WaitForSeconds(0.1f);
+
+			buffRelativeTimeLeft = (Time.time-buffDelayStartTime) / buffTime;
+
+			//In case trail has already changed during buff, exit routine
+			if (type != currentTrailType)
+			{
+				buffDelayActive = false;
+				yield break;
+			}
 		}
 		CurrentTrailType = newType;
+		Debug.Log("Change trail type with delay.");
 		buffDelayActive = false;
 		yield break;
 
+	}
+
+	public void ChangeTrailPointLifetime(float lifetime, float buffTime)
+	{
+		if (!buffLifetimeActive)
+			StartCoroutine(ChangeTrailPointLifetimeBuff(lifetime, buffTime));
+	}
+
+	IEnumerator ChangeTrailPointLifetimeBuff(float lifetime, float buffTime)
+	{
+		buffLifetimeActive = true;
+		float time = Time.time;
+		TrailType type = CurrentTrailType;
+		trailPointLifetime = lifetime;
+		while (time+buffTime > Time.time)
+		{
+			yield return new WaitForSeconds(0.1f);
+			if (type != currentTrailType)
+			{
+				trailPointLifetime = defaultTrailPointLifetime;
+				buffLifetimeActive = false;
+				yield break;
+
+			}
+		}
+
+		trailPointLifetime = defaultTrailPointLifetime;
+		buffLifetimeActive = false;
+		yield break;
 	}
 }

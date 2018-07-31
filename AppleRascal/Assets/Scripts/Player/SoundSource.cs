@@ -5,7 +5,7 @@ using UnityEngine;
 public class SoundSource : MonoBehaviour {
 
 	// Use this for initialization
-	public bool debug;
+	public GameObject soundVisualPrefab;
 	public bool isPlayer = true;
 	public LayerMask enemyLayerMask;
 	[Range(0.0f,10f)] public float minimumSoundRadius = 3.5f;
@@ -17,55 +17,82 @@ public class SoundSource : MonoBehaviour {
 	[Range(0.0f,5.0f)] public float waterSplashVolume = 1.5f;
 	[Range(0.0f,5.0f)] public float waterSplashLength = 0.5f;
 	[Range(0.0f,5.0f)] public float waterSplashInterval = 0.5f;
+	[Range(0.0f,10.0f)] public float treeShakeVolume = 1.5f;
+	[Range(0.0f,5.0f)] public float treeShakeLength = 0.75f;
 
 	float newSoundRadius;
 	float soundRadius;
 	float currentTrailVolume, newTrailSoundVolume;
 	float currentWaterSplashVolume;
+	float currentTreeShakeVolume, newTreeSoundVolume;
+
 	float trailSoundTime;
 	float waterSplashTime;
+	float treeShakeTime;
 	Player player;
+	GameObject visual;
 
-	public Mesh debugMesh;
+	float timeTime;
+
 	void Start () {
 		if (isPlayer)
 			player = GetComponent<Player>();
+
+		visual = Instantiate(soundVisualPrefab, transform.position, transform.rotation);
+		
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
+		timeTime = Time.time;
 		CalculateDynamicSounds();
 		CalculateSoundRadius();
+		DrawVisual();
 	}
 	void FixedUpdate()
 	{
 		CheckSoundHits();
 	}
 
-	public void NewTrailSound(TrailType type)
+	public void NewTrailSound(TrailType type, float multiplier)
 	{
 		newTrailSoundVolume = trailSoundVolume * (type == TrailType.footsteps ? wetFeetMultiplier : 1f);
-		trailSoundTime = Time.time;
+		newTrailSoundVolume *= multiplier;
+		trailSoundTime = timeTime;
+	}
+
+	public void NewTreeShakeSound()
+	{
+		newTreeSoundVolume = currentTreeShakeVolume + treeShakeVolume;
+		treeShakeTime = timeTime;
+
 	}
 	public void NewWaterSplashSound()
 	{
-		if (waterSplashTime + waterSplashInterval < Time.time)
-			waterSplashTime = Time.time;
+		if (waterSplashTime + waterSplashInterval < timeTime)
+			waterSplashTime = timeTime;
 	}
 	void CalculateDynamicSounds()
 	{
-		if (trailSoundTime + trailSoundLength > Time.time)
+		float t = 0;
+
+		if (trailSoundTime + trailSoundLength > timeTime)
 		{
-			float t = (Time.time-trailSoundTime) / trailSoundLength;
+			t = (timeTime-trailSoundTime) / trailSoundLength;
 			currentTrailVolume = newTrailSoundVolume * (1-t);
 		}
 
-		if (waterSplashTime + waterSplashLength > Time.time)
+		if (waterSplashTime + waterSplashLength > timeTime)
 		{
-			float t = (Time.time-waterSplashTime) / waterSplashLength;
+			t = (timeTime-waterSplashTime) / waterSplashLength;
 			currentWaterSplashVolume = waterSplashVolume * (1-t);
+		}
 
+		if (treeShakeTime + treeShakeLength > timeTime)
+		{
+			t = (timeTime-treeShakeTime) / treeShakeLength;
+			currentTreeShakeVolume = Mathf.Lerp(newTreeSoundVolume, 0, t);
 		}
 	}
 	void CalculateSoundRadius()
@@ -74,6 +101,7 @@ public class SoundSource : MonoBehaviour {
 		newSoundRadius *= player.IsGrounded ? 1f : nonGroundedMultiplier;
 		newSoundRadius += currentTrailVolume;
 		newSoundRadius += currentWaterSplashVolume;
+		newSoundRadius += currentTreeShakeVolume;
 		newSoundRadius = Mathf.Max(minimumSoundRadius, newSoundRadius);
 
 		soundRadius = Mathf.Lerp(soundRadius, newSoundRadius, Time.deltaTime*5f);
@@ -81,16 +109,26 @@ public class SoundSource : MonoBehaviour {
 
 	void CheckSoundHits()
 	{
-		RaycastHit hit;
-		Physics.SphereCast(transform.position, soundRadius, transform.forward, out hit, 0.0f, enemyLayerMask);
-	}
+		RaycastHit[] hit = Physics.SphereCastAll(transform.position, soundRadius, transform.forward, 0.0f, enemyLayerMask);
 
-	void OnDrawGizmos()
-	{
-		if (debug && debugMesh)
+		for (int i = 0; i < hit.Length; i++)
 		{
-			Gizmos.color = new Color32(255,255,255, 50);
-			Gizmos.DrawMesh(debugMesh, -1,transform.position, transform.rotation, new Vector3(soundRadius*2, 0.25f, soundRadius*2));
+			if (hit[i].collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+			{
+				//Do stuffff.
+				//Get enemy, call some "hear" function in enemy, passing this.
+				//???
+				//profit
+
+			}
 		}
 	}
+
+	void DrawVisual()
+	{
+		visual.transform.position = transform.position;
+		visual.transform.rotation = transform.rotation;
+		visual.transform.localScale = new Vector3(soundRadius*2, 0.1f, soundRadius*2);
+	}
+
 }

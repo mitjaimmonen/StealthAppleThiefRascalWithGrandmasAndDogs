@@ -5,8 +5,9 @@ using UnityEngine;
 public class Footstep : MonoBehaviour {
 
 	public float deactivationTime;
+	public float relativeBuffTime;
 	float time;
-	float relativeTime;
+	float relativeLifetime;
 	MeshRenderer rend;
 	// Use this for initialization
 	void OnEnable () {
@@ -24,9 +25,9 @@ public class Footstep : MonoBehaviour {
 		}
 		else if (rend)
 		{
-			relativeTime = 1 - ((Time.time - time )/deactivationTime);
+			relativeLifetime = 1 - ((Time.time - time )/deactivationTime);
 			var col = rend.material.color;
-			col.a = relativeTime;
+			col.a = (1-relativeBuffTime) * relativeLifetime;
 			rend.material.color = col;
 		}
 	}

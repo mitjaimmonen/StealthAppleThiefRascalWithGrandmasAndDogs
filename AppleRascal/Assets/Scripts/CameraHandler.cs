@@ -7,8 +7,20 @@ public class CameraHandler : MonoBehaviour {
 	public Transform target;
 	public Vector3 offset;
 	public float lerpSpeed;
+	PostProcessingHandler _postProcess;
+
+	public PostProcessingHandler postProcess
+	{
+		get 
+		{
+			if (_postProcess == null)
+				_postProcess = GetComponent<PostProcessingHandler>();
+			return _postProcess;
+
+		}
+	}
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		if (!target)
 		{
 			var playerObj = GameObject.FindGameObjectWithTag("Player");
@@ -21,8 +33,7 @@ public class CameraHandler : MonoBehaviour {
 	void LateUpdate () {
 		if (target)
 		{
-			// transform.position = Vector3.Lerp(transform.position, target.position + offset, Time.deltaTime * lerpSpeed);
-			transform.position = target.transform.position+ offset;
+			transform.position = Vector3.Lerp(transform.position, target.position + offset, Time.deltaTime * lerpSpeed);
 		}
 	}
 }

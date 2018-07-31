@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class HidingSpot : MonoBehaviour {
 
-	public bool setPlayerInvisible;
+	public bool playerVisible = true;
 	public Animator anim;
 	public bool affectTrail;
-	public TrailType trailTypeAfterHiding;
+	public TrailType trailInHide;
+	public TrailType trailAfterHiding;
+	public float trailPointTimeAfterHiding;
 	public float trailBuffLength;
 
 	Player player;
@@ -19,18 +21,20 @@ public class HidingSpot : MonoBehaviour {
 		{
 			player = other.GetComponent<Player>();
 			player.hide = this;
-			player.AllowHiding = true;
+			player.hidingHandler.AllowHiding = true;
+			player.hidingHandler.VisibleInHide = playerVisible;
 		}
 	}
 	void OnTriggerStay(Collider other)
 	{
-		if (player && !player.AllowHiding)
+		if (player && !player.hidingHandler.AllowHiding)
 		{
 			if (other.GetComponent<Player>())
 			{
 				player = other.GetComponent<Player>();
 				player.hide = this;
-				player.AllowHiding = true;
+				player.hidingHandler.AllowHiding = true;
+				player.hidingHandler.VisibleInHide = playerVisible;
 			}
 		}
 	}
@@ -40,7 +44,7 @@ public class HidingSpot : MonoBehaviour {
 		if (other.GetComponent<Player>())
 		{
 			player = other.GetComponent<Player>();
-			player.AllowHiding = false;
+			player.hidingHandler.AllowHiding = false;
 		}
 
 	}

@@ -4,6 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - GameMaster
+  - MenuMaster
+  - GameCanvas
   - Trail
   layers:
   - Default
@@ -19,6 +22,9 @@ TagManager:
   - Obstacle
   - Ground
   - HidingSpot
+  - Apple
+  - 
+  - 
   - 
   - 
   - 
