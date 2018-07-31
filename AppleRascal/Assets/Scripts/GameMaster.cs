@@ -169,11 +169,16 @@ public class GameMaster : MonoBehaviour
 	public void LoadScene(string sceneName)
 	{
 		SceneManager.LoadScene(sceneName);
+        Reset();
 	}
 	public void NextLevel()
 	{
 		levelNumber++;
-		SceneManager.LoadScene("Level" + levelNumber);
+        if (HasScene("Level" + levelNumber))
+		    SceneManager.LoadScene("Level" + levelNumber);
+        else
+            SceneManager.LoadScene("MainMenu");
+        Reset();
 	}
 
     public void FinishGame()

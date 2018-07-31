@@ -18,6 +18,8 @@ public class MenuMaster : MonoBehaviour {
 	public MainMenuState menuState;
 	public Canvas StartCanvas;
 	public Canvas levelCanvas;
+	public TextMesh applyText;
+	public TextMesh resetPrefsText;
 	public List<TextMesh> levelTexts = new List<TextMesh>();
 	public Canvas optionsCanvas;
 	public GameObject defaultStartSelection, defaultLevelSelection, defaultOptionsSelection;
@@ -88,23 +90,16 @@ public class MenuMaster : MonoBehaviour {
 
 	public void Initialize()
 	{
-		unlockedLevel = PlayerPrefsManager.GetLevel();
-		
-		for(int i = 0; i < levelTexts.Count; i++)
-		{
-			if (!GameMaster.Instance.HasScene("Level" + i))
-				levelTexts[i].text = "Coming \n soon!";
-			else if (i > unlockedLevel)
-				levelTexts[i].text = "Locked";
-			else
-				levelTexts[i].text ="Level \n" + i; 
-
-		}
+		optionsCanvas.gameObject.SetActive(false);
+		levelCanvas.gameObject.SetActive(false);
+		StartCanvas.gameObject.SetActive(true);
 		Reset();
 	}
 
 	public void Reset()
 	{
+		resetPrefsText.text = "Reset \n saved data";
+		applyText.text = "Apply";
 		StartCanvas.gameObject.SetActive(true);
 		levelCanvas.gameObject.SetActive(false);
 		optionsCanvas.gameObject.SetActive(false);
@@ -158,6 +153,18 @@ public class MenuMaster : MonoBehaviour {
 
 	public void StartMenuStart()
 	{
+		unlockedLevel = PlayerPrefsManager.GetLevel();
+		
+		for(int i = 0; i < levelTexts.Count; i++)
+		{
+			if (!GameMaster.Instance.HasScene("Level" + i))
+				levelTexts[i].text = "Coming \n soon!";
+			else if (i > unlockedLevel)
+				levelTexts[i].text = "Locked";
+			else
+				levelTexts[i].text ="Level \n" + i; 
+		}
+
 		StartCanvas.gameObject.SetActive(false);
 		optionsCanvas.gameObject.SetActive(false);
 		levelCanvas.gameObject.SetActive(true);
@@ -167,6 +174,13 @@ public class MenuMaster : MonoBehaviour {
 	}
 	public void StartMenuOptions()
 	{
+		applyText.text = "Apply";
+		musicVolume = musicVolumeHandler.SetVolume(PlayerPrefsManager.GetMusicVolume(), false);
+		sfxVolume = sfxVolumeHandler.SetVolume(PlayerPrefsManager.GetSfxVolume(), false);
+		resetPrefsOnApply = false;
+		setSfxOnApply = false;
+		setMusicOnApply = false;
+
 		StartCanvas.gameObject.SetActive(false);
 		levelCanvas.gameObject.SetActive(false);
 		optionsCanvas.gameObject.SetActive(true);
@@ -176,6 +190,13 @@ public class MenuMaster : MonoBehaviour {
 
 	public void OptionsMenuBack()
 	{
+
+		applyText.text = "Apply";
+		resetPrefsOnApply = false;
+		setSfxOnApply = false;
+		setMusicOnApply = false;
+		musicVolume = musicVolumeHandler.SetVolume(PlayerPrefsManager.GetMusicVolume(), false);
+		sfxVolume = sfxVolumeHandler.SetVolume(PlayerPrefsManager.GetSfxVolume(), false);
 
 		levelCanvas.gameObject.SetActive(false);
 		optionsCanvas.gameObject.SetActive(false);
@@ -188,41 +209,63 @@ public class MenuMaster : MonoBehaviour {
 
 	public void OptionsMenuMusicBtnDown(int volOffset)
 	{
+		applyText.text = "Apply";
 		volumeOffset = volOffset;
 		settingMusicVolume = true;
 		setMusicOnApply = true;
 	}
 	public void OptionsMenuAudioBtnDown(int volOffset)
 	{
+		applyText.text = "Apply";
 		volumeOffset = volOffset;
 		settingAudioVolume = true;
 		setSfxOnApply = true;
 	}
 	public void OptionsMenuMusicBtnUp()
 	{
+		applyText.text = "Apply";
 		settingMusicVolume = false;
-		setMusicOnApply = false;
 	}
 	public void OptionsMenuAudioBtnUp()
 	{
+		applyText.text = "Apply";
 		settingAudioVolume = false;
-		setSfxOnApply = false;
 	}
-	public void DragTest()
+	public void OptionsMenuApply()
 	{
-		Debug.Log("DragStarted");
+		if (resetPrefsOnApply)
+			ResetPrefs();
+		if (setMusicOnApply)
+			PlayerPrefsManager.SetMusicVolume(musicVolume);
+		if (setSfxOnApply)
+			PlayerPrefsManager.SetSfxVolume(sfxVolume);
+
+		musicVolumeHandler.SetVolume(musicVolume, false);
+		sfxVolumeHandler.SetVolume(sfxVolume, false);
+		
+		applyText.text = "Applied!";
+		resetPrefsText.text = "Reset \n saved data";
 	}
 
 	public void OptionsMenuResetPrefs()
 	{
-		PlayerPrefsManager.SetLevel(0);
-		PlayerPrefsManager.SetTutorialDone(false);
+		applyText.text = "Apply";
+		resetPrefsOnApply = !resetPrefsOnApply;
+		if (resetPrefsOnApply)
+			resetPrefsText.text = "Saved data will\n be erased on Apply!";
+		else
+			resetPrefsText.text = "Reset \n saved data";
+
+
 	}
 	void ResetPrefs()
 	{
-		PlayerPrefsManager.SetLevel(0);
-		PlayerPrefsManager.SetTutorialDone(false);
+		Debug.Log("RESET");
+		PlayerPrefsManager.ResetAll();
+		musicVolume = musicVolumeHandler.SetVolume(PlayerPrefsManager.GetMusicVolume(), false);
+		sfxVolume = sfxVolumeHandler.SetVolume(PlayerPrefsManager.GetSfxVolume(), false);
 	}
+
 
 	public void LevelMenuBack()
 	{
@@ -231,8 +274,6 @@ public class MenuMaster : MonoBehaviour {
 		StartCanvas.gameObject.SetActive(true);
 		EventSystem.current.SetSelectedGameObject(defaultStartSelection);
 		menuState = MainMenuState.startMenu;
-
-		
 	}
 
 	public void LevelMenuLoadLevel(int level)

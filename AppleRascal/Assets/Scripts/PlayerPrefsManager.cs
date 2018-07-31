@@ -4,6 +4,17 @@ using UnityEngine;
 
 public static class PlayerPrefsManager {
 
+
+	public static void ResetAll()
+	{
+		PlayerPrefs.SetInt("Level", 0);
+		PlayerPrefs.SetInt("Tutorial", 0);
+		PlayerPrefs.SetInt("MusicVolume", 80);
+		PlayerPrefs.SetInt("SfxVolume", 80);
+
+	}
+
+
 	public static void SetLevel(int levelIndex)
 	{
 		PlayerPrefs.SetInt("Level", levelIndex);
@@ -31,7 +42,9 @@ public static class PlayerPrefsManager {
 
 	public static void SetMusicVolume(int volume)
 	{
-		PlayerPrefs.SetInt("MusicVolume", volume);
+		Debug.Log("Setting volume: " + Mathf.Clamp(volume, 0, 100));
+		PlayerPrefs.SetInt("MusicVolume", Mathf.Clamp(volume, 0, 100));
+		Debug.Log("Volume is now: " + PlayerPrefs.GetInt("MusicVolume"));
 	}
 
 	public static int GetMusicVolume()

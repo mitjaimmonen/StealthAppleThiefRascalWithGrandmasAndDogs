@@ -72,6 +72,7 @@ public class OptionsVolumeHandler : MonoBehaviour {
 		
 		volume = Mathf.Clamp(volume, 0,100);
 		volumeText.text = volume.ToString();
+		Debug.Log("Volume: " + volume);
 		return volume;
 	}
 
