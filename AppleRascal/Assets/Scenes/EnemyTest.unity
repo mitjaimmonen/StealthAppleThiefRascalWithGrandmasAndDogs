@@ -1603,6 +1603,16 @@ Prefab:
       propertyPath: attackDistance
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 114090228557186916, guid: 762fa2106f130034dbed11801e4f5eae,
+        type: 2}
+      propertyPath: _turnSpeed
+      value: 240
+      objectReference: {fileID: 0}
+    - target: {fileID: 65126908792845090, guid: 762fa2106f130034dbed11801e4f5eae,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 762fa2106f130034dbed11801e4f5eae, type: 2}
   m_IsPrefabAsset: 0

@@ -9,13 +9,19 @@ public class ChaseState : State
 
     public bool chasing = true;
     public bool goToPatrol;
+    public bool justTurning = false;
+    public Transform target;
+  
+  
 
     public ChaseState(AI _owner)
            : base()
     {
         _state = AIStateType.Chase;
         Owner = _owner;
-        AddTransition(AIStateType.Patrol);  
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+        
+        AddTransition(AIStateType.Patrol);
 
     }
 
@@ -35,8 +41,19 @@ public class ChaseState : State
             if (!Sentry)
             {
                 ChasePlayer();
-                Owner.Mover.Turn(Owner.target.position);
-                Owner.Mover.Move(Owner.transform.forward);
+                if (justTurning)
+                {
+                    Debug.Log("turning");
+                    Vector3 targetDir = new Vector3(target.position.x, Owner.transform.position.y, target.position.z) - Owner.transform.position;
+
+                    Owner.transform.rotation = Quaternion.LookRotation(targetDir, Owner.transform.up);
+                    // Owner.transform.LookAt(Owner.target);
+                }
+                else
+                {
+                    Owner.Mover.Turn(target.position);
+                    Owner.Mover.Move(target.forward);
+                }
 
             }
         }
@@ -44,14 +61,22 @@ public class ChaseState : State
 
     public void ChasePlayer()
     {
-        if (Vector3.Distance(Owner.target.position, Owner.transform.position) > Owner.giveUpChaseDistance)
+        if (Vector3.Distance(target.position, target.position) > Owner.giveUpChaseDistance)
         {
             StopChase();
         }
-        if (Vector3.Distance(Owner.target.position, Owner.transform.position) < Owner.attackDistance)
+        if (Vector3.Distance(target.position, target.position) < Owner.attackDistance)
         {
-            Owner.StartCoroutine(Owner.Attack());
+            justTurning = true;
+         //   Owner._turnSpeed += Owner._turnSpeedChaseModifier;
+            if (Owner.fieldOfView.visibleTargets.Contains(target))
+            {
+                Owner.StartCoroutine(Owner.Attack());
+            }
+
         }
+        else
+            justTurning = false;
     }
 
     private void StopChase()

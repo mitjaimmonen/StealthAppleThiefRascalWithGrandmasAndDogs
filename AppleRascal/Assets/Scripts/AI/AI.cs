@@ -225,9 +225,9 @@ public class AI : MonoBehaviour
     public IEnumerator Attack()
     {
         sentry = true;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.1f);
         Debug.Log("attacked!!");
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(1f);
         sentry = false;
         
     }

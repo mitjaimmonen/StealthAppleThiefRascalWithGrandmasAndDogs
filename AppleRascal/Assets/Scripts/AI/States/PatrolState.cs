@@ -116,8 +116,7 @@ public class PatrolState : State
     private bool ChangeState()
     {
         if (goToChase)
-        {
-            Owner.target = Target;
+        {            
             return Owner.stateMachine.PerformTransition(AIStateType.Chase);
         }
         else if (goToCautious)
