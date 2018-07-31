@@ -11,6 +11,7 @@ public class ChaseState : State
     public bool justTurning = false;
     public bool playerHiding;
     public Transform target;
+    public Transform player;
 
 
 
@@ -19,7 +20,8 @@ public class ChaseState : State
     {
         _state = AIStateType.Chase;
         Owner = _owner;
-        target = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        target = player;
         AddTransition(AIStateType.Patrol);
 
     }
@@ -29,17 +31,21 @@ public class ChaseState : State
         Debug.Log("entered chase state");
         Owner.navMeshAgent.speed += Owner._moveSpeedChaseModifier;
         GameMaster.Instance.OnHide += OnPlayerHid;
-
+        goToPatrol = false;
         playerHiding = false;
-        GameMaster.Instance.OnAlertMode(target);
+        GameMaster.Instance.OnAlertMode(player);
+
+        if (!player.GetComponent<Player>().IsInvisible)
+        {
+            target = player;
+        }
 
     }
 
     public override void Execute()
-    {
+    {        
         if (!ChangeState())
-        {
-            Debug.Log("just turning is " + justTurning);
+        {            
             if (!Sentry)
             {
                 if (!playerHiding)
@@ -70,13 +76,11 @@ public class ChaseState : State
     {
         if (Vector3.Distance(Owner.transform.position, target.position) > Owner.giveUpChaseDistance)
         {
-            StopChase();
+          //  StopChase();
             justTurning = false;
         }
         if (Vector3.Distance(Owner.transform.position, target.position) < Owner.attackDistance)
-        {
-            Debug.Log("close enough for attack, distance is: " + Vector3.Distance(target.position, target.position));
-
+        {            
             justTurning = true;
             if (Owner.fieldOfView.visibleTargets.Contains(target))
             {
@@ -92,14 +96,15 @@ public class ChaseState : State
 
     private void CheckOutHidingSpot()
     {
-        if (Vector3.Distance(Owner.transform.position, target.position) > 4f)
+        if (Vector3.Distance(Owner.transform.position, target.position) >= 2.5f)
         {
+            Debug.Log("got here");
             Owner.Mover.Turn(target.position);
             Owner.navMeshAgent.SetDestination(target.position);
         }
         else
-        {          
-            Owner.SentryForFollowing(180, 2.5f);
+        {
+            Owner.StartCoroutine(Owner.SentryForFollowing(180, 2.5f));
             goToPatrol = true;           
         }
     }

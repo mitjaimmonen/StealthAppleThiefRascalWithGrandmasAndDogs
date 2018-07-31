@@ -14,11 +14,11 @@ public class PatrolState : State
     private float _arriveDistance;
     private bool goToChase;
     private bool goToCautious;
-   
+
 
     public Waypoint CurrentWaypoint { get; private set; }
 
- 
+
 
     public PatrolState(AI _owner, Path path, Direction direction, float arriveDistance) : base()
     {
@@ -38,9 +38,11 @@ public class PatrolState : State
         Debug.Log("Entering Patrol state");
         CurrentWaypoint = _path.GetClosestWaypoint(Owner.transform.position);
         Owner.fieldOfView.detectEvent += OnDetection;
+        Owner.onPlayerHeard += HeardPlayer;
         Owner.navMeshAgent.updateRotation = true;
         goToCautious = false;
         goToChase = false;
+
 
     }
 
@@ -51,10 +53,10 @@ public class PatrolState : State
             if (!Sentry)
             {
                 CurrentWaypoint = GetWaypoint();
-               // Owner.navMeshAgent.updateRotation = true;
-              Owner.Mover.Turn(CurrentWaypoint.Position);
-              Owner.navMeshAgent.SetDestination(CurrentWaypoint.Position);
-              //  Owner.Mover.Move(Owner.transform.forward);
+                // Owner.navMeshAgent.updateRotation = true;
+                Owner.Mover.Turn(CurrentWaypoint.Position);
+                Owner.navMeshAgent.SetDestination(CurrentWaypoint.Position);
+                //  Owner.Mover.Move(Owner.transform.forward);
             }
         }
     }
@@ -85,6 +87,7 @@ public class PatrolState : State
     public override void Exit()
     {
         Owner.fieldOfView.detectEvent -= OnDetection;
+        Owner.onPlayerHeard -= HeardPlayer;
         Owner.navMeshAgent.updateRotation = false;
         Debug.Log("Exiting Patrol state");
     }
@@ -96,7 +99,7 @@ public class PatrolState : State
         {
             if (Vector3.Distance(Owner.transform.position, target.position) <= Owner.distanceToChase)
             {
-                
+
                 goToChase = true;
                 Target = target;
             }
@@ -118,10 +121,16 @@ public class PatrolState : State
         }
     }
 
+    private void HeardPlayer(Transform soundLocation)
+    {
+        Target = soundLocation;
+        goToCautious = true;
+    }
+
     private bool ChangeState()
     {
         if (goToChase)
-        {            
+        {
             return Owner.stateMachine.PerformTransition(AIStateType.Chase);
         }
         else if (goToCautious)

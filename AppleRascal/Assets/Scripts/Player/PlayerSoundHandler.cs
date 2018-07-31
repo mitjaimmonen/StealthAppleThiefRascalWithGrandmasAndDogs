@@ -110,10 +110,10 @@ public class PlayerSoundHandler : MonoBehaviour {
 
 		for (int i = 0; i < hit.Length; i++)
 		{
-			if (hit[i].collider.GetComponent<AI>())
+			if (hit[i].collider.GetComponentInParent<Granny>())
 			{
-				AI enemyAI = hit[i].collider.GetComponent<AI>();
-				enemyAI.Hear(transform.position, true);
+                Granny enemyAI = hit[i].collider.GetComponentInParent<Granny>();
+				enemyAI.Hear(transform, true);
 			}
 		}
 	}
