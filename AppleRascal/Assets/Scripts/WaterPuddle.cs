@@ -27,7 +27,7 @@ public class WaterPuddle : MonoBehaviour {
 
 			if (player.IsMoving && lastSplashTime + splashInterval < Time.time)
 			{
-				player.soundSource.NewWaterSplashSound();
+				player.playerSoundHandler.NewWaterSplashSound();
 				lastSplashTime = Time.time;
 				if (splashParticles)
 				{

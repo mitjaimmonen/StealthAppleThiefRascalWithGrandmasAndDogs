@@ -18,6 +18,7 @@ public class MenuMaster : MonoBehaviour {
 	public MainMenuState menuState;
 	public Canvas StartCanvas;
 	public Canvas levelCanvas;
+	public List<TextMesh> levelTexts = new List<TextMesh>();
 	public Canvas optionsCanvas;
 	public GameObject defaultStartSelection, defaultLevelSelection, defaultOptionsSelection;
 
@@ -41,6 +42,20 @@ public class MenuMaster : MonoBehaviour {
 
 	public void Initialize()
 	{
+		int unlocked = 0;
+		if (PlayerPrefs.HasKey("Level"))
+			unlocked = PlayerPrefs.GetInt("Level");
+		
+		for(int i = 0; i < levelTexts.Count; i++)
+		{
+			if (!GameMaster.Instance.HasScene("Level" + i))
+				levelTexts[i].text = "Coming \n soon!";
+			else if (i > unlocked)
+				levelTexts[i].text = "Locked";
+			else
+				levelTexts[i].text ="Level \n" + i; 
+
+		}
 		Reset();
 	}
 
@@ -82,9 +97,6 @@ public class MenuMaster : MonoBehaviour {
 		else
 			selecetedObject = EventSystem.current.currentSelectedGameObject.transform;
 		
-
-
-		Debug.Log(selecetedObject);
 	}
 
 

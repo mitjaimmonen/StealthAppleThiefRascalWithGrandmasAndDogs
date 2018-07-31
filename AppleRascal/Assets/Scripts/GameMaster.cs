@@ -144,13 +144,39 @@ public class GameMaster : MonoBehaviour
     }
 
 
-    public void Reset()
-    {
-        hasWon = false;
-        isGameOver = false;
-        isPaused = false;
+	public bool HasScene(string sceneName)
+	{
+		return Application.CanStreamedLevelBeLoaded(sceneName);
+	}
 
-    }
+	public void EndGame(bool win)
+	{
+		GameMaster.Instance.hasWon = win;
+		GameMaster.Instance.isGameOver = true;
+		GameMaster.Instance.isPaused = true;
+
+
+		if (hasWon)
+		{
+			if (!PlayerPrefs.HasKey("Level"))
+				PlayerPrefs.SetInt("Level", 0);
+			PlayerPrefs.SetInt("Level", Mathf.Max(PlayerPrefs.GetInt("Level"), GameMaster.Instance.levelNumber+1));
+		}
+		else
+		{
+			gameCanvas.hudHandler.DeactivateHud();
+			gameCanvas.pauseMenuHandler.ActivatePauseMenu(win ? PauseMenuType.FinishMenu : PauseMenuType.DeadMenu);
+		}
+	}
+	public void LoadScene(string sceneName)
+	{
+		SceneManager.LoadScene(sceneName);
+	}
+	public void NextLevel()
+	{
+		levelNumber++;
+		SceneManager.LoadScene("Level" + levelNumber);
+	}
 
     public void FinishGame()
     {
@@ -167,14 +193,11 @@ public class GameMaster : MonoBehaviour
         Reset();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-    public void LoadScene(string sceneName)
+    public void Reset()
     {
-        SceneManager.LoadScene(sceneName);
-    }
-    public void NextLevel()
-    {
-        levelNumber++;
-        SceneManager.LoadScene("Level" + levelNumber);
+        hasWon = false;
+        isGameOver = false;
+        isPaused = false;
     }
 
   

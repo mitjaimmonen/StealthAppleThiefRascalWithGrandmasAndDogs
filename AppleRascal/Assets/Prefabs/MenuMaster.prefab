@@ -4284,6 +4284,13 @@ MonoBehaviour:
   menuState: 0
   StartCanvas: {fileID: 223439516553601760}
   levelCanvas: {fileID: 223041501951907036}
+  levelTexts:
+  - {fileID: 102222393274322354}
+  - {fileID: 102862274376085974}
+  - {fileID: 102368006691984562}
+  - {fileID: 102572566747826654}
+  - {fileID: 102946212674758756}
+  - {fileID: 102862871141535754}
   optionsCanvas: {fileID: 223768027415671388}
   defaultStartSelection: {fileID: 1695491429974196}
   defaultLevelSelection: {fileID: 1441055430440430}

@@ -65,7 +65,7 @@ public class AppleTree : MonoBehaviour {
 		if (applesLeft > 0 && lastShakeTime + shakeInterval < Time.time)
 		{
 			lastShakeTime = Time.time;
-			player.soundSource.NewTreeShakeSound();
+			player.playerSoundHandler.NewTreeShakeSound();
 			
 			int rand = Random.Range(minAmountPerShake, maxAmountPerShake+1);
 			rand = Mathf.Min(applesLeft, rand);

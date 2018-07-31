@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundSource : MonoBehaviour {
+public class PlayerSoundHandler : MonoBehaviour {
 
 	// Use this for initialization
 	public GameObject soundVisualPrefab;
-	public bool isPlayer = true;
 	public LayerMask enemyLayerMask;
 	[Range(0.0f,10f)] public float minimumSoundRadius = 3.5f;
 	[Range(0.0f,2.0f)] public float velocityMultiplier = 0.75f;
@@ -35,9 +34,7 @@ public class SoundSource : MonoBehaviour {
 	float timeTime;
 
 	void Start () {
-		if (isPlayer)
-			player = GetComponent<Player>();
-
+		player = GetComponent<Player>();
 		visual = Instantiate(soundVisualPrefab, transform.position, transform.rotation);
 		
 	}
@@ -113,13 +110,10 @@ public class SoundSource : MonoBehaviour {
 
 		for (int i = 0; i < hit.Length; i++)
 		{
-			if (hit[i].collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+			if (hit[i].collider.GetComponent<AI>())
 			{
-				//Do stuffff.
-				//Get enemy, call some "hear" function in enemy, passing this.
-				//???
-				//profit
-
+				AI enemyAI = hit[i].collider.GetComponent<AI>();
+				enemyAI.Hear(transform.position, true);
 			}
 		}
 	}
