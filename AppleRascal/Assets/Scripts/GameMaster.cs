@@ -127,6 +127,7 @@ public class GameMaster : MonoBehaviour {
 		
 		if (gameState == GameState.Game)
 		{
+			Reset();
 		}
 		if (gameState == GameState.Menu)
 		{

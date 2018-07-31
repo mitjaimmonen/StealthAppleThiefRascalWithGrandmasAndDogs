@@ -34,8 +34,7 @@ public class PauseMenuHandler : MonoBehaviour {
 
 	public void DeactivatePauseMenu()
 	{
-		if (GameMaster.Instance)
-			GameMaster.Instance.cameraHandler.postProcess.SetDepthOfField(0);
+		GameMaster.Instance.cameraHandler.postProcess.SetDepthOfField(0);
 		pauseMenuPanel.SetActive(false);
 	}
 	public void ActivatePauseMenu(PauseMenuType menuType)
