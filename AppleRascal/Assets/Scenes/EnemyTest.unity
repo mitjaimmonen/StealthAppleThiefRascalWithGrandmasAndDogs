@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1579,39 +1579,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 1360916666128556, guid: 762fa2106f130034dbed11801e4f5eae, type: 2}
-      propertyPath: m_Name
-      value: Granny (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 114090228557186916, guid: 762fa2106f130034dbed11801e4f5eae,
         type: 2}
       propertyPath: _path
       value: 
       objectReference: {fileID: 1623004714}
-    - target: {fileID: 114090228557186916, guid: 762fa2106f130034dbed11801e4f5eae,
-        type: 2}
-      propertyPath: _moveSpeed
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114090228557186916, guid: 762fa2106f130034dbed11801e4f5eae,
-        type: 2}
-      propertyPath: _moveSpeedChaseModifier
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114090228557186916, guid: 762fa2106f130034dbed11801e4f5eae,
-        type: 2}
-      propertyPath: attackDistance
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 114090228557186916, guid: 762fa2106f130034dbed11801e4f5eae,
-        type: 2}
-      propertyPath: _turnSpeed
-      value: 240
-      objectReference: {fileID: 0}
-    - target: {fileID: 65126908792845090, guid: 762fa2106f130034dbed11801e4f5eae,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
+    - target: {fileID: 1360916666128556, guid: 762fa2106f130034dbed11801e4f5eae, type: 2}
+      propertyPath: m_Name
+      value: Granny (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 762fa2106f130034dbed11801e4f5eae, type: 2}

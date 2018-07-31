@@ -45,6 +45,7 @@ public class HidingHandler : MonoBehaviour {
 
 	public void StartHiding()
 	{
+        GameMaster.Instance.playerHide(player.hide.transform,true);
 		direction = player.hide.transform.position-player.transform.position;
 		magnitude = direction.magnitude;
 
@@ -121,6 +122,7 @@ public class HidingHandler : MonoBehaviour {
 		player.OverridingTransform = false;
 		IsHiding = false;
 		coroutineRunning =false;
+      //  GameMaster.Instance.playerHide(player.transform, false);
 		yield break;
 	}
 }
