@@ -158,9 +158,7 @@ public class GameMaster : MonoBehaviour
 
 		if (hasWon)
 		{
-			if (!PlayerPrefs.HasKey("Level"))
-				PlayerPrefs.SetInt("Level", 0);
-			PlayerPrefs.SetInt("Level", Mathf.Max(PlayerPrefs.GetInt("Level"), GameMaster.Instance.levelNumber+1));
+			PlayerPrefsManager.SetLevel(Mathf.Max(PlayerPrefs.GetInt("Level"), GameMaster.Instance.levelNumber+1));
 		}
 		else
 		{
@@ -171,11 +169,16 @@ public class GameMaster : MonoBehaviour
 	public void LoadScene(string sceneName)
 	{
 		SceneManager.LoadScene(sceneName);
+        Reset();
 	}
 	public void NextLevel()
 	{
 		levelNumber++;
-		SceneManager.LoadScene("Level" + levelNumber);
+        if (HasScene("Level" + levelNumber))
+		    SceneManager.LoadScene("Level" + levelNumber);
+        else
+            SceneManager.LoadScene("MainMenu");
+        Reset();
 	}
 
     public void FinishGame()
@@ -184,9 +187,7 @@ public class GameMaster : MonoBehaviour
         GameMaster.Instance.isGameOver = true;
         GameMaster.Instance.isPaused = true;
 
-        if (!PlayerPrefs.HasKey("Level"))
-            PlayerPrefs.SetInt("Level", 0);
-        PlayerPrefs.SetInt("Level", Mathf.Max(PlayerPrefs.GetInt("Level"), GameMaster.Instance.levelNumber));
+        PlayerPrefsManager.SetLevel(Mathf.Max(PlayerPrefs.GetInt("Level"), GameMaster.Instance.levelNumber));
     }
     public void RestartLevel()
     {

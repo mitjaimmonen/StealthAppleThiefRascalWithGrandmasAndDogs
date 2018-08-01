@@ -16,7 +16,7 @@ public class WeaponParticleLauncher : MonoBehaviour {
 	void Start()
 	{
 		bulletParticles = GetComponentInChildren<BulletParticles>();
-		enemySoundHandler.GetComponentInParent<EnemySoundHandler>();
+		enemySoundHandler = GetComponentInParent<EnemySoundHandler>();
 	}
 
 	void Update()

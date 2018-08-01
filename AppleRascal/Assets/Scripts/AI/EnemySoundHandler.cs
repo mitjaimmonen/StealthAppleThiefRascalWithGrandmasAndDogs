@@ -10,7 +10,7 @@ public class EnemySoundHandler : MonoBehaviour {
 	public LayerMask enemyLayerMask;
 	[Range(0.0f,10f)] public float minimumSoundRadius = 3.5f;
 	[Range(0.0f,10f)] public float shootSoundLength = 1.5f;
-	[Range(0.0f,10f)] public float shootSoundVolume = 3.5f;
+	[Range(0.0f,10f)] public float shootSoundVolume = 5f;
 
 
 	float shootSoundTime;
