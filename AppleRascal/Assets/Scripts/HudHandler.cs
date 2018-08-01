@@ -38,8 +38,7 @@ public class HudHandler : MonoBehaviour {
 
 	void Update()
 	{
-			if (showControlsTips)
-				ShowTips();
+			ShowTips();
 
 		if (appleIconOriginalScale != applesIcon.transform.localScale)
 			applesIcon.transform.localScale = Vector3.Lerp(applesIcon.transform.localScale, appleIconOriginalScale, Time.deltaTime * 10f);
@@ -61,6 +60,15 @@ public class HudHandler : MonoBehaviour {
 			if (moveInstructionPanel.rectTransform.position.x < -200f)
 				moveInstructionPanel.gameObject.SetActive(false);
 		}
+		else if (!GameMaster.Instance.player.hasMoved && moveInstructionPanel.rectTransform.position.x < 190f)
+		{
+			controlsTipsPanel.gameObject.SetActive(true);
+			showControlsTips = true;
+			moveInstructionPanel.gameObject.SetActive(true);
+			var newPos = moveInstructionPanel.rectTransform.position;
+			newPos.x = 190f;
+			moveInstructionPanel.rectTransform.position = Vector3.Lerp(moveInstructionPanel.rectTransform.position, newPos, Time.deltaTime*5f);
+		}
 		else if (GameMaster.Instance.player.hasCrawled && crawlInstructionPanel.gameObject.activeSelf)
 		{
 			var newPos = crawlInstructionPanel.rectTransform.position;
@@ -69,6 +77,15 @@ public class HudHandler : MonoBehaviour {
 			if (crawlInstructionPanel.rectTransform.position.x < -200f)
 				crawlInstructionPanel.gameObject.SetActive(false);
 		}
+		else if (!GameMaster.Instance.player.hasCrawled && crawlInstructionPanel.rectTransform.position.x < 190f)
+		{
+			controlsTipsPanel.gameObject.SetActive(true);
+			showControlsTips = true;
+			crawlInstructionPanel.gameObject.SetActive(true);
+			var newPos = crawlInstructionPanel.rectTransform.position;
+			newPos.x = 190f;
+			crawlInstructionPanel.rectTransform.position = Vector3.Lerp(crawlInstructionPanel.rectTransform.position, newPos, Time.deltaTime*5f);
+		}
 		else if (GameMaster.Instance.player.hasJumped && actionInstructionPanel.gameObject.activeSelf)
 		{
 			var newPos = actionInstructionPanel.rectTransform.position;
@@ -76,6 +93,15 @@ public class HudHandler : MonoBehaviour {
 			actionInstructionPanel.rectTransform.position = Vector3.Lerp(actionInstructionPanel.rectTransform.position, newPos, Time.deltaTime*5f);
 			if (actionInstructionPanel.rectTransform.position.x < -200f)
 				actionInstructionPanel.gameObject.SetActive(false);
+		}
+		else if (!GameMaster.Instance.player.hasJumped && actionInstructionPanel.rectTransform.position.x < 190f)
+		{
+			controlsTipsPanel.gameObject.SetActive(true);
+			showControlsTips = true;
+			actionInstructionPanel.gameObject.SetActive(true);
+			var newPos = actionInstructionPanel.rectTransform.position;
+			newPos.x = 190f;
+			actionInstructionPanel.rectTransform.position = Vector3.Lerp(actionInstructionPanel.rectTransform.position, newPos, Time.deltaTime*5f);
 		}
 		else if (GameMaster.Instance.player.hasMoved && GameMaster.Instance.player.hasCrawled && GameMaster.Instance.player.hasJumped)
 		{

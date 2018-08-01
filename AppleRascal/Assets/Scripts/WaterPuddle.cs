@@ -25,7 +25,7 @@ public class WaterPuddle : MonoBehaviour {
 		{
 			player.trailHandler.ChangeTrailType(TrailType.none);
 
-			if (player.IsMoving && lastSplashTime + splashInterval < Time.time)
+			if (player.IsWalking && lastSplashTime + splashInterval < Time.time)
 			{
 				player.playerSoundHandler.NewWaterSplashSound();
 				lastSplashTime = Time.time;

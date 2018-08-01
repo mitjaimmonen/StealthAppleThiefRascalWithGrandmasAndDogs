@@ -94,7 +94,7 @@ public class PlayerSoundHandler : MonoBehaviour {
 	}
 	void CalculateSoundRadius()
 	{
-		newSoundRadius = player.CurrentVelocity.magnitude*velocityMultiplier;
+		newSoundRadius = player.IsWalking ? player.CurrentVelocity.magnitude*velocityMultiplier : minimumSoundRadius;
 		newSoundRadius *= player.IsGrounded ? 1f : nonGroundedMultiplier;
 		newSoundRadius += currentTrailVolume;
 		newSoundRadius += currentWaterSplashVolume;
