@@ -208,12 +208,15 @@ public class CautionState : State
         }
     }
 
+    private void HeardPlayer(Vector3 soundLocation)
+    {
 
+    }
 
     public override void Exit()
     {
         Owner.navMeshAgent.speed -= Owner._moveSpeedChaseModifier;
-
+        Owner.fieldOfView.detectEvent -= OnDetection;
 
 
         if (goToChase)

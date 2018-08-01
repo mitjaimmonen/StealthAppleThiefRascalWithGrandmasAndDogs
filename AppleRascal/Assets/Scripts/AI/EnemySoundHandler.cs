@@ -76,10 +76,10 @@ public class EnemySoundHandler : MonoBehaviour {
 
 		for (int i = 0; i < hit.Length; i++)
 		{
-			if (hit[i].collider.GetComponent<AI>())
+			if (hit[i].collider.GetComponent<Granny>())
 			{
-				AI enemyAI = hit[i].collider.GetComponent<AI>();
-				enemyAI.Hear(transform.position, false);
+                Granny enemyAI = hit[i].collider.GetComponent<Granny>();
+				enemyAI.Hear(transform, false);
 			}
 		}
 	}

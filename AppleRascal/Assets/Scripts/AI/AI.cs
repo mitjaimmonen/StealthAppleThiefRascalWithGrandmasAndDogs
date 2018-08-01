@@ -23,6 +23,7 @@ public class AI : MonoBehaviour
     private bool followingTrail;
     public TrailType detectable;
     public NavMeshAgent navMeshAgent;
+    public WeaponParticleLauncher weapon;
 
 
 
@@ -42,6 +43,10 @@ public class AI : MonoBehaviour
 
     private IMover _mover;
     public IMover Mover { get { return _mover; } }
+
+    public delegate void HeardPlayer(Transform location);
+    public event HeardPlayer onPlayerHeard;
+
 
     public StateMachine stateMachine { get; protected set; }
 
@@ -81,7 +86,7 @@ public class AI : MonoBehaviour
         else
         {
             navMeshAgent.isStopped = false;
-           // navMeshAgent.updateRotation = true;
+            // navMeshAgent.updateRotation = true;
         }
     }
 
@@ -89,7 +94,7 @@ public class AI : MonoBehaviour
     {
         navMeshAgent.updateRotation = false;
         navMeshAgent.isStopped = true;
-        Debug.Log("Sentry mode");
+
         sentry = true;
 
         float elapsedTime = 0;
@@ -137,9 +142,11 @@ public class AI : MonoBehaviour
 
     public IEnumerator SentryForFollowing(float lookAngle, float waitTime)
     {
+        Debug.Log("looking for racoon on trash");
+        navMeshAgent.updateRotation = false;
         navMeshAgent.isStopped = true;
-        sentry = true;       
-        
+        sentry = true;
+
         float elapsedTime = 0;
         Quaternion startRotation = transform.rotation;
         Quaternion qMinus = Quaternion.AngleAxis(-lookAngle / 2, transform.up) * transform.rotation;
@@ -180,8 +187,9 @@ public class AI : MonoBehaviour
             yield return new WaitForSeconds(waitTime / 16);
         }
 
-       
+
         sentry = false;
+        navMeshAgent.updateRotation = true;
     }
 
     public IEnumerator OverridenSentry(Waypoint waypoint)
@@ -192,7 +200,7 @@ public class AI : MonoBehaviour
             yield break;
         }
         navMeshAgent.isStopped = true;
-      navMeshAgent.updateRotation = false;
+        navMeshAgent.updateRotation = false;
         sentry = true;
 
         float elapsedTime = 0;
@@ -245,29 +253,46 @@ public class AI : MonoBehaviour
 
     public IEnumerator Attack()
     {
-       
+
         sentry = true;
         yield return new WaitForSeconds(0.1f);
-        Debug.Log("attacked!!");
+        if (weapon)
+        {
+            weapon.Shoot();
+        }
+        else
+        {
+            //bite
+        }
         yield return new WaitForSeconds(1f);
         sentry = false;
-     
+
 
     }
 
-    public void Hear(Vector3 playerLastPos, bool isPLayer)
+    public void Hear(Transform playerLastPos, bool isPLayer)
     {
         //caution mode
+        if (isPLayer)
+        {
+            if (onPlayerHeard != null)
+            {
+                onPlayerHeard(playerLastPos);
+                triggered = true;
+
+            }
+        }
     }
 
 
     private void JumpToChase(Transform _target)
     {
-        Debug.Log("called jump to chase, current state is: " + stateMachine.CurrentState._state);     
+
+        Debug.Log("called jump to chase, current state is: " + stateMachine.CurrentState._state);
         if (stateMachine.CurrentState._state != AIStateType.Chase)
-        stateMachine.PerformTransition(AIStateType.Chase);
+            stateMachine.PerformTransition(AIStateType.Chase);
     }
-    
+
 
     //public Transform SortPriorityTarget(AIStateType currentState, Transform _target)
     //{
