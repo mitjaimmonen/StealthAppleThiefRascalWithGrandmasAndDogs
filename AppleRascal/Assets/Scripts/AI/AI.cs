@@ -25,7 +25,8 @@ public class AI : MonoBehaviour
     public NavMeshAgent navMeshAgent;
     public WeaponParticleLauncher weapon;
 
-
+    public GameObject questionMark;
+    public GameObject exclamationMark;
 
     public Vector3 startPosition;
     public bool sentry;
@@ -88,6 +89,17 @@ public class AI : MonoBehaviour
             navMeshAgent.isStopped = false;
             // navMeshAgent.updateRotation = true;
         }
+
+        if (stateMachine.CurrentState._state != AIStateType.Cautious)
+        {
+            questionMark.SetActive(false);
+        }
+
+        if (stateMachine.CurrentState._state != AIStateType.Chase)
+        {
+            exclamationMark.SetActive(false);
+        }
+
     }
 
     public IEnumerator Sentry()
@@ -245,7 +257,63 @@ public class AI : MonoBehaviour
         navMeshAgent.updateRotation = true;
     }
 
-    public void Trigger(Transform target)
+    public IEnumerator DetectDelay(float waitTime, AIStateType aIState)
+    {
+        sentry = true;
+        float counter = 0;
+        
+
+        if (aIState == AIStateType.Cautious)
+        {
+            Vector3 originalScale = questionMark.transform.localScale;
+            questionMark.SetActive(true);
+
+            while (counter < waitTime)
+            {
+                questionMark.transform.localScale = Vector3.Lerp(questionMark.transform.localScale, originalScale * 1.25f, counter/ waitTime);
+                counter += Time.deltaTime;
+                yield return null;
+            }
+
+            counter = 0;
+            sentry = false;
+
+            while (counter < waitTime)
+            {
+                questionMark.transform.localScale = Vector3.Lerp(questionMark.transform.localScale, originalScale, counter/ waitTime);
+                counter += Time.deltaTime;
+                yield return null;
+            }
+
+        }
+        else
+        {
+            Vector3 originalScale = exclamationMark.transform.localScale;
+            exclamationMark.SetActive(true);
+
+            while (counter <= waitTime)
+            {
+                exclamationMark.transform.localScale = Vector3.Lerp(exclamationMark.transform.localScale, originalScale * 1.25f,  waitTime/counter);
+                counter += Time.deltaTime;
+                yield return null;
+            }
+
+            counter = 0;
+            sentry = false;
+
+            while (counter < waitTime)
+            {
+                exclamationMark.transform.localScale = Vector3.Lerp(exclamationMark.transform.localScale, originalScale , waitTime/counter);
+                counter += Time.deltaTime;
+                yield return null;
+            }
+        }
+
+            
+
+    }
+
+    public void Trigger(Transform target, ViewType vType)
     {
         if (sentry)
             triggered = true;
@@ -255,7 +323,7 @@ public class AI : MonoBehaviour
     {
 
         sentry = true;
-        yield return new WaitForSeconds(0.1f);
+        //yield return new WaitForSeconds(0.1f);
         if (weapon)
         {
             weapon.Shoot();

@@ -143,6 +143,10 @@ public class GameMaster : MonoBehaviour
         }
     }
 
+    public bool PlayerIsHiding()
+    {
+        return player.IsInvisible;
+    }
 
 	public bool HasScene(string sceneName)
 	{

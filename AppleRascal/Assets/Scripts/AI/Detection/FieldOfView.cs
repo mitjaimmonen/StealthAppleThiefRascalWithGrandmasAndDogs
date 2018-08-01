@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ViewType
+{
+    View = 0,
+    Smell = 1
+}
+
 public class FieldOfView : MonoBehaviour
 {
 
@@ -11,10 +17,11 @@ public class FieldOfView : MonoBehaviour
 
     public LayerMask playerMask;
     public LayerMask obstacleMask;
+    public ViewType viewType;
 
     public List<Transform> visibleTargets = new List<Transform>();
 
-    public delegate void DetectedDelegate(Transform target);
+    public delegate void DetectedDelegate(Transform target, ViewType type);
     public event DetectedDelegate detectEvent;
 
     public float meshResolution;
@@ -63,21 +70,29 @@ public class FieldOfView : MonoBehaviour
 
                 if (!Physics.Raycast(transform.position, dirToTarget, distToTarget, obstacleMask))
                 {
-                    if (target.gameObject.tag == "Player" )
+                    if (target.gameObject.tag == "Player")
                     {
                         Player temp = target.GetComponent<Player>();
-                        if ( temp && !temp.IsInvisible)
+                        if (temp && temp.IsInvisible)
+                        {
+
+
+                        }
+                        else
                         {
                             Detect(target);
                             visibleTargets.Add(target);
                         }
                     }
-                    else
+                    else if (target.gameObject.GetComponent<TrailPoint>())
                     {
-                        Detect(target);
-                        visibleTargets.Add(target);
+                        if (target.gameObject.GetComponent<TrailPoint>().trailPointType != TrailType.none)
+                        {
+                            Detect(target);
+                            visibleTargets.Add(target);
+                        }
                     }
-                   
+
                 }
             }
         }
@@ -145,7 +160,11 @@ public class FieldOfView : MonoBehaviour
     {
         if (detectEvent != null)
         {
-            detectEvent(target);
+            if (target.gameObject.GetComponent<Player>() && target.gameObject.GetComponent<Player>().IsInvisible)
+            {
+                Debug.Log("detecting invisible racoon");
+            }
+            detectEvent(target, viewType);
         }
     }
 

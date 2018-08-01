@@ -50,6 +50,7 @@ public class PatrolState : State
     {
         if (!ChangeState())
         {
+            Debug.Log(Owner.gameObject.name + " is on Patrol mode");
             if (!Sentry)
             {
                 CurrentWaypoint = GetWaypoint();
@@ -92,25 +93,27 @@ public class PatrolState : State
         Debug.Log("Exiting Patrol state");
     }
 
-    public void OnDetection(Transform target)
+    public void OnDetection(Transform target, ViewType vType)
     {
-
-        if (target.gameObject.tag == ("Player"))
+        if (target.gameObject.tag == ("Player") && vType != ViewType.Smell)
         {
-            if (Vector3.Distance(Owner.transform.position, target.position) <= Owner.distanceToChase)
+            if (!target.gameObject.GetComponent<Player>().IsInvisible)
             {
+                if (Vector3.Distance(Owner.transform.position, target.position) <= Owner.distanceToChase)
+                {
+                    goToChase = true;
+                    Target = target;
+                }
+                else
+                {
 
-                goToChase = true;
-                Target = target;
-            }
-            else
-            {
+                    goToCautious = true;
+                    Target = target;
 
-                goToCautious = true;
-                Target = target;
-
+                }
             }
         }
+
         else if (target.gameObject.tag == "Trail" && !goToChase)
         {
             if (target.GetComponent<TrailPoint>().trailPointType == Owner.detectable)

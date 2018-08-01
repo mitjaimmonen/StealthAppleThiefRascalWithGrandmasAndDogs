@@ -38,38 +38,39 @@ public class CautionState : State
     public override void Enter()
     {
         Debug.Log("Entering Caution state");
-        Owner.fieldOfView.detectEvent += OnDetection;
+        Owner.fieldOfView.detectEvent += OnDetection;       
         currentTarget = Owner.target;
         followingTrail = true;
         goToChase = false;
         goToPatrol = false;
         trailIsPlayer = false;
         lookForCounter = 0;
-       
+
 
         Owner.navMeshAgent.speed += Owner._moveSpeedChaseModifier;
 
 
-        if (currentTarget.gameObject.tag == "Player")
+        if (currentTarget.gameObject.tag == "Player" && !GameMaster.Instance.PlayerIsHiding())
         {
             trailIsPlayer = true;
             followingTrail = true;
-            playerLastSeenPos = currentTarget.position;
-            if (!Sentry)
-            {
-                Owner.StartCoroutine(Owner.SentryForFollowing(0, 0.5f));
-            }
+            playerLastSeenPos = currentTarget.position;           
+        }
+
+        //if (!Sentry)
+        {
+            Owner.StartCoroutine(Owner.DetectDelay(0.5f,_state));
         }
     }
 
-    public void OnDetection(Transform target)
+    public void OnDetection(Transform target,ViewType vType)
     {
-        if (currentTarget == target)
-        {
-            return;
-        }
+        //if (currentTarget == target)
+        //{
+        //    return;
+        //}
 
-        
+
         if (target.tag == "Player")
         {
             if (Vector3.Distance(Owner.transform.position, target.position) <= Owner.distanceToChase)
@@ -82,8 +83,16 @@ public class CautionState : State
                 }
                 else
                 {
-                    currentTarget = target;
-                    goToChase = true;
+                    //  if (!target.GetComponent<Player>().IsInvisible)
+                    {
+                        currentTarget = target;
+                        goToChase = true;
+                    }
+                    //else
+                    //{
+                    //    goToPatrol = true;
+                    //}
+
                 }
 
             }
@@ -155,10 +164,9 @@ public class CautionState : State
         }
     }
 
-      private void FollowPlayer()
+    private void FollowPlayer()
     {
-
-        if (Vector3.Distance(Owner.transform.position, playerLastSeenPos) >1.5f)
+        if (Vector3.Distance(Owner.transform.position, playerLastSeenPos) > 1.5f)
         {
             Owner.navMeshAgent.SetDestination(playerLastSeenPos);
             Owner.Mover.Turn(playerLastSeenPos);
@@ -171,33 +179,50 @@ public class CautionState : State
     }
 
     public override void Execute()
-    {       
+    {
         if (!ChangeState())
         {
-            if (!Sentry && trailIsPlayer)
-            {                
-                FollowPlayer();
-            }
+            Debug.Log(Owner.gameObject.name + " is on Caution mode");
+            if (!GameMaster.Instance.PlayerIsHiding())
+            {
 
-            if (!Sentry && followingTrail)
-            {               
-                if (!trailIsPlayer)
-                {                
-                    Owner.Mover.Turn(currentTarget.position);
-                    Owner.navMeshAgent.SetDestination(currentTarget.position);               
-                    FollowTrail();
-
-                    lookForCounter = 0;
+                if (!Sentry && trailIsPlayer)
+                {
+                    FollowPlayer();
                 }
 
+                if (!Sentry && followingTrail)
+                {
+                    if (!trailIsPlayer)
+                    {
+                        Owner.Mover.Turn(currentTarget.position);
+                        Owner.navMeshAgent.SetDestination(currentTarget.position);
+                        FollowTrail();
+
+                        lookForCounter = 0;
+                    }
+
+                }
+                if (!Sentry && !followingTrail)
+                {
+                    Owner.StartCoroutine(Owner.SentryForFollowing(45, 2));
+                }
+                if (Sentry && !trailIsPlayer)
+                {
+                    lookForCounter += Time.deltaTime;
+                    if (lookForCounter >= 2)
+                    {
+                        goToPatrol = true;
+
+                    }
+                }
             }
-            if (!Sentry && !followingTrail)
+            else
             {
+                if (!Sentry)
                 Owner.StartCoroutine(Owner.SentryForFollowing(45, 2));
-            }
-            if (Sentry && !trailIsPlayer)
-            {
-                lookForCounter += Time.deltaTime;              
+                if (Sentry)
+                lookForCounter += Time.deltaTime;
                 if (lookForCounter >= 2)
                 {
                     goToPatrol = true;
@@ -210,13 +235,16 @@ public class CautionState : State
 
     private void HeardPlayer(Vector3 soundLocation)
     {
-
+        if (!followingTrail)
+        {
+            Owner.navMeshAgent.SetDestination(soundLocation);
+        }
     }
 
     public override void Exit()
     {
         Owner.navMeshAgent.speed -= Owner._moveSpeedChaseModifier;
-        Owner.fieldOfView.detectEvent -= OnDetection;
+        Owner.fieldOfView.detectEvent -= OnDetection;     
 
 
         if (goToChase)
@@ -238,11 +266,6 @@ public class CautionState : State
         }
 
         return false;
-
-    }
-
-    private void OnPlayerHide(Transform hidingPlace)
-    {
 
     }
 }
