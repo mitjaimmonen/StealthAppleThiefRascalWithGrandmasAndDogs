@@ -20824,7 +20824,7 @@ MonoBehaviour:
   triggered: 0
   _path: {fileID: 1726098463}
   _waypointArriveDistance: 1.5
-  attackDistance: 1
+  attackDistance: 1.2
   distanceToChase: 5
   _direction: 0
   fieldOfView: {fileID: 0}

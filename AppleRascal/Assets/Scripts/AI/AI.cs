@@ -261,7 +261,7 @@ public class AI : MonoBehaviour
     {
         sentry = true;
         float counter = 0;
-        
+
 
         if (aIState == AIStateType.Cautious)
         {
@@ -270,7 +270,7 @@ public class AI : MonoBehaviour
 
             while (counter < waitTime)
             {
-                questionMark.transform.localScale = Vector3.Lerp(questionMark.transform.localScale, originalScale * 1.25f, counter/ waitTime);
+                questionMark.transform.localScale = Vector3.Lerp(questionMark.transform.localScale, originalScale * 1.25f, counter / waitTime);
                 counter += Time.deltaTime;
                 yield return null;
             }
@@ -280,7 +280,7 @@ public class AI : MonoBehaviour
 
             while (counter < waitTime)
             {
-                questionMark.transform.localScale = Vector3.Lerp(questionMark.transform.localScale, originalScale, counter/ waitTime);
+                questionMark.transform.localScale = Vector3.Lerp(questionMark.transform.localScale, originalScale, counter / waitTime);
                 counter += Time.deltaTime;
                 yield return null;
             }
@@ -293,7 +293,7 @@ public class AI : MonoBehaviour
 
             while (counter <= waitTime)
             {
-                exclamationMark.transform.localScale = Vector3.Lerp(exclamationMark.transform.localScale, originalScale * 1.25f,  counter/waitTime);
+                exclamationMark.transform.localScale = Vector3.Lerp(exclamationMark.transform.localScale, originalScale * 1.25f, counter / waitTime);
                 counter += Time.deltaTime;
                 yield return null;
             }
@@ -303,7 +303,7 @@ public class AI : MonoBehaviour
 
             while (counter < waitTime * 2)
             {
-                exclamationMark.transform.localScale = Vector3.Lerp(exclamationMark.transform.localScale, originalScale/2 , counter /(2*waitTime));
+                exclamationMark.transform.localScale = Vector3.Lerp(exclamationMark.transform.localScale, originalScale / 2, counter / (2 * waitTime));
                 counter += Time.deltaTime;
                 yield return null;
             }
@@ -312,7 +312,7 @@ public class AI : MonoBehaviour
             exclamationMark.transform.localScale = originalScale;
         }
 
-            
+
 
     }
 
@@ -324,18 +324,25 @@ public class AI : MonoBehaviour
 
     public IEnumerator Attack()
     {
-
         sentry = true;
         //yield return new WaitForSeconds(0.1f);
-        if (weapon)
+        if (weapon != null)
         {
             weapon.Shoot();
+            yield return new WaitForSeconds(1f);
+
         }
         else
         {
-            //bite
+            Debug.Log("dog bite!!");
+            if (Physics.CheckSphere(transform.position + transform.forward, 0.3f, fieldOfView.playerMask))
+            {
+                GameMaster.Instance.player.GetHit();
+            }
+            yield return new WaitForSeconds(0.5f);
+
+
         }
-        yield return new WaitForSeconds(1f);
         sentry = false;
 
 
