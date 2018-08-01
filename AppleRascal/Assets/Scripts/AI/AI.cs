@@ -293,7 +293,7 @@ public class AI : MonoBehaviour
 
             while (counter <= waitTime)
             {
-                exclamationMark.transform.localScale = Vector3.Lerp(exclamationMark.transform.localScale, originalScale * 1.25f,  waitTime/counter);
+                exclamationMark.transform.localScale = Vector3.Lerp(exclamationMark.transform.localScale, originalScale * 1.25f,  counter/waitTime);
                 counter += Time.deltaTime;
                 yield return null;
             }
@@ -301,12 +301,15 @@ public class AI : MonoBehaviour
             counter = 0;
             sentry = false;
 
-            while (counter < waitTime)
+            while (counter < waitTime * 2)
             {
-                exclamationMark.transform.localScale = Vector3.Lerp(exclamationMark.transform.localScale, originalScale , waitTime/counter);
+                exclamationMark.transform.localScale = Vector3.Lerp(exclamationMark.transform.localScale, originalScale/2 , counter /(2*waitTime));
                 counter += Time.deltaTime;
                 yield return null;
             }
+
+            exclamationMark.SetActive(false);
+            exclamationMark.transform.localScale = originalScale;
         }
 
             
