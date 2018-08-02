@@ -13,11 +13,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 114951479940160968}
-  - {fileID: 114963851238128510}
+  - {fileID: 114974873928849976}
   EditorEvents: []
-  MasterBankRef: {fileID: 114963851238128510}
+  MasterBankRef: {fileID: 114974873928849976}
   StringsBankRef: {fileID: 114951479940160968}
-  stringsBankWriteTime: 636688081326786434
+  stringsBankWriteTime: 636687224130278894
   cacheVersion: 2
 --- !u!114 &114420970267831622
 MonoBehaviour:
@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: Assets\FMOD\project\Build\Desktop\Master Bank.strings.bank
-  lastModified: 636688081326786434
+  lastModified: 636687224130278894
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -70,6 +70,25 @@ MonoBehaviour:
   Path: C:\Users\c4arodri.WPK\Documents\StealthAppleThiefRascalWithGrandmasAndDogs\AppleRascal\Assets\FMOD\project\Build\Desktop\Master
     Bank.bank
   lastModified: 636688081326771396
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 12474
+  Exists: 1
+--- !u!114 &114974873928849976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\Laptop\Documents\Git\StealthAppleThiefRascalWithGrandmasAndDogs\AppleRascal\Assets\FMOD\project\Build\Desktop\Master
+    Bank.bank
+  lastModified: 636687224130179349
   LoadResult: 0
   FileSizes:
   - Name: Desktop
