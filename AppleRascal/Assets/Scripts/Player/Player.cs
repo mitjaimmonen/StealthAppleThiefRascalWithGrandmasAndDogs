@@ -167,6 +167,8 @@ public class Player : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+        Debug.Log("invisible is " + IsInvisible);
+
 		oldPos = transform.position;
 
 		MovementInputs();
@@ -175,7 +177,7 @@ public class Player : MonoBehaviour {
 			ApplyTransform();
 
 		
-		if (isDashing || hidingHandler.IsHiding)
+		if (hidingHandler.IsHiding)
 			isInvisible = true;
 		else
 			isInvisible = false;

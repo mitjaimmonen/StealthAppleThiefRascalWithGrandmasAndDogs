@@ -11,6 +11,7 @@ public class ChaseState : State
     public bool justTurning = false;
     public bool playerHiding;
     public Transform target;
+    float lookForCounter;
     public Transform player;
 
 
@@ -34,18 +35,22 @@ public class ChaseState : State
         goToPatrol = false;
         playerHiding = false;
         GameMaster.Instance.OnAlertMode(player);
-
+        lookForCounter = 0;
         if (!player.GetComponent<Player>().IsInvisible)
         {
             target = player;
         }
 
+        Owner.StartCoroutine(Owner.DetectDelay(0.3f,_state));
+
     }
 
     public override void Execute()
-    {        
+    {
         if (!ChangeState())
-        {            
+        {
+            Debug.Log(Owner.gameObject.name + " is on Chase mode");
+
             if (!Sentry)
             {
                 if (!playerHiding)
@@ -69,6 +74,10 @@ public class ChaseState : State
                     CheckOutHidingSpot();
                 }
             }
+            if (Sentry)
+                lookForCounter += Time.deltaTime;
+            if (lookForCounter >= 2.5)
+                goToPatrol = true;
         }
     }
 
@@ -76,11 +85,11 @@ public class ChaseState : State
     {
         if (Vector3.Distance(Owner.transform.position, target.position) > Owner.giveUpChaseDistance)
         {
-          //  StopChase();
+            //  StopChase();
             justTurning = false;
         }
         if (Vector3.Distance(Owner.transform.position, target.position) < Owner.attackDistance)
-        {            
+        {
             justTurning = true;
             if (Owner.fieldOfView.visibleTargets.Contains(target))
             {
@@ -92,20 +101,25 @@ public class ChaseState : State
         {
             justTurning = false;
         }
+
     }
 
     private void CheckOutHidingSpot()
     {
-        if (Vector3.Distance(Owner.transform.position, target.position) >= 2.5f)
+        Debug.Log("distance to " + target.name + " is " + Vector3.Distance(Owner.transform.position, target.position));
+
+        if (Vector3.Distance(Owner.transform.position, target.position) >= 5f)
         {
-            Debug.Log("got here");
+            Debug.Log("got here, target is " + target.name);
             Owner.Mover.Turn(target.position);
             Owner.navMeshAgent.SetDestination(target.position);
         }
         else
         {
-            Owner.StartCoroutine(Owner.SentryForFollowing(180, 2.5f));
-            goToPatrol = true;           
+            Owner.navMeshAgent.isStopped = true;
+            Debug.Log("gave up looking for racoon");
+            if (!Sentry)
+                Owner.StartCoroutine(Owner.SentryForFollowing(180, 2.5f));         
         }
     }
 
@@ -140,7 +154,7 @@ public class ChaseState : State
             else
                 return false;
         }
-            else
-                return false;
+        else
+            return false;
     }
 }
