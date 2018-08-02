@@ -14,6 +14,7 @@ public class PatrolState : State
     private float _arriveDistance;
     private bool goToChase;
     private bool goToCautious;
+    private Vector3 playerLastSeenPos;
 
 
     public Waypoint CurrentWaypoint { get; private set; }
@@ -127,6 +128,7 @@ public class PatrolState : State
     private void HeardPlayer(Transform soundLocation)
     {
         Target = soundLocation;
+        Owner.heardOutOfPatrol = true;
         goToCautious = true;
     }
 
@@ -139,6 +141,7 @@ public class PatrolState : State
         else if (goToCautious)
         {
             Owner.target = Target;
+            
             return Owner.stateMachine.PerformTransition(AIStateType.Cautious);
         }
 

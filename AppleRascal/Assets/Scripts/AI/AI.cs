@@ -31,6 +31,7 @@ public class AI : MonoBehaviour
     public Vector3 startPosition;
     public bool sentry;
     public bool triggered;
+    public bool heardOutOfPatrol;
 
     public Path _path;
 
@@ -371,8 +372,6 @@ public class AI : MonoBehaviour
                 GameMaster.Instance.player.GetHit(false);
             }
             yield return new WaitForSeconds(1f);
-
-
 
         }
         sentry = false;

@@ -111,10 +111,10 @@ public class PlayerSoundHandler : MonoBehaviour {
 		RaycastHit[] hit = Physics.SphereCastAll(transform.position, soundRadius, transform.forward, 0.0f, enemyLayerMask);
 
 		for (int i = 0; i < hit.Length; i++)
-		{
-			if (hit[i].collider.GetComponentInParent<Granny>())
+		{               
+			if (hit[i].collider.GetComponent<Granny>())
 			{
-                Granny enemyAI = hit[i].collider.GetComponentInParent<Granny>();
+                Granny enemyAI = hit[i].collider.GetComponent<Granny>();
 				enemyAI.Hear(transform, true);
 			}
 		}

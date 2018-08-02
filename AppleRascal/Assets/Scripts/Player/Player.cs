@@ -138,6 +138,7 @@ public class Player : MonoBehaviour
 
     public void GetHit(bool wasShot)
     {
+        animator.SetTrigger("GetHurt");
         if (!isDamaged)
         {
             if (wasShot)
@@ -317,18 +318,20 @@ public class Player : MonoBehaviour
                     if (hide)
                     {
                         // hasJumped = true;
+                        animator.SetTrigger("Jump");
                         hidingHandler.StartHiding();
                     }
 
                 }
                 else if (hidingHandler.IsHiding)
                 {
-                    Debug.Log("End Hiding!");
+                    Debug.Log("End Hiding!");                   
                     hidingHandler.EndHiding();
                 }
                 else if (collectingHandler.AllowShake)
                 {
                     // hasJumped = true;
+                    animator.SetTrigger("ShakeTree");
                     collectingHandler.ShakeTree();
                 }
                 else if (AllowFinish)
