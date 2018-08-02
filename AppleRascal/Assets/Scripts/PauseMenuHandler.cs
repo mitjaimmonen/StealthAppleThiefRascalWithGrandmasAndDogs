@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum PauseMenuType
 {
@@ -15,6 +16,7 @@ public class PauseMenuHandler : MonoBehaviour {
 	public GameObject DeadMenuPanel;
 	public GameObject DefaultMenuPanel;
 	public GameObject FinishMenuPanel;
+	public Text applesText;
 	public PauseMenuType currentMenuType;
 
 
@@ -39,6 +41,8 @@ public class PauseMenuHandler : MonoBehaviour {
 	}
 	public void ActivatePauseMenu(PauseMenuType menuType)
 	{
+		
+		applesText.text = GameMaster.Instance.player.collectingHandler.applesCollected.ToString();
 		if (currentMenuType == menuType && pauseMenuPanel.activeSelf == true)
 			return; //Already active.
 

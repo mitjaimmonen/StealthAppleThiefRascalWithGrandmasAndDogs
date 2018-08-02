@@ -1,3 +1,26 @@
+{d9d43dc5-72ee-428a-af14-293c1419c969} event:/Enemy/DogAlertStart
+{d2954e9f-a302-4c73-beb8-7e417c7e0cd3} event:/Enemy/DogAttack
+{654a5202-7425-4181-b40b-6fc0097cf5ad} event:/Enemy/DogCautionStart
+{1dfc4a39-d859-47f5-8aab-a49b9187de45} event:/Enemy/GrandmaAlertEnd
+{15fd669d-4410-4075-8240-4e261bdd4d9f} event:/Enemy/GrandmaAlertStart
+{42496919-de1a-403d-b497-c948d434a5b2} event:/Enemy/GrandmaCautionEnd
+{0f08be53-50b7-4885-976e-01a6240058f6} event:/Enemy/GrandmaCautionStart
+{2cb637d5-a3d9-4372-a9ff-7d2fba2aa33d} event:/Enemy/ShootBlunderbuss
+{6c10ac5a-694e-456a-a3a1-81da085242de} event:/Player/AppleCollect
+{2ee9fcec-cdc5-4574-93ce-d2eeebad4319} event:/Player/BloodSpillLong
+{92621e39-721c-407b-9a62-304b94f994d6} event:/Player/BloodSpillShort
+{61d01667-dd1d-41e4-9b57-bceb4b2b1215} event:/Player/Footsteps
+{b35ec2e1-5933-4a7a-b08a-06e269929606} event:/Player/Footsteps_wet
+{9dcf07ca-aab7-49af-a457-762779e5cbfd} event:/Player/HideTrashcan
+{0057a5b5-2791-4684-88c9-1d953ea0c0b3} event:/Player/HideTrashPile
+{ff165186-b132-4737-b24f-584bfd24764a} event:/Player/Leap
+{6ef86cb9-c014-4cd6-8200-ece81e973286} event:/Player/Player_GetShot
+{62abbae3-1bab-467c-bfa1-4b2a3851907c} event:/Player/Player_GetTorn
+{0545ec98-59b8-480d-918a-34894b3a7240} event:/Player/TreeShake
+{b887d808-3666-4acf-ab03-aaaf33587f3d} event:/Player/WaterSplash
+{4220ddfe-d02c-4734-be91-89ba313972cf} event:/UI/GameOverLost
+{f81b68ad-729c-4d2d-9e7b-33c195e4716e} event:/UI/GameOverWon
+{8cb442b6-20c9-47e5-8214-4f3efae7d2e8} event:/UI/UI_select
 {a04aba23-47b1-483e-8b08-c309c7c22e68} bus:/
 {6e9f9294-4401-4798-845b-40a701393816} bus:/Reverb
 {f6174c0b-fda3-4324-8861-3186341d2b94} bank:/Master Bank

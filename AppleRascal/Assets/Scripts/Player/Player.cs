@@ -30,28 +30,37 @@ public class Player : MonoBehaviour
     float dashStartTime;
     bool dashCooldown = false;
 
-    bool isDamaged;
-    bool isInvisible;
-    bool isDashing;
-    bool isCrawling;
-    bool isGrounded;
-    bool isWalking;
-    bool overridingTransform;
-    Vector3 defaultForward, defaultRight;
-    Vector3 oldPos;
-    BoxCollider playerCollider;
+	bool isDamaged;
+	bool isInvisible;
+	bool isDashing;
+	bool isCrawling;
+	bool isGrounded;
+	bool isWalking;
+	bool isInWater;
+	bool overridingTransform;
+	Vector3 defaultForward, defaultRight;
+	Vector3 oldPos;
+	BoxCollider playerCollider;
 
     private Animator animator;
 
     bool allowFinish;
 
 
+	float damagedTime = 0;
+	float waterTime = 0;
     public bool hasMoved;
     public bool hasCrawled;
     public bool hasJumped;
 
 
-    float damagedTime = 0;
+	public bool IsInWater
+	{
+		get { return isInWater; }
+		set {
+			waterTime = Time.time;
+			isInWater = value; }
+	}
 
 
     #region Getters and Setters
@@ -182,6 +191,11 @@ public class Player : MonoBehaviour
         if (!overridingTransform)
             ApplyTransform();
 
+		if (dashCooldown && dashStartTime + dashLength + dashCooldownTime < Time.time)
+			dashCooldown = false;
+
+		if (IsInWater && waterTime + 0.1f < Time.time)
+			IsInWater = false;
 
         if (hidingHandler.IsHiding)
             isInvisible = true;
