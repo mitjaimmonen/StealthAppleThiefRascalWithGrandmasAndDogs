@@ -206,25 +206,32 @@ public class AI : MonoBehaviour
 
     public IEnumerator OverridenSentry(Waypoint waypoint)
     {
-
         if (waypoint.sentryModeDuration < 0.1f)
         {
             yield break;
         }
+
         navMeshAgent.isStopped = true;
         navMeshAgent.updateRotation = false;
         sentry = true;
 
-        float elapsedTime = 0;
         Quaternion startRotation = transform.rotation;
+
+        while (transform.forward != waypoint.transform.forward)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, waypoint.transform.rotation, 3 * Time.deltaTime);
+            yield return null;
+        }
+
+        float elapsedTime = 0;
+        startRotation = transform.rotation;
         Quaternion qMinus = Quaternion.AngleAxis(-waypoint.sentryModeLookAngle / 2, transform.up) * transform.rotation;
         Quaternion qPlus = Quaternion.AngleAxis(waypoint.sentryModeLookAngle / 2, transform.up) * transform.rotation;
         Quaternion lastRotation = transform.rotation;
 
-
-        while (elapsedTime <= waypoint.sentryModeDuration)
+        while (!triggered && waypoint.stationary)
         {
-            if (!triggered)
+            while (elapsedTime <= waypoint.sentryModeDuration && !triggered)
             {
                 elapsedTime += Time.deltaTime;
 
@@ -240,18 +247,25 @@ public class AI : MonoBehaviour
                     transform.rotation = Quaternion.Slerp(lastRotation, qPlus, ((elapsedTime - waypoint.sentryModeDuration / 2) / (waypoint.sentryModeDuration / 2)));
                 }
 
-                yield return new WaitForEndOfFrame();
+                yield return null;
+
             }
-            else
-            {
-                sentry = false;
-                triggered = false;
-                yield break;
-            }
+            elapsedTime = 0;
+            startRotation = transform.rotation;
+           
+
+            yield return null;
         }
 
         if (!triggered)
             yield return new WaitForSeconds(waypoint.sentryModeDuration / 16);
+
+        else
+        {
+            sentry = false;
+            triggered = false;
+            yield break;
+        }
 
         sentry = false;
         navMeshAgent.updateRotation = true;
@@ -261,7 +275,6 @@ public class AI : MonoBehaviour
     {
         sentry = true;
         float counter = 0;
-
 
         if (aIState == AIStateType.Cautious)
         {
@@ -286,6 +299,7 @@ public class AI : MonoBehaviour
             }
 
         }
+
         else
         {
             Vector3 originalScale = exclamationMark.transform.localScale;
@@ -311,9 +325,6 @@ public class AI : MonoBehaviour
             exclamationMark.SetActive(false);
             exclamationMark.transform.localScale = originalScale;
         }
-
-
-
     }
 
     public void Trigger(Transform target, ViewType vType)
@@ -361,7 +372,6 @@ public class AI : MonoBehaviour
             }
         }
     }
-
 
     private void JumpToChase(Transform _target)
     {

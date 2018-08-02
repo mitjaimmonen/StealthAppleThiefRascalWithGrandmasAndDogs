@@ -68,12 +68,12 @@ public class FieldOfView : MonoBehaviour
             {
                 float distToTarget = Vector3.Distance(transform.position, target.position);
 
-                if (!Physics.Raycast(transform.position, dirToTarget, distToTarget, obstacleMask))
+                if (!Physics.Raycast(transform.position, dirToTarget, distToTarget, obstacleMask,QueryTriggerInteraction.Ignore))
                 {
                     if (target.gameObject.tag == "Player")
                     {
                         Player temp = target.GetComponent<Player>();
-                        if (temp && temp.IsInvisible)
+                        if (temp && GameMaster.Instance.player.IsInvisible || temp && GameMaster.Instance.player.IsDashing)
                         {
 
 
@@ -173,7 +173,7 @@ public class FieldOfView : MonoBehaviour
         Vector3 dir = DirFromAngle(globalAngle, true);
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, dir, out hit, viewRadius, obstacleMask))
+        if (Physics.Raycast(transform.position, dir, out hit, viewRadius, obstacleMask, QueryTriggerInteraction.Ignore))
         {
             return new ViewCastInfo(true, hit.point, hit.distance, globalAngle);
         }

@@ -365,7 +365,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1360916666128556}
   m_LocalRotation: {x: -0, y: -0.23213167, z: -0, w: 0.9726844}
-  m_LocalPosition: {x: 3.88, y: -0.45, z: -23.4}
+  m_LocalPosition: {x: 35.1, y: -0.45, z: -28}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4056711747612620}
@@ -908,7 +908,7 @@ MonoBehaviour:
   sentryModeDuration: 3
   viewAngle: 45
   sentryModeLookAngle: 45
-  giveUpChaseDistance: 17
+  giveUpChaseDistance: 20
   target: {fileID: 0}
   detectable: 2
   navMeshAgent: {fileID: 0}

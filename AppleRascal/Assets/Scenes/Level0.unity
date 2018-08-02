@@ -1972,13 +1972,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 419094050}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: -0.000000776723}
-  m_LocalPosition: {x: 3.3, y: -0.99, z: 5.33}
+  m_LocalRotation: {x: -0, y: 0.9486162, z: -0, w: -0.316429}
+  m_LocalPosition: {x: 3.2999992, y: -0.99, z: 5.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1573324790}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 179.99998, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 216.894, z: 0}
 --- !u!114 &419094052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1990,9 +1990,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d294e84440ea894479f03211f04bf55e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  overrideSentry: 0
-  sentryModeDuration: 0
-  sentryModeLookAngle: 0
+  overrideSentry: 1
+  stationary: 1
+  sentryModeDuration: 4
+  sentryModeLookAngle: 60
 --- !u!1001 &419434695
 Prefab:
   m_ObjectHideFlags: 0
@@ -3369,6 +3370,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 135325878449524696, guid: df10f0ad346302f4583f76997261db02,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df10f0ad346302f4583f76997261db02, type: 2}
   m_IsPrefabAsset: 0
@@ -4361,7 +4367,7 @@ GameObject:
   - component: {fileID: 937991165}
   - component: {fileID: 937991167}
   - component: {fileID: 937991166}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
