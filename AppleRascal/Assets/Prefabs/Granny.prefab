@@ -360,7 +360,7 @@ GameObject:
   - component: {fileID: 114657389736885256}
   - component: {fileID: 114757454676880588}
   - component: {fileID: 195422569210702832}
-  - component: {fileID: 114965030130610282}
+  - component: {fileID: 136478955921980756}
   m_Layer: 0
   m_Name: Granny
   m_TagString: Untagged
@@ -2014,26 +2014,19 @@ MonoBehaviour:
   enemySoundHandler: {fileID: 0}
   bulletParticles: {fileID: 114276982725762862}
   debugShoot: 0
---- !u!114 &114965030130610282
-MonoBehaviour:
+--- !u!136 &136478955921980756
+CapsuleCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1360916666128556}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 563b1aa49d5fe6e468591fb02ac98a59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  soundVisualPrefab: {fileID: 1870570994456922, guid: 5f1bd5c6c09982f42895ce69f4d6213c,
-    type: 2}
-  isActive: 1
-  enemyLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  minimumSoundRadius: 3.5
-  shootSoundLength: 0.57
-  shootSoundVolume: 0.46
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2.255522
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.627761, z: 0}
 --- !u!137 &137071367081856904
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -6983,7 +6976,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -20789,7 +20782,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -30044,7 +30037,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
