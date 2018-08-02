@@ -25,6 +25,8 @@ public class LerpPosition : MonoBehaviour {
         speed = navMeshAgent.speed + 1;
         Vector3 destPos = target.TransformPoint(relativePosition);
         tr.position = Vector3.Lerp(tr.position, destPos, speed * Time.deltaTime);
+        Vector3 directionToTarget = target.position - transform.position;
+        transform.up = -directionToTarget;
 
 	}
 }

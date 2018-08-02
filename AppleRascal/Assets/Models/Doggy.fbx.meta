@@ -1,0 +1,408 @@
+fileFormatVersion: 2
+guid: 564052c01c279a04ebc34d2e1fae0392
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Base
+    100002: breast.L
+    100004: breast.L_end
+    100006: breast.R
+    100008: breast.R_end
+    100010: Dog
+    100012: //RootNode
+    100014: DoggyRig
+    100016: ear.L
+    100018: ear.L.001
+    100020: ear.L.002
+    100022: ear.L.003
+    100024: ear.L.003_end
+    100026: ear.R
+    100028: ear.R.001
+    100030: ear.R.002
+    100032: ear.R.003
+    100034: ear.R.003_end
+    100036: eye.L
+    100038: eye.L_end
+    100040: eye.R
+    100042: eye.R_end
+    100044: foot.L
+    100046: foot.R
+    100048: front_foot.L
+    100050: front_foot.R
+    100052: front_shin.L
+    100054: front_shin.R
+    100056: front_thigh.L
+    100058: front_thigh.R
+    100060: front_toe.L
+    100062: front_toe.L_end
+    100064: front_toe.R
+    100066: front_toe.R_end
+    100068: Head
+    100070: jaw
+    100072: jaw_end
+    100074: Neck
+    100076: Neck2
+    100078: Neck3
+    100080: Neck4
+    100082: Neck5
+    100084: pelvis.L
+    100086: pelvis.L_end
+    100088: pelvis.R
+    100090: pelvis.R_end
+    100092: rear
+    100094: rear.001
+    100096: Root
+    100098: shin.L
+    100100: shin.R
+    100102: shoulder.L
+    100104: shoulder.R
+    100106: spine.006
+    100108: spine.007
+    100110: spine.008
+    100112: spine.009
+    100114: spine.012
+    100116: Tail
+    100118: Tail2
+    100120: Tail3
+    100122: Tail3_end
+    100124: thigh.L
+    100126: thigh.R
+    100128: toe.L
+    100130: toe.L_end
+    100132: toe.R
+    100134: toe.R_end
+    400000: Base
+    400002: breast.L
+    400004: breast.L_end
+    400006: breast.R
+    400008: breast.R_end
+    400010: Dog
+    400012: //RootNode
+    400014: DoggyRig
+    400016: ear.L
+    400018: ear.L.001
+    400020: ear.L.002
+    400022: ear.L.003
+    400024: ear.L.003_end
+    400026: ear.R
+    400028: ear.R.001
+    400030: ear.R.002
+    400032: ear.R.003
+    400034: ear.R.003_end
+    400036: eye.L
+    400038: eye.L_end
+    400040: eye.R
+    400042: eye.R_end
+    400044: foot.L
+    400046: foot.R
+    400048: front_foot.L
+    400050: front_foot.R
+    400052: front_shin.L
+    400054: front_shin.R
+    400056: front_thigh.L
+    400058: front_thigh.R
+    400060: front_toe.L
+    400062: front_toe.L_end
+    400064: front_toe.R
+    400066: front_toe.R_end
+    400068: Head
+    400070: jaw
+    400072: jaw_end
+    400074: Neck
+    400076: Neck2
+    400078: Neck3
+    400080: Neck4
+    400082: Neck5
+    400084: pelvis.L
+    400086: pelvis.L_end
+    400088: pelvis.R
+    400090: pelvis.R_end
+    400092: rear
+    400094: rear.001
+    400096: Root
+    400098: shin.L
+    400100: shin.R
+    400102: shoulder.L
+    400104: shoulder.R
+    400106: spine.006
+    400108: spine.007
+    400110: spine.008
+    400112: spine.009
+    400114: spine.012
+    400116: Tail
+    400118: Tail2
+    400120: Tail3
+    400122: Tail3_end
+    400124: thigh.L
+    400126: thigh.R
+    400128: toe.L
+    400130: toe.L_end
+    400132: toe.R
+    400134: toe.R_end
+    2100000: Black
+    2100002: Tan
+    2100004: Pink
+    2100006: EyesBlack
+    2100008: Mouth
+    2100010: Eyewhit
+    2100012: White
+    4300000: Dog
+    7400000: DoggyRig|DoggyRigAction
+    7400002: Look Left
+    7400004: Look Right
+    7400006: Look Ahead
+    7400008: Walk
+    7400010: Bite
+    9500000: //RootNode
+    13700000: Dog
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: DoggyRig|DoggyRigAction
+      takeName: DoggyRig|DoggyRigAction
+      firstFrame: 0
+      lastFrame: 110
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Look Left
+      takeName: DoggyRig|DoggyRigAction
+      firstFrame: 10
+      lastFrame: 10.1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Look Right
+      takeName: DoggyRig|DoggyRigAction
+      firstFrame: 20
+      lastFrame: 20.1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Look Ahead
+      takeName: DoggyRig|DoggyRigAction
+      firstFrame: 0
+      lastFrame: 0.10000001
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Walk
+      takeName: DoggyRig|DoggyRigAction
+      firstFrame: 50
+      lastFrame: 74
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Bite
+      takeName: DoggyRig|DoggyRigAction
+      firstFrame: 80
+      lastFrame: 109
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
