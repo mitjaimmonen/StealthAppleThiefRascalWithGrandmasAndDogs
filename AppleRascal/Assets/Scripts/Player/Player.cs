@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
     bool dashCooldown = false;
 
 	bool isDamaged;
+    bool isDead;
 	bool isInvisible;
 	bool isDashing;
 	bool isCrawling;
@@ -163,8 +164,9 @@ public class Player : MonoBehaviour
     IEnumerator Die()
     {
         //Play death animation.
+        isDead = true;
         OverridingTransform = true;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         GameMaster.Instance.EndGame(false);
         yield break;
     }
@@ -419,7 +421,7 @@ public class Player : MonoBehaviour
         animator.speed = 1;
 
         animator.SetBool("Crawling", isCrawling);
-        animator.SetBool("Die", isDamaged);
+        animator.SetBool("Die", isDead);
         if (isCrawling)
         {
             animator.SetBool("Running", false);
