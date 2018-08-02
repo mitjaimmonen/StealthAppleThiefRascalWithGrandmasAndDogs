@@ -7,6 +7,7 @@ namespace WaypointSystem
     public class Waypoint : MonoBehaviour
     {
         public bool overrideSentry;
+        public bool stationary;
         public float sentryModeDuration;
         public float sentryModeLookAngle;
 

@@ -50,7 +50,7 @@ public class PatrolState : State
     {
         if (!ChangeState())
         {
-            Debug.Log(Owner.gameObject.name + " is on Patrol mode");
+          //  Debug.Log(Owner.gameObject.name + " is on Patrol mode");
             if (!Sentry)
             {
                 CurrentWaypoint = GetWaypoint();

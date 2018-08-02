@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using AIStateStuff;
 using WaypointSystem;
+using UnityEngine.AI;
 
 public class ChaseState : State
 {
@@ -41,7 +42,7 @@ public class ChaseState : State
             target = player;
         }
 
-        Owner.StartCoroutine(Owner.DetectDelay(0.3f,_state));
+        Owner.StartCoroutine(Owner.DetectDelay(0.3f, _state));
 
     }
 
@@ -49,7 +50,7 @@ public class ChaseState : State
     {
         if (!ChangeState())
         {
-            Debug.Log(Owner.gameObject.name + " is on Chase mode");
+            //Debug.Log(Owner.gameObject.name + " is on Chase mode");
 
             if (!Sentry)
             {
@@ -83,9 +84,10 @@ public class ChaseState : State
 
     public void ChasePlayer()
     {
+
         if (Vector3.Distance(Owner.transform.position, target.position) > Owner.giveUpChaseDistance)
         {
-            //  StopChase();
+            StopChase();
             justTurning = false;
         }
         if (Vector3.Distance(Owner.transform.position, target.position) < Owner.attackDistance)
@@ -101,6 +103,9 @@ public class ChaseState : State
         {
             justTurning = false;
         }
+
+
+
 
     }
 
@@ -119,7 +124,7 @@ public class ChaseState : State
             Owner.navMeshAgent.isStopped = true;
             Debug.Log("gave up looking for racoon");
             if (!Sentry)
-                Owner.StartCoroutine(Owner.SentryForFollowing(180, 2.5f));         
+                Owner.StartCoroutine(Owner.SentryForFollowing(180, 2.5f));
         }
     }
 

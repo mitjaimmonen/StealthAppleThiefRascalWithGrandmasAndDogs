@@ -182,7 +182,7 @@ public class CautionState : State
     {
         if (!ChangeState())
         {
-            Debug.Log(Owner.gameObject.name + " is on Caution mode");
+           // Debug.Log(Owner.gameObject.name + " is on Caution mode");
             if (!GameMaster.Instance.PlayerIsHiding())
             {
 
