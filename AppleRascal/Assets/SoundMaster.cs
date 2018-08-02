@@ -15,8 +15,9 @@ public class SoundMaster : MonoBehaviour {
 	[SerializeField, FMODUnity.EventRef] string footstepWet;
 	[SerializeField, FMODUnity.EventRef] string hideTrashcan;
 	[SerializeField, FMODUnity.EventRef] string hideTrashPile;
-	[SerializeField, FMODUnity.EventRef] string PlayerGetTorn;
+	[SerializeField, FMODUnity.EventRef] string PlayerGetTornApart;
 	[SerializeField, FMODUnity.EventRef] string waterSplash;
+	[SerializeField, FMODUnity.EventRef] string playerGetBit;
 
 
 	void Start()
@@ -36,6 +37,14 @@ public class SoundMaster : MonoBehaviour {
 	public void SoundGetShot(Vector3 position)
 	{
 		FMODUnity.RuntimeManager.PlayOneShot(getShot, position);
+	}
+	public void SoundGetBit(Vector3 position)
+	{
+		FMODUnity.RuntimeManager.PlayOneShot(playerGetBit, position);
+	}
+	public void SoundGetTornApart(Vector3 position)
+	{
+		FMODUnity.RuntimeManager.PlayOneShot(PlayerGetTornApart, position);
 	}
 	
 	public void SoundShootBlunderbuss(Vector3 position)

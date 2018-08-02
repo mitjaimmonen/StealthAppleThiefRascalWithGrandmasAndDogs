@@ -9,6 +9,7 @@ TagManager:
   - GameCanvas
   - Trail
   - Start
+  - Head
   layers:
   - Default
   - TransparentFX

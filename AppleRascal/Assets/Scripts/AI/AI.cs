@@ -368,7 +368,7 @@ public class AI : MonoBehaviour
             if (Physics.CheckSphere(transform.position + transform.forward, 0.3f, fieldOfView.playerMask))
             {
                 Debug.Log("fog bite!!");
-                GameMaster.Instance.player.GetHit();
+                GameMaster.Instance.player.GetHit(false);
             }
             yield return new WaitForSeconds(1f);
 

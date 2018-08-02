@@ -2011,7 +2011,6 @@ MonoBehaviour:
   muzzleFlashPS: {fileID: 198233593786921058}
   bulletPS: {fileID: 198073385007511494}
   muzzleSmokePS: {fileID: 198846780765558160}
-  enemySoundHandler: {fileID: 0}
   bulletParticles: {fileID: 114276982725762862}
   debugShoot: 0
 --- !u!136 &136478955921980756
@@ -2915,7 +2914,7 @@ ParticleSystem:
     serializedVersion: 5
     enabled: 1
     type: 4
-    angle: 10
+    angle: 15
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1

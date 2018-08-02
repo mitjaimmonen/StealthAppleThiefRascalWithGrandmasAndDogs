@@ -136,15 +136,24 @@ public class Player : MonoBehaviour
 
 
 
-    public void GetHit()
+    public void GetHit(bool wasShot)
     {
         if (!isDamaged)
         {
+            if (wasShot)
+                GameMaster.Instance.SoundMaster.SoundGetShot(transform.position);
+            else
+                GameMaster.Instance.SoundMaster.SoundGetBit(transform.position);
+
             isDamaged = true;
             damagedTime = Time.time;
         }
         else
         {
+            if (wasShot)
+                GameMaster.Instance.SoundMaster.SoundGetShot(transform.position);
+            else
+                GameMaster.Instance.SoundMaster.SoundGetTornApart(transform.position);
             StartCoroutine(Die());
         }
 

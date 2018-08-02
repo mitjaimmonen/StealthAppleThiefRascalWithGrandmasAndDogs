@@ -9,14 +9,12 @@ public class WeaponParticleLauncher : MonoBehaviour {
 	public ParticleSystem muzzleFlashPS;
 	public ParticleSystem bulletPS;
 	public ParticleSystem muzzleSmokePS;
-	public EnemySoundHandler enemySoundHandler;
 	[HideInInspector]public BulletParticles bulletParticles;
 	public bool debugShoot;
 
 	void Start()
 	{
 		bulletParticles = GetComponentInChildren<BulletParticles>();
-		enemySoundHandler = GetComponentInParent<EnemySoundHandler>();
 	}
 
 	void Update()
@@ -36,8 +34,5 @@ public class WeaponParticleLauncher : MonoBehaviour {
 			bulletPS.Play();
 		if (muzzleSmokePS)
 			muzzleSmokePS.Play();
-
-		if (enemySoundHandler)
-			enemySoundHandler.NewShootSound(shootSoundMultiplier);
 	}
 }

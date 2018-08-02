@@ -24,7 +24,7 @@ public class BulletParticles : MonoBehaviour {
 			{
 				Debug.Log("Collided with player");
 				hasCollided = true;
-				other.GetComponentInChildren<Player>().GetHit();
+				other.GetComponentInChildren<Player>().GetHit(true);
 				Invoke("ResetCollision", 0.5f);
 			}
 

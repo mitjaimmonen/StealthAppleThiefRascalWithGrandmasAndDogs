@@ -116,15 +116,16 @@ MonoBehaviour:
   Leap: 
   treeShake: 
   appleCollect: event:/Player/AppleCollect
-  getShot: 
+  getShot: event:/Player/Player_GetShot
   shootBlunderbuss: event:/Enemy/ShootBlunderbuss
   loodSpillShort: 
   footstep: event:/Player/Footsteps
   footstepWet: event:/Player/Footsteps_wet
   hideTrashcan: 
   hideTrashPile: 
-  PlayerGetTorn: 
+  PlayerGetTornApart: 
   waterSplash: event:/Player/WaterSplash
+  playerGetBit: event:/Player/Player_GetShot
 --- !u!114 &114144428530879820
 MonoBehaviour:
   m_ObjectHideFlags: 1
