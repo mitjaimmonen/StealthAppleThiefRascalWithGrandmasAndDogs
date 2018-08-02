@@ -1940,6 +1940,7 @@ MonoBehaviour:
   startPosition: {x: 0, y: 0, z: 0}
   sentry: 0
   triggered: 0
+  heardOutOfPatrol: 0
   _path: {fileID: 0}
   animator: {fileID: 0}
   moving: 0

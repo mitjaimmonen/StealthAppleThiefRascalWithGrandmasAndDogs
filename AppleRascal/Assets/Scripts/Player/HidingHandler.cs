@@ -48,7 +48,6 @@ public class HidingHandler : MonoBehaviour {
         GameMaster.Instance.playerHide(player.hide.transform,true);
 		direction = player.hide.transform.position-player.transform.position;
 		magnitude = direction.magnitude;
-
 		midPos = player.transform.position + (direction.normalized * magnitude/2f) + (Vector3.up * magnitude/2f);
 		inPos = player.hide.transform.position;
 		outPos = player.transform.position;

@@ -14,10 +14,12 @@ public class CautionState : State
     private bool trailIsPlayer;
     public bool hasReachedCurrentTarget;
     bool followingTrail;
+    bool followingSound;
     float lookForCounter;
     public float maxTimeWithNotrail = 2;
     bool goToChase;
     bool goToPatrol;
+    Vector3 lastHeardPos;
 
     public CautionState(AI _owner)
             : base()
@@ -60,6 +62,13 @@ public class CautionState : State
         //if (!Sentry)
         {
             Owner.StartCoroutine(Owner.DetectDelay(0.5f,_state));
+        }
+
+        if (Owner.heardOutOfPatrol)
+        {
+            Owner.heardOutOfPatrol = false;
+            followingTrail = false;        
+            HeardPlayer(currentTarget.position);
         }
     }
 
@@ -156,17 +165,21 @@ public class CautionState : State
                 }
             }
         }
+
         else
         {
-            if (Vector3.Distance(Owner.transform.position, currentTarget.position) <= 1.5f)
+            if (Vector3.Distance(Owner.transform.position, currentTarget.position) <= Owner._waypointArriveDistance +0.1f)
+            {
+                Debug.Log("got here");
                 followingTrail = false;
+            }
 
         }
     }
 
     private void FollowPlayer()
     {
-        if (Vector3.Distance(Owner.transform.position, playerLastSeenPos) > 1.5f)
+        if (Vector3.Distance(Owner.transform.position, playerLastSeenPos) > Owner._waypointArriveDistance + 0.1f)
         {
             Owner.navMeshAgent.SetDestination(playerLastSeenPos);
             Owner.Mover.Turn(playerLastSeenPos);
@@ -182,16 +195,16 @@ public class CautionState : State
     {
         if (!ChangeState())
         {
-           // Debug.Log(Owner.gameObject.name + " is on Caution mode");
+            Debug.Log(Owner.gameObject.name + " is on Caution mode, following trail is: " + followingTrail);
             if (!GameMaster.Instance.PlayerIsHiding())
             {
 
-                if (!Sentry && trailIsPlayer)
+                if (!Sentry && trailIsPlayer && !followingSound)
                 {
                     FollowPlayer();
                 }
 
-                if (!Sentry && followingTrail)
+                if (!Sentry && followingTrail && !followingSound)
                 {
                     if (!trailIsPlayer)
                     {
@@ -203,11 +216,11 @@ public class CautionState : State
                     }
 
                 }
-                if (!Sentry && !followingTrail)
+                if (!Sentry && !followingTrail && !followingSound)
                 {
                     Owner.StartCoroutine(Owner.SentryForFollowing(45, 2));
                 }
-                if (Sentry && !trailIsPlayer)
+                if (Sentry && !trailIsPlayer && !followingSound)
                 {
                     lookForCounter += Time.deltaTime;
                     if (lookForCounter >= 2)
@@ -215,6 +228,12 @@ public class CautionState : State
                         goToPatrol = true;
 
                     }
+                }
+                if (!Sentry && followingSound)
+                {
+                    Owner.Mover.Turn(lastHeardPos);
+                    Owner.navMeshAgent.SetDestination(lastHeardPos);
+                    FollowSound();
                 }
             }
             else
@@ -233,10 +252,26 @@ public class CautionState : State
         }
     }
 
+    void FollowSound()
+    {
+        if (Vector3.Distance(Owner.transform.position, lastHeardPos) > Owner._waypointArriveDistance + 0.1f)
+        {
+            Owner.navMeshAgent.SetDestination(lastHeardPos);
+            Owner.Mover.Turn(lastHeardPos);
+        }
+        else
+        {
+            followingSound = false;
+            Owner.StartCoroutine(Owner.SentryForFollowing(90, 1f));
+        }
+    }
+
     private void HeardPlayer(Vector3 soundLocation)
     {
         if (!followingTrail)
         {
+            followingSound = true;
+            lastHeardPos = soundLocation;
             Owner.navMeshAgent.SetDestination(soundLocation);
         }
     }

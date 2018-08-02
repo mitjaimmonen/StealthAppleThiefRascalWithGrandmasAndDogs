@@ -31,6 +31,7 @@ public class AI : MonoBehaviour
     public Vector3 startPosition;
     public bool sentry;
     public bool triggered;
+    public bool heardOutOfPatrol;
 
     public Path _path;
 
@@ -365,13 +366,10 @@ public class AI : MonoBehaviour
         else
         {         
             if (Physics.CheckSphere(transform.position + transform.forward, 0.3f, fieldOfView.playerMask))
-            {
-                Debug.Log("fog bite!!");
+            {               
                 GameMaster.Instance.player.GetHit();
             }
             yield return new WaitForSeconds(1f);
-
-
 
         }
         sentry = false;
