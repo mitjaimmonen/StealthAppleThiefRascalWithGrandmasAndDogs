@@ -27,6 +27,7 @@ public class CollectingHandler : MonoBehaviour {
 
 	public void CollectApple()
 	{
+		GameMaster.Instance.SoundMaster.SoundAppleCollect(transform.position);
 		applesCollected ++;
 		if (GameMaster.Instance.gameCanvas)
 			GameMaster.Instance.gameCanvas.hudHandler.SetApplesAmount(applesCollected);

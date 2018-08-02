@@ -24,10 +24,12 @@ public class WaterPuddle : MonoBehaviour {
 		if (player)
 		{
 			player.trailHandler.ChangeTrailType(TrailType.none);
+			player.IsInWater = true;
 
 			if (player.IsWalking && lastSplashTime + splashInterval < Time.time)
 			{
 				player.playerSoundHandler.NewWaterSplashSound();
+				GameMaster.Instance.SoundMaster.SoundWaterSplash(player.transform.position);
 				lastSplashTime = Time.time;
 				if (splashParticles)
 				{
@@ -44,6 +46,7 @@ public class WaterPuddle : MonoBehaviour {
 		Player player = other.GetComponent<Player>();
 		if (player)
 		{
+			player.IsInWater = false;
 			player.trailHandler.ChangeTrailType(TrailType.footsteps, TrailType.none, trailEffectTime);
 		}
 	}

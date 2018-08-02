@@ -35,6 +35,7 @@ public class Player : MonoBehaviour {
 	bool isCrawling;
 	bool isGrounded;
 	bool isWalking;
+	bool isInWater;
 	bool overridingTransform;
 	Vector3 defaultForward, defaultRight;
 	Vector3 oldPos;
@@ -49,6 +50,7 @@ public class Player : MonoBehaviour {
 
 
 	float damagedTime = 0;
+	float waterTime = 0;
 
 
 	#region Getters and Setters
@@ -85,6 +87,13 @@ public class Player : MonoBehaviour {
 			else
 				return false;
 		}
+	}
+	public bool IsInWater
+	{
+		get { return isInWater; }
+		set {
+			waterTime = Time.time;
+			isInWater = value; }
 	}
 	public float DashOnCooldown
 	{
@@ -208,6 +217,9 @@ public class Player : MonoBehaviour {
 
 		if (dashCooldown && dashStartTime + dashLength + dashCooldownTime < Time.time)
 			dashCooldown = false;
+
+		if (IsInWater && waterTime + 0.1f < Time.time)
+			IsInWater = false;
 	}
 
 	void EndGame(bool win)

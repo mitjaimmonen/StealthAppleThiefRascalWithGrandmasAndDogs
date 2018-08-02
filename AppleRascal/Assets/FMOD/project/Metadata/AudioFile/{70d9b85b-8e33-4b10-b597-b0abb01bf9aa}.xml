@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{70d9b85b-8e33-4b10-b597-b0abb01bf9aa}">
+        <property name="assetPath">
+            <value>wet splash1.mp3</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>48</value>
+        </property>
+        <property name="channelCount">
+            <value>2</value>
+        </property>
+        <property name="length">
+            <value>0.67200000000000004</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{9d2ade5d-05c7-417c-8e62-078717e7bf08}</destination>
+        </relationship>
+    </object>
+</objects>

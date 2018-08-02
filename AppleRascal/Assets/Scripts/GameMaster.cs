@@ -16,6 +16,7 @@ public class GameMaster : MonoBehaviour
     public GameCanvasHandler _gameCanvas;
     MenuMaster _menuMaster;
     ParticlesMaster _particleMaster;
+    SoundMaster _soundMaster;
     public Player _player;
     public GameState gameState;
     public int levelNumber;
@@ -89,6 +90,17 @@ public class GameMaster : MonoBehaviour
         }
     }
 
+    public SoundMaster SoundMaster
+    {
+        get
+        {
+            if (_soundMaster == null)
+            {
+                _soundMaster = GetComponent<SoundMaster>();
+            }
+            return _soundMaster;
+        }
+    }
     public ParticlesMaster ParticleMaster
     {
         get

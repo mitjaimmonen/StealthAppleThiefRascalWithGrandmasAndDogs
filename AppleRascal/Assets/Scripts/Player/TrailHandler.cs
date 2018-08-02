@@ -125,10 +125,17 @@ public class TrailHandler : MonoBehaviour {
 	{
 		if (!player.IsWalking || player.hidingHandler.IsHiding)
 			return;
-		
+
 
 		if (lastTrailPointTime + (trailFrequencyInSeconds * (player.IsCrawling ? 2f : 1f)) < Time.time)
 		{
+
+			if (currentTrailType == TrailType.footsteps || player.IsInWater)
+				GameMaster.Instance.SoundMaster.SoundFootstepWet(transform.position);
+			else
+				GameMaster.Instance.SoundMaster.SoundFootstep(transform.position);
+
+
 			if (pointIndex >= trailPoints.Count)
 				pointIndex = 0;
 
