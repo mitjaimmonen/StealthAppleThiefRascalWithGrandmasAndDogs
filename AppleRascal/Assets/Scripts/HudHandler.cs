@@ -28,6 +28,7 @@ public class HudHandler : MonoBehaviour {
 		
 		appleIconOriginalScale = applesIcon.transform.localScale;
 		appleTextOriginalScale = applesText.transform.localScale;
+		applesText.text = 0.ToString();
 
 	}
 
