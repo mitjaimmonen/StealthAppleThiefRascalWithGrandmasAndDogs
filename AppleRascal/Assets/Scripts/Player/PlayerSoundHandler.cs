@@ -36,6 +36,8 @@ public class PlayerSoundHandler : MonoBehaviour {
 	void Start () {
 		player = GetComponent<Player>();
 		visual = Instantiate(soundVisualPrefab, transform.position, transform.rotation);
+		visual.transform.parent = transform;
+		visual.transform.localPosition = new Vector3(0,-0.4f, 0);
 		
 	}
 	
@@ -94,7 +96,7 @@ public class PlayerSoundHandler : MonoBehaviour {
 	}
 	void CalculateSoundRadius()
 	{
-		newSoundRadius = player.CurrentVelocity.magnitude*velocityMultiplier;
+		newSoundRadius = player.IsWalking ? player.CurrentVelocity.magnitude*velocityMultiplier : minimumSoundRadius;
 		newSoundRadius *= player.IsGrounded ? 1f : nonGroundedMultiplier;
 		newSoundRadius += currentTrailVolume;
 		newSoundRadius += currentWaterSplashVolume;
@@ -120,8 +122,6 @@ public class PlayerSoundHandler : MonoBehaviour {
 
 	void DrawVisual()
 	{
-		visual.transform.position = transform.position;
-		visual.transform.rotation = transform.rotation;
 		visual.transform.localScale = new Vector3(soundRadius*2, 0.1f, soundRadius*2);
 	}
 

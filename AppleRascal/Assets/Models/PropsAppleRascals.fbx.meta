@@ -1,0 +1,441 @@
+fileFormatVersion: 2
+guid: dd2558fe590a91f449884c93fbcde741
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Bird
+    100002: BirdBath
+    100004: Bottle
+    100006: Bush
+    100008: Bush1
+    100010: Bush2
+    100012: Can
+    100014: Cube
+    100016: Cylinder
+    100018: Cypress
+    100020: DeadTree
+    100022: FenceEnd
+    100024: FenceMiddle
+    100026: FenceOtherEnd
+    100028: FirTree
+    100030: GraveCross
+    100032: GraveFence
+    100034: Gravestone
+    100036: Hedge
+    100038: Hedge.001
+    100040: LeafPile
+    100042: PathRocks
+    100044: PizzaBox
+    100046: PlanterBoxCorner
+    100048: PlanterBoxCorner2
+    100050: PlanterBoxMid
+    100052: //RootNode
+    100054: Tin
+    100056: TrashBag1
+    100058: TrashBag2
+    100060: TrashBag3
+    100062: TrashBag4
+    100064: TrashBag5
+    100066: TrashBin
+    100068: TrashContainerLid
+    100070: TrashContrainer
+    100072: Tree
+    100074: Tree2
+    100076: Tree3
+    100078: TreeTrunk
+    400000: Bird
+    400002: BirdBath
+    400004: Bottle
+    400006: Bush
+    400008: Bush1
+    400010: Bush2
+    400012: Can
+    400014: Cube
+    400016: Cylinder
+    400018: Cypress
+    400020: DeadTree
+    400022: FenceEnd
+    400024: FenceMiddle
+    400026: FenceOtherEnd
+    400028: FirTree
+    400030: GraveCross
+    400032: GraveFence
+    400034: Gravestone
+    400036: Hedge
+    400038: Hedge.001
+    400040: LeafPile
+    400042: PathRocks
+    400044: PizzaBox
+    400046: PlanterBoxCorner
+    400048: PlanterBoxCorner2
+    400050: PlanterBoxMid
+    400052: //RootNode
+    400054: Tin
+    400056: TrashBag1
+    400058: TrashBag2
+    400060: TrashBag3
+    400062: TrashBag4
+    400064: TrashBag5
+    400066: TrashBin
+    400068: TrashContainerLid
+    400070: TrashContrainer
+    400072: Tree
+    400074: Tree2
+    400076: Tree3
+    400078: TreeTrunk
+    2100000: WoodDark
+    2100002: WoodLight
+    2100004: Dirt
+    2100006: DarkGreen
+    2100008: LightDarkGreen
+    2100010: BushGreen
+    2100012: LightStone
+    2100014: LeafYellow
+    2100016: WhiteFur
+    2100018: Stone
+    2100020: BlueDenim
+    2100022: Wood
+    2100024: YellowDark
+    2100026: LeafRed
+    2100028: LeafDarkRed
+    2100030: Orange
+    2100032: GreenGlass
+    2100034: LighTMetal
+    2100036: Can
+    2100038: BlackRubber
+    2100040: Cardboard
+    2100042: Pizza1
+    2100044: pizzaChees
+    2100046: Salami
+    2100048: MetalGrey
+    2100050: TrashBinGreen
+    2300000: Bird
+    2300002: BirdBath
+    2300004: Bottle
+    2300006: Bush
+    2300008: Bush1
+    2300010: Bush2
+    2300012: Can
+    2300014: Cube
+    2300016: Cylinder
+    2300018: Cypress
+    2300020: DeadTree
+    2300022: FenceEnd
+    2300024: FenceMiddle
+    2300026: FenceOtherEnd
+    2300028: FirTree
+    2300030: GraveCross
+    2300032: GraveFence
+    2300034: Gravestone
+    2300036: Hedge
+    2300038: Hedge.001
+    2300040: LeafPile
+    2300042: PathRocks
+    2300044: PizzaBox
+    2300046: PlanterBoxCorner
+    2300048: PlanterBoxCorner2
+    2300050: PlanterBoxMid
+    2300052: Tin
+    2300054: TrashBag1
+    2300056: TrashBag2
+    2300058: TrashBag3
+    2300060: TrashBag4
+    2300062: TrashBag5
+    2300064: TrashBin
+    2300066: TrashContainerLid
+    2300068: TrashContrainer
+    2300070: Tree
+    2300072: Tree2
+    2300074: Tree3
+    2300076: TreeTrunk
+    3300000: Bird
+    3300002: BirdBath
+    3300004: Bottle
+    3300006: Bush
+    3300008: Bush1
+    3300010: Bush2
+    3300012: Can
+    3300014: Cube
+    3300016: Cylinder
+    3300018: Cypress
+    3300020: DeadTree
+    3300022: FenceEnd
+    3300024: FenceMiddle
+    3300026: FenceOtherEnd
+    3300028: FirTree
+    3300030: GraveCross
+    3300032: GraveFence
+    3300034: Gravestone
+    3300036: Hedge
+    3300038: Hedge.001
+    3300040: LeafPile
+    3300042: PathRocks
+    3300044: PizzaBox
+    3300046: PlanterBoxCorner
+    3300048: PlanterBoxCorner2
+    3300050: PlanterBoxMid
+    3300052: Tin
+    3300054: TrashBag1
+    3300056: TrashBag2
+    3300058: TrashBag3
+    3300060: TrashBag4
+    3300062: TrashBag5
+    3300064: TrashBin
+    3300066: TrashContainerLid
+    3300068: TrashContrainer
+    3300070: Tree
+    3300072: Tree2
+    3300074: Tree3
+    3300076: TreeTrunk
+    4300000: Cylinder
+    4300002: Cypress
+    4300004: Bush2
+    4300006: Bush
+    4300008: Tree3
+    4300010: Tree2
+    4300012: PlanterBoxCorner2
+    4300014: PlanterBoxCorner
+    4300016: PlanterBoxMid
+    4300018: Bird
+    4300020: BirdBath
+    4300022: Cube
+    4300024: FenceOtherEnd
+    4300026: FenceEnd
+    4300028: PathRocks
+    4300030: FenceMiddle
+    4300032: Hedge.001
+    4300034: DeadTree
+    4300036: GraveFence
+    4300038: LeafPile
+    4300040: GraveCross
+    4300042: FirTree
+    4300044: Tree
+    4300046: TreeTrunk
+    4300048: Hedge
+    4300050: Gravestone
+    4300052: Bush1
+    4300054: Bottle
+    4300056: Can
+    4300058: PizzaBox
+    4300060: Tin
+    4300062: TrashBag1
+    4300064: TrashBag2
+    4300066: TrashBag3
+    4300068: TrashBag4
+    4300070: TrashBag5
+    4300072: TrashBin
+    4300074: TrashContainerLid
+    4300076: TrashContrainer
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BlackRubber
+    second: {fileID: 2100000, guid: 4146aef5ba241c448b15cf841f3b8752, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BlueDenim
+    second: {fileID: 2100000, guid: eb27b0a0431c1234e81baead86b4c72e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BushGreen
+    second: {fileID: 2100000, guid: 2779c36ca9f359843ba9aade0709b0ad, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Can
+    second: {fileID: 2100000, guid: 32a60704672d6724b869c45e17eb35aa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cardboard
+    second: {fileID: 2100000, guid: 047768bab03808d4194fe7a96ad3f4da, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DarkGreen
+    second: {fileID: 2100000, guid: 4df676642eec8934aa6bfd7407e36d79, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Dirt
+    second: {fileID: 2100000, guid: 165d070ed52147d4e85be2099c74f4b9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GreenGlass
+    second: {fileID: 2100000, guid: ea51d47bd3c294142ac0140aa8291dbc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LeafDarkRed
+    second: {fileID: 2100000, guid: c310d156143aac74785eb7ceb351312c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LeafRed
+    second: {fileID: 2100000, guid: fb76439e4ceea84458ad925c80adf6ef, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LeafYellow
+    second: {fileID: 2100000, guid: d3947ff13fba8d342946ae3a33ed5d8c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LighTMetal
+    second: {fileID: 2100000, guid: d4bd8a786becc9c4d9b78dfc2b94cad5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LightDarkGreen
+    second: {fileID: 2100000, guid: c715352dec5ee18418b2c029fba20868, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LightStone
+    second: {fileID: 2100000, guid: d2b837a9934a4f9438d375d6fdfdb298, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalGrey
+    second: {fileID: 2100000, guid: 212465324ce9e454596dabe97ec3beee, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Orange
+    second: {fileID: 2100000, guid: 2adb157263c08864c8e6e0469a045b2e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pizza1
+    second: {fileID: 2100000, guid: 61516b628c16c084987f3fbefc4e3e7c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Salami
+    second: {fileID: 2100000, guid: 811bead4500fc86478773df22ea75e74, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stone
+    second: {fileID: 2100000, guid: d5c5b20860aac3840a89dcd00b35cf3c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TrashBinGreen
+    second: {fileID: 2100000, guid: 52d65c6aaf419b94fba85039cb404146, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WhiteFur
+    second: {fileID: 2100000, guid: 1fdce4413b770974fa4e1211953b63c4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wood
+    second: {fileID: 2100000, guid: 1c926bce52748314d851990af7e7ab72, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WoodDark
+    second: {fileID: 2100000, guid: f4bbb6957cf30274b83d7c110d3b0190, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WoodLight
+    second: {fileID: 2100000, guid: 6f1957937820a8a44aaed272950d1e24, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: YellowDark
+    second: {fileID: 2100000, guid: 8762b2ad90aa48f46b3b38b3ad19e781, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pizzaChees
+    second: {fileID: 2100000, guid: f7fc62308801c4742b233fbc07c23a63, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

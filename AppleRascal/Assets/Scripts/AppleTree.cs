@@ -5,6 +5,7 @@ using UnityEngine;
 public class AppleTree : MonoBehaviour {
 
 	public GameObject applePrefab;
+	public GameObject appleVisuals;
 	public Transform[] appleSpawns = new Transform[5];
 	public int maxApplesInTree;
 	public int minApplesInTree;
@@ -88,6 +89,7 @@ public class AppleTree : MonoBehaviour {
 
 	void ShowEmptyTreeVisual()
 	{
+		appleVisuals.SetActive(false);
 		Debug.Log("Empty");
 	}
 	

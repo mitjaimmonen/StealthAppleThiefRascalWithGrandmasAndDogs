@@ -10,6 +10,7 @@ public class Player : MonoBehaviour {
 	[HideInInspector]public HidingHandler hidingHandler;
 	[HideInInspector]public CollectingHandler collectingHandler;
 	[HideInInspector]public PlayerSoundHandler playerSoundHandler;
+	public NavMeshAgent navMeshAgent;
 	public ParticleSystem leapParticles;
 	public LayerMask groundLayerMask;
 	public LayerMask hidingSpotLayerMask;
@@ -21,7 +22,6 @@ public class Player : MonoBehaviour {
 	public HidingSpot hide;
 	public bool finishAutomatically;	
 
-	NavMeshAgent navMeshAgent;
 
 	Vector3 velocity, horizontalVelocity;
 	Vector3 newVelModifier, prevVelModifier, velHorizontalModifier;
@@ -37,7 +37,7 @@ public class Player : MonoBehaviour {
 	bool overridingTransform;
 	Vector3 defaultForward, defaultRight;
 	Vector3 oldPos;
-	Collider playerCollider;
+	BoxCollider playerCollider;
 
 	bool allowFinish;
 
@@ -83,6 +83,18 @@ public class Player : MonoBehaviour {
 				return true;
 			else
 				return false;
+		}
+	}
+	public float DashOnCooldown
+	{
+		get {
+			if (!dashCooldown)
+				return 0;
+			
+			float cooldownLeft = (dashStartTime + dashLength + dashCooldownTime) - Time.time;
+			return Mathf.Clamp(cooldownLeft /= dashCooldownTime,0,1f);
+
+
 		}
 	}
 
@@ -143,8 +155,13 @@ public class Player : MonoBehaviour {
 
 		defaultForward = Vector3.Cross(Camera.main.transform.right, Vector3.up).normalized;
  		defaultRight = Camera.main.transform.right;
-		playerCollider = GetComponent<Collider>();
+		playerCollider = GetComponent<BoxCollider>();
 		playerSoundHandler = GetComponent<PlayerSoundHandler>();
+
+
+		GameObject start = GameObject.FindGameObjectWithTag("Start");
+		if (start)
+			transform.parent.transform.position = start.transform.position;
 	}
 	
 	// Update is called once per frame
@@ -164,6 +181,28 @@ public class Player : MonoBehaviour {
 			isInvisible = true;
 		else
 			isInvisible = false;
+
+
+		if (IsCrawling)
+		{
+			var size = playerCollider.size;
+			size.y = 1f;
+			playerCollider.size = size;
+			var center = playerCollider.center;
+			center.y = 0;
+			playerCollider.center = center;
+			navMeshAgent.height = 1f;
+		}
+		else
+		{
+			var size = playerCollider.size;
+			size.y = 2f;
+			playerCollider.size = size;
+			var center = playerCollider.center;
+			center.y = 0.5f;
+			playerCollider.center = center;
+			navMeshAgent.height = 2f;
+		}
 
 		if (isDamaged && damagedTime + damageRecoverTime < Time.time)
 			isDamaged = false;
@@ -246,6 +285,7 @@ public class Player : MonoBehaviour {
 				{
 					if (hide)
 					{
+						// hasJumped = true;
 						hidingHandler.StartHiding();
 					}
 
@@ -257,6 +297,7 @@ public class Player : MonoBehaviour {
 				}
 				else if (collectingHandler.AllowShake)
 				{
+					// hasJumped = true;
 					collectingHandler.ShakeTree();
 				}
 				else if (AllowFinish)
@@ -294,7 +335,7 @@ public class Player : MonoBehaviour {
 			
 			
 		}
-		if (!x && !z)
+		if ((!x && !z )|| hidingHandler.IsHiding)
 			isWalking = false;
 		else
 		{

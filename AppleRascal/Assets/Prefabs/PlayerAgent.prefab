@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 65430338955369582}
   m_Layer: 9
   m_Name: PlayerAgent
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,7 +120,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1124786846422024}
   m_LocalRotation: {x: -0, y: 0.3826832, z: -0, w: 0.9238797}
-  m_LocalPosition: {x: -5.19, y: 0.95, z: 0.11}
+  m_LocalPosition: {x: -0.42, y: 0.95, z: -1.67}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4987435266094134}
@@ -209,8 +209,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!65 &65430338955369582
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -285,7 +285,8 @@ MonoBehaviour:
   trailHandler: {fileID: 0}
   hidingHandler: {fileID: 0}
   collectingHandler: {fileID: 0}
-  soundSource: {fileID: 0}
+  playerSoundHandler: {fileID: 0}
+  navMeshAgent: {fileID: 0}
   leapParticles: {fileID: 198869066324628448}
   groundLayerMask:
     serializedVersion: 2
@@ -293,10 +294,11 @@ MonoBehaviour:
   hidingSpotLayerMask:
     serializedVersion: 2
     m_Bits: 0
+  damageRecoverTime: 5
   moveSpeed: 10
-  dashSpeed: 15
-  dashLength: 0.15
-  dashCooldownTime: 1
+  dashSpeed: 20
+  dashLength: 0.35
+  dashCooldownTime: 0.5
   hide: {fileID: 0}
   finishAutomatically: 0
   hasMoved: 0
@@ -315,10 +317,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundVisualPrefab: {fileID: 1870570994456922, guid: 5f1bd5c6c09982f42895ce69f4d6213c,
     type: 2}
-  isPlayer: 1
   enemyLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   minimumSoundRadius: 1
   velocityMultiplier: 0.35
   nonGroundedMultiplier: 0.15
@@ -364,7 +365,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 1
   m_AutoRepath: 0
-  m_Height: 1
+  m_Height: 2
   m_BaseOffset: 0.4
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -447,7 +448,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 2
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -554,7 +555,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.5814022, g: 0.7830189, b: 0.30655926, a: 0.42745098}
+      maxColor: {r: 0.4615744, g: 0.46226418, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -1141,7 +1142,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 20
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -5674,7 +5675,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 10
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -5784,8 +5785,8 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 3
-        scalar: 5
-        minScalar: 1
+        scalar: 10
+        minScalar: 3
         maxCurve:
           serializedVersion: 2
           m_Curve:
@@ -5835,7 +5836,7 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
       cycleCount: 4
-      repeatInterval: 0.02
+      repeatInterval: 0.025
   SizeModule:
     enabled: 0
     curve:
@@ -9527,7 +9528,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_RenderMode: 0
   m_SortMode: 1
   m_MinParticleSize: 0

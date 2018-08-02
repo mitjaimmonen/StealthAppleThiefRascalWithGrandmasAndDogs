@@ -123,7 +123,7 @@ public class TrailHandler : MonoBehaviour {
 
 	void SetTrailPoints()
 	{
-		if (!player.IsMoving || player.hidingHandler.IsHiding)
+		if (!player.IsWalking || player.hidingHandler.IsHiding)
 			return;
 		
 
