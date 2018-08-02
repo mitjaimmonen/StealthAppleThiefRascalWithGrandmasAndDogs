@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class WaterPuddle : MonoBehaviour {
 
+	public float splashInterval = 0.1f;
 	public float trailEffectTime;
 	public TrailType buffType = TrailType.footsteps;
 	public TrailType trailTypeAfterBuff = TrailType.none;
 	ParticleSystem splashParticles;
 
-	float splashInterval = 0.1f;
 	float lastSplashTime;
 
 	void Start()
 	{
-		splashParticles = GetComponentInChildren<ParticleSystem>();
+		splashParticles = GameMaster.Instance.ParticleMaster.waterParticles;
 	}
 
 

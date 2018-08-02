@@ -87,6 +87,8 @@ public class HidingHandler : MonoBehaviour {
 			yield return null;
 		}
 
+		player.playerVisuals.SetActive(visibleInHide);
+
 		player.transform.position = inPos;
 		player.trailHandler.CurrentTrailType = player.hide.trailInHide;
 		coroutineRunning =false;
@@ -97,6 +99,7 @@ public class HidingHandler : MonoBehaviour {
 	{
 		coroutineRunning = true;
 
+		player.playerVisuals.SetActive(true);
 		player.OverridingTransform = true;
 
 		float time = Time.time;
