@@ -2147,6 +2147,7 @@ MonoBehaviour:
   DeadMenuPanel: {fileID: 1392268435348184}
   DefaultMenuPanel: {fileID: 1625730957339656}
   FinishMenuPanel: {fileID: 1312545454913912}
+  applesText: {fileID: 114720759353208296}
   currentMenuType: 0
 --- !u!114 &114813373417796002
 MonoBehaviour:
