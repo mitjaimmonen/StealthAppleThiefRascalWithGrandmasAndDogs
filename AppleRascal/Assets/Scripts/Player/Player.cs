@@ -14,6 +14,7 @@ public class Player : MonoBehaviour {
 	public ParticleSystem leapParticles;
 	public LayerMask groundLayerMask;
 	public LayerMask hidingSpotLayerMask;
+	public GameObject playerVisuals;
 	public float damageRecoverTime = 5f;
 	public float moveSpeed;
 	public float dashSpeed;

@@ -14,7 +14,8 @@ public class GameMaster : MonoBehaviour
 
     public CameraHandler _cameraHandler;
     public GameCanvasHandler _gameCanvas;
-    public MenuMaster _menuMaster;
+    MenuMaster _menuMaster;
+    ParticlesMaster _particleMaster;
     public Player _player;
     public GameState gameState;
     public int levelNumber;
@@ -88,7 +89,17 @@ public class GameMaster : MonoBehaviour
         }
     }
 
-
+    public ParticlesMaster ParticleMaster
+    {
+        get
+        {
+            if (_particleMaster == null)
+            {
+                _particleMaster = GetComponent<ParticlesMaster>();
+            }
+            return _particleMaster;
+        }
+    }
 
 
 
