@@ -358,6 +358,7 @@ public class AI : MonoBehaviour
         if (weapon != null)
         {
             yield return new WaitForSeconds(0.5f);
+            GameMaster.Instance.SoundMaster.SoundShootBlunderbuss(transform.position);
             weapon.Shoot();
             yield return new WaitForSeconds(0.5f);
 
