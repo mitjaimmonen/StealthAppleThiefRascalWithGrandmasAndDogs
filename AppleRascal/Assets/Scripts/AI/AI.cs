@@ -34,6 +34,10 @@ public class AI : MonoBehaviour
 
     public Path _path;
 
+    public Animator animator;
+
+    public bool moving;
+    public float orientation;
 
     public float _waypointArriveDistance = 0.5f;
     public float attackDistance = 1;
@@ -56,6 +60,7 @@ public class AI : MonoBehaviour
         startPosition = transform.position;
         fieldOfView = GetComponent<FieldOfView>();
         navMeshAgent = GetComponent<NavMeshAgent>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     public void Init()
@@ -83,11 +88,13 @@ public class AI : MonoBehaviour
         {
             navMeshAgent.isStopped = true;
             navMeshAgent.updateRotation = false;
-        }
+            moving = false;
+        }        
         else
         {
             navMeshAgent.isStopped = false;
-            // navMeshAgent.updateRotation = true;
+            orientation = 0;
+            moving = true;
         }
 
         if (stateMachine.CurrentState._state != AIStateType.Cautious)
@@ -100,6 +107,14 @@ public class AI : MonoBehaviour
             exclamationMark.SetActive(false);
         }
 
+        UpdateAnimator();
+
+    }
+
+    public void UpdateAnimator()
+    {
+        animator.SetBool("Walking", moving);
+        animator.SetFloat("Orientation", orientation);
     }
 
     public IEnumerator Sentry()
@@ -127,11 +142,13 @@ public class AI : MonoBehaviour
                     //rotate to one side
                     transform.rotation = Quaternion.Slerp(startRotation, qMinus, (elapsedTime / ((sentryModeDuration / 3))));
                     lastRotation = transform.rotation;
+                    orientation = -1 * (elapsedTime / ((sentryModeDuration / 3)));
                 }
                 else if (elapsedTime > sentryModeDuration / 2)
                 {
                     //rotate to other side
                     transform.rotation = Quaternion.Slerp(lastRotation, qPlus, ((elapsedTime - sentryModeDuration / 2) / (sentryModeDuration / 2)));
+                    orientation = 1 * ((elapsedTime - sentryModeDuration / 2) / (sentryModeDuration / 2));
                 }
 
                 yield return new WaitForEndOfFrame();
@@ -334,23 +351,26 @@ public class AI : MonoBehaviour
     }
 
     public IEnumerator Attack()
-    {
+    {       
         sentry = true;
+        animator.SetTrigger("Attack");
         //yield return new WaitForSeconds(0.1f);
         if (weapon != null)
         {
+            yield return new WaitForSeconds(0.5f);
             weapon.Shoot();
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
 
         }
         else
-        {
-            Debug.Log("dog bite!!");
+        {         
             if (Physics.CheckSphere(transform.position + transform.forward, 0.3f, fieldOfView.playerMask))
             {
+                Debug.Log("fog bite!!");
                 GameMaster.Instance.player.GetHit();
             }
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1f);
+
 
 
         }
