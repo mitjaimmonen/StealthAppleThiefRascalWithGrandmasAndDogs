@@ -85,6 +85,18 @@ public class Player : MonoBehaviour {
 				return false;
 		}
 	}
+	public float DashOnCooldown
+	{
+		get {
+			if (!dashCooldown)
+				return 0;
+			
+			float cooldownLeft = (dashStartTime + dashLength + dashCooldownTime) - Time.time;
+			return Mathf.Clamp(cooldownLeft /= dashCooldownTime,0,1f);
+
+
+		}
+	}
 
 	public bool AllowFinish
 	{

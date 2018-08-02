@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4893428849692170}
   - component: {fileID: 208945637238019650}
+  - component: {fileID: 136898460518135742}
   m_Layer: 0
   m_Name: TreeTrunk Big
   m_TagString: Untagged
@@ -64,8 +65,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1118291511262142}
   m_LocalRotation: {x: 0.6917564, y: 0.14653705, z: -0.146537, w: 0.6917564}
-  m_LocalPosition: {x: 3.23, y: -0.77, z: 5.78}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 50.83, y: -0.77, z: -5.93}
+  m_LocalScale: {x: 0.9999999, y: 1.0000004, z: 1.0000005}
   m_Children:
   - {fileID: 4017716364991538}
   m_Father: {fileID: 0}
@@ -117,6 +118,19 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1667464967099650}
   m_Mesh: {fileID: 4300000, guid: dd2558fe590a91f449884c93fbcde741, type: 3}
+--- !u!136 &136898460518135742
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1118291511262142}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.35
+  m_Height: 4.6671424
+  m_Direction: 1
+  m_Center: {x: -0.00000071427723, y: -0.029956331, z: -2.0094864e-16}
 --- !u!208 &208945637238019650
 NavMeshObstacle:
   m_ObjectHideFlags: 1

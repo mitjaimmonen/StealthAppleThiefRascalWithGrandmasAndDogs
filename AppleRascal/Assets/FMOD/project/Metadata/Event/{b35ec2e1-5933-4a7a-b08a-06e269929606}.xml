@@ -2,13 +2,13 @@
 <objects serializationModel="Studio.01.10.00">
     <object class="Event" id="{b35ec2e1-5933-4a7a-b08a-06e269929606}">
         <property name="name">
-            <value>WetFootsteps</value>
+            <value>Footsteps_wet</value>
         </property>
         <property name="outputFormat">
             <value>2</value>
         </property>
         <relationship name="folder">
-            <destination>{b47b585d-4ffa-45ad-b1c2-afbd95797ff2}</destination>
+            <destination>{51dd2d3e-96dd-403b-b635-4aecd29a2d11}</destination>
         </relationship>
         <relationship name="mixer">
             <destination>{dde4c531-6a58-4773-9ffa-cc34d4ac189d}</destination>

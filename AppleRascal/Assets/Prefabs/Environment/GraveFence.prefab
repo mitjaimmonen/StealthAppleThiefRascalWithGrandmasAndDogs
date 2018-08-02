@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4877598639005708}
   - component: {fileID: 33321538299763124}
   - component: {fileID: 23529939466459114}
-  - component: {fileID: 208578653973111306}
+  - component: {fileID: 64809170901395060}
   m_Layer: 0
   m_Name: GraveFence (1)
   m_TagString: Untagged
@@ -52,8 +52,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1791585132058916}
   m_LocalRotation: {x: -0, y: -0.79081964, z: -0, w: 0.6120493}
-  m_LocalPosition: {x: 15.833155, y: -0.89, z: -4.537992}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 12.21, y: -0.89, z: -4.24}
+  m_LocalScale: {x: 1.0000002, y: 1, z: 1.0000002}
   m_Children:
   - {fileID: 4877598639005708}
   m_Father: {fileID: 0}
@@ -115,6 +115,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1235116153526750}
   m_Mesh: {fileID: 4300036, guid: dd2558fe590a91f449884c93fbcde741, type: 3}
+--- !u!64 &64809170901395060
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1235116153526750}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300036, guid: dd2558fe590a91f449884c93fbcde741, type: 3}
 --- !u!208 &208294706059471742
 NavMeshObstacle:
   m_ObjectHideFlags: 1
@@ -124,24 +138,9 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.32}
+  m_Extents: {x: 1.1, y: 0.92, z: 0.32}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0.28, z: 0}
-  m_TimeToStationary: 0.5
---- !u!208 &208578653973111306
-NavMeshObstacle:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1235116153526750}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.019000001, y: 0.004, z: 0.016}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0.016}
+  m_Center: {x: 0, y: 0.82, z: 0}
   m_TimeToStationary: 0.5

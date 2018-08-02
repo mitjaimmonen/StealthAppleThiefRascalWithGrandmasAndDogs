@@ -286,6 +286,7 @@ MonoBehaviour:
   hidingHandler: {fileID: 0}
   collectingHandler: {fileID: 0}
   playerSoundHandler: {fileID: 0}
+  navMeshAgent: {fileID: 0}
   leapParticles: {fileID: 198869066324628448}
   groundLayerMask:
     serializedVersion: 2
@@ -295,9 +296,9 @@ MonoBehaviour:
     m_Bits: 0
   damageRecoverTime: 5
   moveSpeed: 10
-  dashSpeed: 15
-  dashLength: 0.15
-  dashCooldownTime: 1
+  dashSpeed: 20
+  dashLength: 0.35
+  dashCooldownTime: 0.5
   hide: {fileID: 0}
   finishAutomatically: 0
   hasMoved: 0
@@ -318,7 +319,7 @@ MonoBehaviour:
     type: 2}
   enemyLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   minimumSoundRadius: 1
   velocityMultiplier: 0.35
   nonGroundedMultiplier: 0.15

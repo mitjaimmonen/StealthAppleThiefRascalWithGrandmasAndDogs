@@ -22,7 +22,8 @@ GameObject:
   - component: {fileID: 33038424666151524}
   - component: {fileID: 23074367325706652}
   - component: {fileID: 208499436811221812}
-  m_Layer: 0
+  - component: {fileID: 65858611266619352}
+  m_Layer: 10
   m_Name: FenceEnd (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,6 +88,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1597328073133850}
   m_Mesh: {fileID: 4300026, guid: dd2558fe590a91f449884c93fbcde741, type: 3}
+--- !u!65 &65858611266619352
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1597328073133850}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.043894723, y: 0.005887679, z: 0.033229955}
+  m_Center: {x: -0.044949196, y: 0.0013215914, z: 0.016012017}
 --- !u!208 &208499436811221812
 NavMeshObstacle:
   m_ObjectHideFlags: 1

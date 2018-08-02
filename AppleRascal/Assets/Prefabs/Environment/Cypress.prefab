@@ -37,6 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4552950440778904}
   - component: {fileID: 208731203681875896}
+  - component: {fileID: 136796420294127258}
   m_Layer: 0
   m_Name: Cypress
   m_TagString: Untagged
@@ -64,7 +65,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1490881170033700}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.88, y: -0.755, z: -1.6800003}
+  m_LocalPosition: {x: -4.81, y: -0.755, z: -3.31}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4502722010673730}
@@ -115,6 +116,19 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1139309571203634}
   m_Mesh: {fileID: 4300002, guid: dd2558fe590a91f449884c93fbcde741, type: 3}
+--- !u!136 &136796420294127258
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1490881170033700}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 3.4013753
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.2006876, z: 0}
 --- !u!208 &208731203681875896
 NavMeshObstacle:
   m_ObjectHideFlags: 1

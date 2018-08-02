@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4646294091728664}
   - component: {fileID: 208121004011346492}
   - component: {fileID: 136135838082443450}
+  - component: {fileID: 136595427839490606}
   m_Layer: 10
   m_Name: Bush1
   m_TagString: Untagged
@@ -72,6 +73,7 @@ GameObject:
   - component: {fileID: 4890655663220868}
   - component: {fileID: 208655304247621132}
   - component: {fileID: 136455243265546462}
+  - component: {fileID: 136504107346937020}
   m_Layer: 10
   m_Name: Bush3
   m_TagString: Untagged
@@ -321,6 +323,32 @@ CapsuleCollider:
   m_Height: 2.43
   m_Direction: 0
   m_Center: {x: 0.3, y: 2.22, z: 0.33}
+--- !u!136 &136504107346937020
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1713999882642258}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2.363964
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.68198204, z: 0}
+--- !u!136 &136595427839490606
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1124894656437372}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2.2939324
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.646966, z: 0}
 --- !u!208 &208121004011346492
 NavMeshObstacle:
   m_ObjectHideFlags: 1

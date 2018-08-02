@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33126623357776288}
   - component: {fileID: 23504596434233056}
   - component: {fileID: 208414281739002432}
+  - component: {fileID: 64327352130794942}
   m_Layer: 0
   m_Name: FirTree
   m_TagString: Untagged
@@ -36,8 +37,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1629603810467228}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -10.535, y: 3.22264, z: -15.424999}
-  m_LocalScale: {x: 50, y: 50, z: 50}
+  m_LocalPosition: {x: -7.8, y: -1.4, z: -27.8}
+  m_LocalScale: {x: 50, y: 49.999985, z: 49.999985}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -85,6 +86,20 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1629603810467228}
+  m_Mesh: {fileID: 4300042, guid: dd2558fe590a91f449884c93fbcde741, type: 3}
+--- !u!64 &64327352130794942
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1629603810467228}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300042, guid: dd2558fe590a91f449884c93fbcde741, type: 3}
 --- !u!208 &208414281739002432
 NavMeshObstacle:
