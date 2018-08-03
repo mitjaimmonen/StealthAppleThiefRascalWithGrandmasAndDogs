@@ -89,7 +89,8 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000002, guid: e4a8fc7952919c747ab93429c13810bf,
+    type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -690,15 +691,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4694392873826972, guid: c5ff70582929f914b9eaa8e993168957, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -0.42
+      value: 6.05
       objectReference: {fileID: 0}
     - target: {fileID: 4694392873826972, guid: c5ff70582929f914b9eaa8e993168957, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.95
+      value: -0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4694392873826972, guid: c5ff70582929f914b9eaa8e993168957, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -1.67
+      value: 4.09
       objectReference: {fileID: 0}
     - target: {fileID: 4694392873826972, guid: c5ff70582929f914b9eaa8e993168957, type: 2}
       propertyPath: m_LocalRotation.x
@@ -3305,18 +3306,6 @@ Prefab:
     - target: {fileID: 4088742363898596, guid: 2c0fcb06ee4890540b72a629c5f08dc3, type: 2}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4088742363898596, guid: 2c0fcb06ee4890540b72a629c5f08dc3, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 13.9336
-      objectReference: {fileID: 0}
-    - target: {fileID: 4088742363898596, guid: 2c0fcb06ee4890540b72a629c5f08dc3, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.87085
-      objectReference: {fileID: 0}
-    - target: {fileID: 4088742363898596, guid: 2c0fcb06ee4890540b72a629c5f08dc3, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 13.9336
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c0fcb06ee4890540b72a629c5f08dc3, type: 2}

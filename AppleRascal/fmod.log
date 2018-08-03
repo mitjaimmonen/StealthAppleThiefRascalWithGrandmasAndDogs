@@ -8,7 +8,7 @@
 [LOG] Thread::initThread                       : Init FMOD stream thread. Priority: 2, Stack Size: 65536, Semaphore: No, Sleep Time: 10, Looping: Yes.
 [LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
 [LOG] Thread::initThread                       : Init FMOD mixer thread. Priority: 3, Stack Size: 49152, Semaphore: No, Sleep Time: 0, Looping: Yes.
-[LOG] AsyncManager::init                       : manager 00000000920C2028 isAsync 1 updatePeriod 0.02
+[LOG] AsyncManager::init                       : manager 000000006C7D4978 isAsync 1 updatePeriod 0.02
 [LOG] Thread::initThread                       : Init FMOD Studio update thread. Priority: 0, Stack Size: 65536, Semaphore: No, Sleep Time: 1, Looping: No.
 [LOG] AsyncManager::init                       : done
 [LOG] PlaybackSystem::init                     : 
@@ -26,14 +26,14 @@
 [LOG] SystemI::createSoundInternal             : exinfo->length             = 117120
 [LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 23168
 [LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 000000004CCEF5FC
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000000EF27F5FC
 [LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
 [LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFF004FD9C0
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFF004FD990
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFF004FDA90
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFF004FDB50
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 0000000055D97E78
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFEFE95D9C0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFEFE95D990
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFEFE95DA90
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFEFE95DB50
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000000006CD7DA48
 [LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
 [LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
 [LOG] SystemI::createSoundInternal             : Sample 0/1: name='FS Ground Civilian Walk N05', format=2, channels=2, frequency=48000, lengthbytes=9056, lengthpcm=33597, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.609273.
@@ -42,14 +42,14 @@
 [LOG] SystemI::createSoundInternal             : exinfo->length             = 117120
 [LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 23168
 [LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 000000004CCEF5FC
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000000EF27F5FC
 [LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
 [LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFF004FD9C0
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFF004FD990
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFF004FDA90
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFF004FDB50
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 0000000055D97818
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFEFE95D9C0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFEFE95D990
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFEFE95DA90
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFEFE95DB50
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000000006CD7D3E8
 [LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
 [LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
 [LOG] SystemI::createSoundInternal             : Sample 0/1: name='water splash tiny 3', format=2, channels=2, frequency=48000, lengthbytes=13568, lengthpcm=52921, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.308746.
@@ -58,14 +58,14 @@
 [LOG] SystemI::createSoundInternal             : exinfo->length             = 117120
 [LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 23168
 [LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 000000004CCEF5FC
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000000EF27F5FC
 [LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
 [LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFF004FD9C0
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFF004FD990
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFF004FDA90
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFF004FDB50
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 0000000055D975F8
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFEFE95D9C0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFEFE95D990
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFEFE95DA90
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFEFE95DB50
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000000006CD7E928
 [LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
 [LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
 [LOG] SystemI::createSoundInternal             : Sample 0/1: name='wet splash1', format=2, channels=2, frequency=48000, lengthbytes=9184, lengthpcm=32256, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.966553.
@@ -74,14 +74,14 @@
 [LOG] SystemI::createSoundInternal             : exinfo->length             = 117120
 [LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 23168
 [LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 000000004CCEF5FC
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000000EF27F5FC
 [LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
 [LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFF004FD9C0
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFF004FD990
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFF004FDA90
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFF004FDB50
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 0000000055D975F8
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFEFE95D9C0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFEFE95D990
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFEFE95DA90
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFEFE95DB50
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000000006CD7E928
 [LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
 [LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
 [LOG] SystemI::createSoundInternal             : Sample 0/1: name='wet splash2', format=2, channels=2, frequency=48000, lengthbytes=9248, lengthpcm=32256, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.182617.
@@ -90,63 +90,27 @@
 [LOG] SystemI::createSoundInternal             : exinfo->length             = 117120
 [LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 23168
 [LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 000000004CCEF5FC
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000000EF27F5FC
 [LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
 [LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFF004FD9C0
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFF004FD990
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFF004FDA90
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFF004FDB50
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 0000000055D975F8
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFEFE95D9C0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFEFE95D990
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFEFE95DA90
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFEFE95DB50
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000000006CD7E928
 [LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
 [LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
 [LOG] SystemI::createSoundInternal             : Sample 0/1: name='wet splash3', format=2, channels=2, frequency=48000, lengthbytes=9248, lengthpcm=32256, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.136169.
-[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
-[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             : exinfo->length             = 117120
-[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 23168
-[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 000000004CCEF5FC
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFF004FD9C0
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFF004FD990
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFF004FDA90
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFF004FDB50
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 0000000055D97A38
-[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
-[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
-[LOG] SystemI::createSoundInternal             : Sample 0/1: name='Blunderbuss', format=2, channels=2, frequency=48000, lengthbytes=21760, lengthpcm=149760, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.984436.
-[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
-[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             : exinfo->length             = 117120
-[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 23168
-[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 000000004CCEF5FC
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFF004FD9C0
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFF004FD990
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFF004FDA90
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFF004FDB50
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 0000000055D95C78
-[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
-[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
-[LOG] SystemI::createSoundInternal             : Sample 0/1: name='gore hit', format=2, channels=2, frequency=48000, lengthbytes=42976, lengthpcm=150912, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.999969.
-[LOG] SoundI::release                          :  (0000000082602178)
-[LOG] SoundI::release                          :     water splash tiny 3 (0000000055446F58)
-[LOG] SoundI::release                          :  (0000000082600348)
-[LOG] SoundI::release                          :     wet splash1 (0000000055447AB8)
-[LOG] SoundI::release                          :  (0000000082600908)
-[LOG] SoundI::release                          :     wet splash2 (0000000055448AF8)
-[LOG] SoundI::release                          :  (00000000826004B8)
-[LOG] SoundI::release                          :     wet splash3 (00000000554482D8)
-[LOG] SoundI::release                          :  (0000000082601A48)
-[LOG] SoundI::release                          :     FS Ground Civilian Walk N05 (0000000055445558)
-[LOG] SoundI::release                          :  (0000000082600628)
-[LOG] SoundI::release                          :     Blunderbuss (0000000055448478)
-[LOG] SoundI::release                          :  (0000000082600A78)
-[LOG] SoundI::release                          :     gore hit (0000000055448618)
+[LOG] SoundI::release                          :  (000000006C6C6498)
+[LOG] SoundI::release                          :     water splash tiny 3 (00000000463C4398)
+[LOG] SoundI::release                          :  (000000006C6C5BF8)
+[LOG] SoundI::release                          :     wet splash1 (00000000463C4878)
+[LOG] SoundI::release                          :  (000000006C6C6EA8)
+[LOG] SoundI::release                          :     wet splash2 (00000000463C6DD8)
+[LOG] SoundI::release                          :  (000000006C6C7018)
+[LOG] SoundI::release                          :     wet splash3 (00000000463C4538)
+[LOG] SoundI::release                          :  (000000006C6C6328)
+[LOG] SoundI::release                          :     FS Ground Civilian Walk N05 (00000000463C6A98)
 [LOG] Thread::callback                         : FMOD Studio update thread finished.
 [LOG] Thread::callback                         : FMOD Studio bank load thread finished.
 [LOG] Profile::disconnectAll                   : Profiler disconnecting all clients

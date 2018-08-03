@@ -7,7 +7,7 @@ public class FootstepHandler : MonoBehaviour {
 	public GameObject leftFoot, rightFoot;
 	public float stepDistance;
 	public float stepInterval;
-	public float offsetX;
+	public float offsetX, offsetY;
 	public int amountOfFeet;
 	TrailHandler trailHandler;
 
@@ -58,7 +58,7 @@ public class FootstepHandler : MonoBehaviour {
 				
 				if (!leftFeet[leftIndex].gameObject.activeSelf)
 				{
-					leftFeet[leftIndex].transform.position = transform.position - transform.right*offsetX;
+					leftFeet[leftIndex].transform.position = transform.position - transform.right*offsetX + transform.up*offsetY;
 					leftFeet[leftIndex].transform.rotation = transform.rotation;
 					leftFeet[leftIndex].deactivationTime = trailHandler.trailPointLifetime;
 					leftFeet[leftIndex].relativeBuffTime = relativeBuffTime;
@@ -74,7 +74,7 @@ public class FootstepHandler : MonoBehaviour {
 					
 				if (!rightFeet[rightIndex].gameObject.activeSelf)
 				{
-					rightFeet[rightIndex].transform.position = transform.position + transform.right*offsetX;
+					rightFeet[rightIndex].transform.position = transform.position + transform.right*offsetX + transform.up*offsetY;
 					rightFeet[rightIndex].transform.rotation = transform.rotation;
 					rightFeet[rightIndex].deactivationTime = trailHandler.trailPointLifetime;
 					rightFeet[rightIndex].relativeBuffTime = relativeBuffTime;
