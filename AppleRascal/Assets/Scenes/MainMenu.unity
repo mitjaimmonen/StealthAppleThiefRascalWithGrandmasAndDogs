@@ -44,7 +44,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -89,7 +89,8 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000002, guid: e64a471642304dd458e2c0122e030faa,
+    type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -586,6 +587,36 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 2113653166}
+    - target: {fileID: 102303036547613822, guid: 7593723658f91f04ea55116e5ea019a4,
+        type: 2}
+      propertyPath: m_Text
+      value: APPLE  RASCALS
+      objectReference: {fileID: 0}
+    - target: {fileID: 102303036547613822, guid: 7593723658f91f04ea55116e5ea019a4,
+        type: 2}
+      propertyPath: m_FontSize
+      value: 129
+      objectReference: {fileID: 0}
+    - target: {fileID: 4701389821506788, guid: 7593723658f91f04ea55116e5ea019a4, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 985.4887
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880521928034752, guid: 7593723658f91f04ea55116e5ea019a4, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 0.12635382
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880521928034752, guid: 7593723658f91f04ea55116e5ea019a4, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.3575107
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880521928034752, guid: 7593723658f91f04ea55116e5ea019a4, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 0.6123069
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880521928034752, guid: 7593723658f91f04ea55116e5ea019a4, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.079632
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7593723658f91f04ea55116e5ea019a4, type: 2}
   m_IsPrefabAsset: 0

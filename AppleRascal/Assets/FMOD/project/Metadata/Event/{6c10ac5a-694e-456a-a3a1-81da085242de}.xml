@@ -58,7 +58,7 @@
     </object>
     <object class="EventAutomatableProperties" id="{77947e67-e568-4f73-95d5-6f38eabfb04e}">
         <property name="maxVoices">
-            <value>10</value>
+            <value>5</value>
         </property>
     </object>
     <object class="MarkerTrack" id="{b2b45d09-1d32-437e-8656-76ba7be88ecb}"/>
@@ -76,6 +76,9 @@
         </relationship>
     </object>
     <object class="EventMixerMaster" id="{4f13d40a-0d85-4c05-ba09-986abdd215ec}">
+        <property name="volume">
+            <value>-3.5</value>
+        </property>
         <relationship name="effectChain">
             <destination>{10b875b2-60d6-4eb9-87f2-4cc115a009fb}</destination>
         </relationship>
@@ -94,7 +97,7 @@
     <object class="MixerBusPanner" id="{4254cd60-aa2e-4bc2-99db-1850a90b1ecc}"/>
     <object class="SingleSound" id="{2fbda2bb-911b-4149-8ac4-0f05097296a4}">
         <property name="length">
-            <value>0.20000000000000001</value>
+            <value>0.25</value>
         </property>
         <property name="timelockedOffset">
             <value>0.01</value>
@@ -132,7 +135,11 @@
             <destination>{08f28fb4-5563-4083-86a3-38b27b228d81}</destination>
         </relationship>
     </object>
-    <object class="MixerBusPanner" id="{56c41803-4657-4b96-83a2-be257f984a52}"/>
+    <object class="MixerBusPanner" id="{56c41803-4657-4b96-83a2-be257f984a52}">
+        <property name="disabledSpeakers">
+            <value>48</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{90ce36cf-498e-4311-b159-b9c4800d9e91}"/>
     <object class="RandomizerModulator" id="{f1b401a8-1344-4176-a96f-3d6f9183940f}">
         <property name="nameOfPropertyBeingModulated">

@@ -36,7 +36,8 @@ public class WaterPuddle : MonoBehaviour {
 					splashParticles.transform.position = other.transform.position;
 					splashParticles.Play();
 				}
-				
+				else
+					splashParticles = GameMaster.Instance.ParticleMaster.waterParticles;
 			}
 		}
 

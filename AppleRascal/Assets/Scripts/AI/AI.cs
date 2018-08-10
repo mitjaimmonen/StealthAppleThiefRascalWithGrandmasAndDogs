@@ -115,7 +115,10 @@ public class AI : MonoBehaviour
     public void UpdateAnimator()
     {
         animator.SetBool("Walking", moving);
-        animator.SetFloat("Orientation", orientation);
+        animator.SetFloat("Orientation", orientation);        
+        animator.SetBool("Alert",(stateMachine.CurrentState._state==AIStateType.Chase));
+        
+
     }
 
     public IEnumerator Sentry()
@@ -195,11 +198,13 @@ public class AI : MonoBehaviour
                     //rotate to one side
                     transform.rotation = Quaternion.Slerp(startRotation, qMinus, (elapsedTime / ((waitTime / 3))));
                     lastRotation = transform.rotation;
+                     orientation = -1 * (elapsedTime / ((sentryModeDuration / 3)));
                 }
                 else if (elapsedTime > waitTime / 2)
                 {
                     //rotate to other side
                     transform.rotation = Quaternion.Slerp(lastRotation, qPlus, ((elapsedTime - waitTime / 2) / (waitTime / 2)));
+                      orientation = 1 * ((elapsedTime - sentryModeDuration / 2) / (sentryModeDuration / 2));
                 }
 
                 yield return new WaitForEndOfFrame();
@@ -237,7 +242,7 @@ public class AI : MonoBehaviour
 
         while (transform.forward != waypoint.transform.forward)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, waypoint.transform.rotation, 3 * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, waypoint.transform.rotation, 3 * Time.deltaTime);            
             yield return null;
         }
 
@@ -257,13 +262,18 @@ public class AI : MonoBehaviour
                 {
                     //rotate to one side
                     transform.rotation = Quaternion.Slerp(startRotation, qMinus, (elapsedTime / ((waypoint.sentryModeDuration / 3))));
+                     orientation = -1 * (elapsedTime / ((sentryModeDuration / 3)));
                     lastRotation = transform.rotation;
                 }
                 else if (elapsedTime > waypoint.sentryModeDuration / 2)
                 {
                     //rotate to other side
                     transform.rotation = Quaternion.Slerp(lastRotation, qPlus, ((elapsedTime - waypoint.sentryModeDuration / 2) / (waypoint.sentryModeDuration / 2)));
+                      orientation = 1 * ((elapsedTime - sentryModeDuration / 2) / (sentryModeDuration / 2));
                 }
+
+                if(triggered)
+                    yield break;
 
                 yield return null;
 
@@ -271,6 +281,9 @@ public class AI : MonoBehaviour
             elapsedTime = 0;
             startRotation = transform.rotation;
            
+            if(triggered)
+                yield break;
+                    
 
             yield return null;
         }
@@ -358,10 +371,9 @@ public class AI : MonoBehaviour
         //yield return new WaitForSeconds(0.1f);
         if (weapon != null)
         {
-            yield return new WaitForSeconds(0.5f);
             GameMaster.Instance.SoundMaster.SoundShootBlunderbuss(transform.position);
             weapon.Shoot();
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1f);
 
         }
         else
