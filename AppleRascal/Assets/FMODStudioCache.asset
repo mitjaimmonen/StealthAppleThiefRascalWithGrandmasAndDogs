@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 114635879360126060}
-  - {fileID: 114769578557517632}
+  - {fileID: 114189634664534660}
   EditorEvents:
   - {fileID: 114181186393517426}
   - {fileID: 114357289298812956}
@@ -21,9 +21,9 @@ MonoBehaviour:
   - {fileID: 114776951128498394}
   - {fileID: 114546585237655220}
   - {fileID: 114717516821123828}
-  MasterBankRef: {fileID: 114769578557517632}
+  MasterBankRef: {fileID: 114189634664534660}
   StringsBankRef: {fileID: 114635879360126060}
-  stringsBankWriteTime: 636688344981279558
+  stringsBankWriteTime: 636688513196434655
   cacheVersion: 2
 --- !u!114 &114181186393517426
 MonoBehaviour:
@@ -39,7 +39,7 @@ MonoBehaviour:
   Path: event:/Player/WaterSplash
   guid: 08d887b86636cf4aab03aaaf33587f3d
   Banks:
-  - {fileID: 114769578557517632}
+  - {fileID: 114189634664534660}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -47,6 +47,25 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1000
+--- !u!114 &114189634664534660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: E:\Mitja\Programming\GitHub\StealthAppleThiefRascalWithGrandmasAndDogs\AppleRascal\Assets\FMOD\project\Build\Desktop\Master
+    Bank.bank
+  lastModified: 636709265789016932
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 140544
+  Exists: 1
 --- !u!114 &114357289298812956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,14 +80,14 @@ MonoBehaviour:
   Path: event:/Player/AppleCollect
   guid: 5aac106c4e696a45a3a181da085242de
   Banks:
-  - {fileID: 114769578557517632}
+  - {fileID: 114189634664534660}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 200
+  Length: 250
 --- !u!114 &114546585237655220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,7 +102,7 @@ MonoBehaviour:
   Path: event:/Enemy/ShootBlunderbuss
   guid: d537b62cd9a37243a9ff7d2fba2aa33d
   Banks:
-  - {fileID: 114769578557517632}
+  - {fileID: 114189634664534660}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -103,7 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: Assets\FMOD\project\Build\Desktop\Master Bank.strings.bank
-  lastModified: 636688344981279558
+  lastModified: 636688513196434655
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -123,7 +142,7 @@ MonoBehaviour:
   Path: event:/Player/Footsteps_wet
   guid: e1c25eb333597a4ab08a06e269929606
   Banks:
-  - {fileID: 114769578557517632}
+  - {fileID: 114189634664534660}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -149,7 +168,7 @@ MonoBehaviour:
   FileSizes:
   - Name: Desktop
     Value: 140288
-  Exists: 1
+  Exists: 0
 --- !u!114 &114776951128498394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,7 +183,7 @@ MonoBehaviour:
   Path: event:/Player/Player_GetShot
   guid: b96cf86e14c0d64c8200ece81e973286
   Banks:
-  - {fileID: 114769578557517632}
+  - {fileID: 114189634664534660}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -186,7 +205,7 @@ MonoBehaviour:
   Path: event:/Player/Footsteps
   guid: 6716d0611ddde4419b57bceb4b2b1215
   Banks:
-  - {fileID: 114769578557517632}
+  - {fileID: 114189634664534660}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1

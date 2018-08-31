@@ -20,6 +20,8 @@ public class SoundMaster : MonoBehaviour {
 	[SerializeField, FMODUnity.EventRef] string playerGetBit;
 
 
+	float appleSoundTimer = 0;
+
 	void Start()
 	{
 		if (!Camera.main.GetComponent<FMODUnity.StudioListener>())
@@ -28,7 +30,11 @@ public class SoundMaster : MonoBehaviour {
 
 	public void SoundAppleCollect(Vector3 position)
 	{
-		FMODUnity.RuntimeManager.PlayOneShot(appleCollect, position);
+		if (appleSoundTimer+0.075f < Time.time)
+		{
+			appleSoundTimer = Time.time;
+			FMODUnity.RuntimeManager.PlayOneShot(appleCollect, position);
+		}
 	}
 	public void SoundTreeShake(Vector3 treePosition)
 	{
